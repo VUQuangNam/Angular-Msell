@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { SidenavComponent } from './sidenav/sidenav.component';
 import { HomeComponent } from './home/home.component';
+import { CreateComponent } from './create/create.component';
 
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
-    { path: 'sidenav', component: SidenavComponent },
+    { path: 'create', component: CreateComponent },
 
 ];
 
