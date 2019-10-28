@@ -1,0 +1,60 @@
+<div id="newpackage">
+    <div style="height: 100px; background-color: white;">
+        <div style="padding: 20px;font-size: 50px;">Gói đăng tin</div>
+    </div>
+    <!-- <div style="height: 100px;"></div> -->
+    <div style="margin-top: 8px; background-color: white;">
+        <div id="table">
+            <div id="search">
+                <div> <i class="fa fa-search" style="width: 30px;"></i>
+                    <input style="border:solid 0px white;background-color: rgb(237, 240, 254); height: 30px;"
+                        type="text" placeholder="Search">
+                </div>
+
+            </div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th style="width: 50px; text-align: center;">STT</th>
+                        <th>Mã gói </th>
+                        <th>Tên gói </th>
+                        <th>Giá gói/ ngày</th>
+                        <th>Giới hạn </th>
+                        <th>Ngày tạo</th>
+                        <th style="width: 100px;text-align: center;">Trạng thái</th>
+                        <th style="width: 150px;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let q of package; let i = index">
+                        <td style="text-align: center;">{{i+1}}</td>
+                        <td>{{q.packagecode}}</td>
+                        <td>{{q.name}}</td>
+                        <td>{{q.date | date}}</td>
+                        <td>{{q.packagedate}}</td>
+                        <td>{{q.limitdate}}</td>
+                        <td style="text-align: center;">{{q.status}}</td>
+                        <td>
+                            <div class="row">
+                                <div class="col-6">
+                                    <button type="button" class="btn"
+                                        style="border-radius:50%; border:solid 1px rgb(97, 230, 52); background-color: rgb(215, 247, 215);">
+                                        <i style="color: rgb(97, 230, 52);" class="fa fa-check"></i></button>
+                                    <div>Duyệt</div>
+                                </div>
+                                <div class="col-6">
+                                    <button type="button" class="btn"
+                                        style="border-radius:50%; border:solid 1px rgb(252, 60, 12); background-color: rgb(254, 217, 217);">
+                                        <i style="color: rgb(252, 60, 12);" class="fas fa-trash"></i></button>
+                                    <div>Xóa</div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>

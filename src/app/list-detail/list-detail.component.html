@@ -8,15 +8,15 @@
             </div>
 
         </div>
-        <table class="table">
+        <table class="table table-striped">
             <thead>
                 <tr>
-                    <th style="width: 100px; text-align: center;">STT</th>
+                    <th style="width: 50px; text-align: center;">STT</th>
                     <th>Mã sản phẩm </th>
                     <th>Ngày đăng </th>
                     <th>Khu vực</th>
-                    <th>Trạng thái </th>
-                    <th> </th>
+                    <th style="width: 100px; text-align: center;">Trạng thái </th>
+                    <th style="width: 250px;"></th>
                 </tr>
             </thead>
             <tbody>
@@ -25,19 +25,35 @@
                     <td>{{product.productcode}}</td>
                     <td>{{product.date | date}}</td>
                     <td>{{product.city}}</td>
-                    <td>{{product.status}}</td>
+                    <td style="text-align: center;">{{product.status}}</td>
                     <td>
-                        <button type="button" class="btn"
-                            style="border-radius:50%; border:solid 1px rgb(97, 230, 52); background-color: rgb(215, 247, 215);">
-                            <i style="color: rgb(97, 230, 52);" class="fa fa-check"></i></button> &nbsp;
-                        <button type="button" class="btn"
-                            style="border-radius:50%; border:solid 1px rgb(252, 60, 12); background-color: rgb(254, 217, 217);">
-                            <i style="color: rgb(252, 60, 12);" class="fas fa-trash"></i></button>&nbsp;
-                        <button>1</button>
+                        <div class="row">
+                            <div class="col-4" style="text-align: center;">
+                                <button type="button" class="btn"
+                                    style="border-radius:50%; border:solid 1px rgb(97, 230, 52); background-color: rgb(215, 247, 215);">
+                                    <i style="color: rgb(97, 230, 52);" class="fa fa-check"></i></button>
+                                <div>Duyệt</div>
+                            </div>
+                            <div class="col-4" style="text-align: center;">
+                                <button type="button" class="btn"
+                                    style="border-radius:50%; border:solid 1px rgb(252, 60, 12); background-color: rgb(254, 217, 217);">
+                                    <i style="color: rgb(252, 60, 12);" class="fas fa-trash"></i></button>
+                                <div>Xóa</div>
+                            </div>
+                            <div class="col-4" style="text-align: center;">
+                                <button type="button" class="btn"
+                                    style="border-radius:50%; border:solid 1px rgb(252, 60, 12); background-color: rgb(254, 217, 217);">
+                                    <i style="color: rgb(252, 60, 12);" class="fas fa-trash"></i>
+                                </button>
+                                <div>Cập nhật</div>
+                            </div>
+                        </div>
                     </td>
                 </tr>
 
             </tbody>
+            <!-- <pagination-controls&nbsp;(pageChange)="p=$event"></pagination-controls> -->
+
         </table>
     </div>
 </div>

@@ -3,7 +3,6 @@ import { Product } from '../product';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ProductService } from '../product.service';
 import { HttpClient } from '@angular/common/http';
-// import { Http } from "@angular/http";
 
 @Component({
     selector: 'app-list-detail',
@@ -13,18 +12,17 @@ import { HttpClient } from '@angular/common/http';
 export class ListDetailComponent implements OnInit {
     filteredProduct: Product[] = [];
     product: Product[] = [];
-    
+
     constructor(
         private router: Router,
         private productService: ProductService,
         private route: ActivatedRoute,
         private http: HttpClient
-    ) { 
+    ) {
 
     }
 
     ngOnInit() {
-
         this.productService.getListProductsByUser().subscribe(
             next => {
                 this.filteredProduct = next;
@@ -44,8 +42,6 @@ export class ListDetailComponent implements OnInit {
         this.filteredProduct = this.filteredProduct.filter(product => product.productcode.toLowerCase().includes(key.toLowerCase()));
         console.log("list " + this.filteredProduct.length);
     }
-    
-
     deletePost(i) {
         var result = confirm("Bạn có chắc chắn xóa người dùng này?");
         if (result == true) {

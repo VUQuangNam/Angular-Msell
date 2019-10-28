@@ -1,16 +1,28 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SidenavComponent } from './sidenav/sidenav.component';
-import { HomeComponent } from './home/home.component';
-import { ListDetailComponent } from './list-detail/list-detail.component';
-import { CreateComponent } from './create/create.component';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule, MatSortModule } from '@angular/material';
+import { DataTableModule } from 'ng-angular8-datatable';
 import { HearderComponent } from './hearder/hearder.component';
+import { ListDetailComponent } from './list-detail/list-detail.component';
+import { TestComponent } from './test/test.component';
+import { SortComponent } from './sort/sort.component';
+import { SidenavComponent } from './sidenav/sidenav.component';
+import { NewsPackageComponent } from './news-package/news-package.component';
+import { HomeComponent } from './home/home.component';
+import { CreateComponent } from './create/create.component';
+
+//ng-bootstrap
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
+
+
 
 @NgModule({
     declarations: [
@@ -20,6 +32,9 @@ import { HearderComponent } from './hearder/hearder.component';
         ListDetailComponent,
         CreateComponent,
         HearderComponent,
+        NewsPackageComponent,
+        TestComponent,
+        SortComponent,
     ],
     imports: [
         BrowserModule,
@@ -28,9 +43,17 @@ import { HearderComponent } from './hearder/hearder.component';
         HttpClientModule,
         HttpModule,
         ReactiveFormsModule,
-        FormsModule
+        FormsModule,
+        MatTableModule,
+        MatPaginatorModule,
+        DataTableModule,
+        MatSortModule,
+        NgbModule,
+        NgbPaginationModule,
+        NgbAlertModule
     ],
     providers: [],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }
