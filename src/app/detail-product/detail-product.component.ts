@@ -1,25 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../product';
-import { Router, ActivatedRoute } from '@angular/router';
 import { ProductService } from '../product.service';
-import { HttpClient } from '@angular/common/http';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
-    selector: 'app-list-detail',
-    templateUrl: './list-detail.component.html',
-    styleUrls: ['./list-detail.component.scss']
+    selector: 'app-detail-product',
+    templateUrl: './detail-product.component.html',
+    styleUrls: ['./detail-product.component.scss']
 })
-export class ListDetailComponent implements OnInit {
+export class DetailProductComponent implements OnInit {
     filteredProduct: Product[] = [];
-
+    product: any = {};
     constructor(
-        private router: Router,
         private productService: ProductService,
+        private router: Router,
         private route: ActivatedRoute,
-        private http: HttpClient
-    ) {
-
-    }
+    ) { }
 
     ngOnInit() {
         this.productService.getListProductsByUser().subscribe(
@@ -27,19 +23,18 @@ export class ListDetailComponent implements OnInit {
                 this.filteredProduct = next;
             }
         );
-        this.productService
-            .getProducts()
-            .subscribe(next => {
-                this.filteredProduct = next
-            }, error => {
+        const id = +this.route.snapshot.paramMap.get('id');
+        this.productService.getProductById(id).subscribe(
+            next => {
+                this.product = next;
+                console.log(next);
+                console.log(this.product);
+            },
+            error => {
                 console.log(error);
-                this.filteredProduct = []
-            });
-    }
-
-    search(key) {
-        this.filteredProduct = this.filteredProduct.filter(product => product.productcode.toLowerCase().includes(key.toLowerCase()));
-        console.log("list " + this.filteredProduct.length);
+                this.product = null;
+            }
+        );
     }
     deletePost(i) {
         var result = confirm("Bạn có chắc chắn xóa sản phẩm này?");
@@ -63,5 +58,6 @@ export class ListDetailComponent implements OnInit {
 
 
     }
+
 
 }

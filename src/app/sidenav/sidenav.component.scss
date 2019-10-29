@@ -1,7 +1,6 @@
 #sidenav{
-    padding: 8px;
-    // width: 15%;
-    // height: 100%;
+    background-color: white;
+    min-height: 100vh;
 }
 img{
     height: 100px;
@@ -9,7 +8,7 @@ img{
 }
 #sidenav .btn{
     background-color: white; 
-  color: black; 
+    color: black; 
 }
 #sidenav .btn:hover{
     background-color:rgb(234, 236, 254); 

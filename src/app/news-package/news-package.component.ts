@@ -1,21 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { PackageService } from '../package.service';
 import { IPackage } from '../package';
+// import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'app-news-package',
     templateUrl: './news-package.component.html',
     styleUrls: ['./news-package.component.scss']
 })
-export class NewsPackageComponent implements OnInit {
-    package: IPackage[] = [];
-    constructor(private packageService: PackageService,
-        ) { }
 
+export class NewsPackageComponent implements OnInit {
+
+    // displayedColumns: string[] = ['packagecode', 'name', 'packagedate', 'limitdate', 'date', 'status', 'btn'];
+    // dataSource: MatTableDataSource<IPackage>;
+    // @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+    // @ViewChild(MatSort, { static: true }) sort: MatSort;
+
+    package: IPackage[] = [];
+    constructor(
+        private packageService: PackageService,
+        private http: HttpClient
+    ) { }
     ngOnInit() {
         this.packageService.getListIPackagesByUser().subscribe(
             next => {
                 this.package = next;
+                console.log(next);
             }
         );
         this.packageService
@@ -27,8 +38,12 @@ export class NewsPackageComponent implements OnInit {
                 this.package = []
             });
     }
-    deletePost(i) {
-        var result = confirm("Bạn có chắc chắn xóa người dùng này?");
+    search(key) {
+        this.package = this.package.filter(product => product.packagecode.toLowerCase().includes(key.toLowerCase()));
+        console.log("list " + this.package.length);
+    }
+    deletePackage(i) {
+        var result = confirm("Bạn có chắc chắn xóa gói cước này?");
         if (result == true) {
             for (let j = 0; j < this.package.length; j++) {
                 const product = this.package[j];
@@ -47,10 +62,8 @@ export class NewsPackageComponent implements OnInit {
             console.log("NO DELTE")
         }
 
+
     }
-    search(key) {
-        this.package = this.package.filter(t => t.name.toLowerCase().includes(key.toLowerCase()));
-        console.log("list " + this.package.length);
-    }
+
 
 }

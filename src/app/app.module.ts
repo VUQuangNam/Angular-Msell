@@ -8,19 +8,20 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule, MatSortModule } from '@angular/material';
-import { DataTableModule } from 'ng-angular8-datatable';
+import { DataTableModule } from 'angular-6-datatable';
 import { HearderComponent } from './hearder/hearder.component';
 import { ListDetailComponent } from './list-detail/list-detail.component';
 import { TestComponent } from './test/test.component';
-import { SortComponent } from './sort/sort.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { NewsPackageComponent } from './news-package/news-package.component';
 import { HomeComponent } from './home/home.component';
 import { CreateComponent } from './create/create.component';
 
+
 //ng-bootstrap
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbPaginationModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
+import { DetailProductComponent } from './detail-product/detail-product.component';
 
 
 
@@ -34,7 +35,7 @@ import {NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
         HearderComponent,
         NewsPackageComponent,
         TestComponent,
-        SortComponent,
+        DetailProductComponent,
     ],
     imports: [
         BrowserModule,
@@ -50,7 +51,7 @@ import {NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
         MatSortModule,
         NgbModule,
         NgbPaginationModule,
-        NgbAlertModule
+        NgbAlertModule,
     ],
     providers: [],
     bootstrap: [AppComponent],

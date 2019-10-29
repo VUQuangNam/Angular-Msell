@@ -1,6 +1,6 @@
 export interface IPackage {
     id: number;
-    packagecode: number;
+    packagecode: string;
     name: string;
     packagedate: number;
     limitdate: number;

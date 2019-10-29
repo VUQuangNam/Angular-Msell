@@ -7,10 +7,10 @@ import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
     styleUrls: ['./test.component.scss']
 })
 export class TestComponent implements OnInit {
-    displayedColumns: string[] = ['position', 'name', 'weight', 'symbol','btn'];
+    displayedColumns: string[] = ['position', 'name', 'weight', 'symbol', 'id'];
     dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
-    @ViewChild(MatPaginator,{static: true}) paginator: MatPaginator;
-    @ViewChild(MatSort, {static:true}) sort: MatSort;
+    @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+    @ViewChild(MatSort, { static: true }) sort: MatSort;
 
     ngOnInit() {
         this.dataSource.paginator = this.paginator;
@@ -19,12 +19,12 @@ export class TestComponent implements OnInit {
     }
     applyFilter(filterValue: string) {
         this.dataSource.filter = filterValue.trim().toLowerCase();
-      }
+    }
 }
 
 /* Static data */
 export interface PeriodicElement {
-    
+
     name: string;
     position: number;
     weight: number;

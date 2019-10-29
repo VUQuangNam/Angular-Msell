@@ -4,7 +4,7 @@ import { HomeComponent } from './home/home.component';
 import { CreateComponent } from './create/create.component';
 import { NewsPackageComponent } from './news-package/news-package.component';
 import { TestComponent } from './test/test.component';
-import { SortComponent } from './sort/sort.component';
+import { DetailProductComponent } from './detail-product/detail-product.component';
 
 
 const routes: Routes = [
@@ -12,7 +12,7 @@ const routes: Routes = [
     { path: 'create', component: CreateComponent },
     { path: 'new', component: NewsPackageComponent },
     { path: 'test', component: TestComponent },
-     { path: 'sort', component: SortComponent },
+    { path: 'detail/:id', component: DetailProductComponent },
 
 
 

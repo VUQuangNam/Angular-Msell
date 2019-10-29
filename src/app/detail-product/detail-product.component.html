@@ -1,0 +1,200 @@
+<div class="row" style="margin:0;">
+    <div class="col-md-2">
+        <app-sidenav></app-sidenav>
+    </div>
+    <div class="col-md-10">
+        <app-hearder></app-hearder>
+        <div id="detail">
+            <div id="search">
+                <div>
+                    <i class="fa fa-search" style="width: 30px;"></i>
+                    <input style="border:solid 0px white;
+                        background-color: rgb(237, 240, 254);
+                        height: 30px;" type="text" placeholder="Search" (input)="search($event.target.value)">
+                    <label for="s"></label>
+                </div>
+            </div>
+            <table class="table" [mfData]="filteredProduct" #mf="mfDataTable" [mfRowsOnPage]="5">
+                <thead>
+                    <tr>
+                        <th style="width: 50px;text-align: center;">STT</th>
+                        <th>
+                            <mfDefaultSorter by="productcode">
+                                Mã sản phẩm
+                            </mfDefaultSorter>
+                        </th>
+                        <th>
+                            <mfDefaultSorter by="date">Ngày đăng</mfDefaultSorter>
+                        </th>
+                        <th>
+                            <mfDefaultSorter by="city">Khu vực</mfDefaultSorter>
+                        </th>
+                        <th style="width: 150px;text-align: center;" by="status">
+                            Trạng thái
+                        </th>
+                        <th style="width: 250px;">
+                            <mfDefaultSorter></mfDefaultSorter>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="text-align: center;padding-top: 25px;">1</td>
+                        <td style="padding-top:25px">
+                            {{product.productcode}}
+                        </td>
+                        <td style="padding-top:25px">{{product.date | date}}</td>
+                        <td style="padding-top:25px">{{product.city}}</td>
+                        <td style="width: 150px; padding-top: 25px; text-align: center;">
+                            <div *ngIf="product.status">
+                                <span style="color: rgb(130, 218, 60);text-align: center;">Đợi duyệt</span>
+                            </div>
+                            <div *ngIf="!(product.status)">
+                                <span style="color: rgb(224, 54, 33);text-align: center;"> Đã xóa</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="row">
+                                <div class="col-4" style="text-align: center;">
+                                    <button type="button" class="btn"
+                                        style="border-radius:50%; border:solid 1px rgb(97, 230, 52); background-color: rgb(215, 247, 215);">
+                                        <i style="color: rgb(97, 230, 52);" class="fa fa-check"></i></button>
+                                    <div>Duyệt</div>
+                                </div>
+                                <div class="col-4" style="text-align: center;">
+                                    <button type="button" class="btn" style="border-radius:50%; border:solid 1px rgb(252, 60, 12);
+                                             background-color: rgb(254, 217, 217);" (click)="deletePost(product.id)">
+                                        <i style="color: rgb(252, 60, 12);" class="fas fa-trash"></i></button>
+                                    <div>Xóa</div>
+                                </div>
+                                <div class="col-4" style="text-align: center;">
+                                    <a [routerLink]="['/edit', product.id]">
+                                        <button type="button" class="btn" style="border-radius:50%; 
+                                            border:solid 1px rgb(252, 60, 12); 
+                                            background-color: rgb(254, 217, 217);" (click)="edit()">
+                                            <i style="color: rgb(252, 60, 12);" class="fas fa-trash"></i>
+                                        </button>
+                                    </a>
+                                    <div>Cập nhật</div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <hr>
+            <div id="detail-product">
+                <div class="row">
+                    <div class="col-12">
+                        <span> Tiêu đề:</span>
+                        Chính chủ cần bán căn biệt thự lô góc 2 mặt tiền, view biển và view sông, KĐT
+                        biển An Viên, giá tốt.
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <span>Giá:</span> 2.5 tỷ
+                    </div>
+                    <div class="col-3">
+                        <span>Diện tích:</span> 115 m2
+                    </div>
+                    <div class="col-3">
+                        <span>Hình thức:</span> Bán
+                    </div>
+                    <div class="col-3">
+                        <span>Loại BĐS:</span>Căn hộ chung cư
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <span>Địa chỉ:</span> Sunshine Golden River, Quận Tây Hồ, Hà Nội.
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <span>Gói đăng tin:</span> <i><u>Vip đặc biệt</u></i>
+                    </div>
+                    <div class="col-4">
+                        <span>Ngày bắt đầu:</span>
+                        19-09-2019
+                    </div>
+                    <div class="col-4">
+                        <span>Ngày kết thúc:</span>
+                        30-09-2019
+                    </div>
+                </div>
+                <div style="display: flex;">
+                    <table style="width:50%">
+                        <tr>
+                            <td>Số tầng</td>
+                            <th>3</th>
+                        </tr>
+                        <tr>
+                            <td>Số phòng ngủ</td>
+                            <th>6</th>
+                        </tr>
+                        <tr>
+                            <td>Số phòng tắm</td>
+                            <th>5</th>
+                        </tr>
+                        <tr>
+                            <td>Số toilet</td>
+                            <th>5</th>
+                        </tr>
+                        <tr>
+                            <td>Hướng nhà</td>
+                            <th>Đông</th>
+                        </tr>
+                        <tr>
+                            <td>Hướng ban công</td>
+                            <th>Đông</th>
+                        </tr>
+                        <tr>
+                            <td>Mặt tiền rộng</td>
+                            <th>3 m2</th>
+                        </tr>
+                        <tr>
+                            <td>Đường trước cửa</td>
+                            <th>3m2</th>
+                        </tr>
+                        <tr>
+                            <td>Pháp lý</td>
+                            <th>Sổ đỏ</th>
+                        </tr>
+                        <tr>
+                            <td>Nội thất</td>
+                            <th>Đầy đủ</th>
+                        </tr>
+                    </table>
+                    <img style="width: 50%;"
+                        src="https://lh3.googleusercontent.com/gRixG4OCS4S7Fb0Ztm8UQVkIaj3z5gKECXOiR2D2ldvS6oZEVfmNuii4tvh-_DjI_qNRJOGO=w640-h400-e365"
+                        alt="">
+                </div>
+                <div id="img" style="display: flex;">
+                    <img src="https://ezcloud.vn/wp-content/uploads/2018/05/homestay-la-gi.png" alt="">
+                    <img src="https://ezcloud.vn/wp-content/uploads/2018/05/homestay-la-gi.png" alt="">
+                    <img src="https://ezcloud.vn/wp-content/uploads/2018/05/homestay-la-gi.png" alt="">
+                    <img src="https://ezcloud.vn/wp-content/uploads/2018/05/homestay-la-gi.png" alt="">
+                    <img src="https://ezcloud.vn/wp-content/uploads/2018/05/homestay-la-gi.png" alt="">
+                </div>
+                <div id="btn" class="row">
+                    <div class="col-3"></div>
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-4">
+                                <button type="button" class="btn" style="background-color: rgb(108, 213, 46)">Duyệt
+                                    tin</button> </div>
+                            <div class="col-4">
+                                <button type="button" class="btn" style="background-color: rgb(224, 54, 33);">Gỡ
+                                    tin</button> </div>
+                            <div class="col-4">
+                                <button type="button" class="btn" style="background-color: rgb(51, 197, 253);">Sửa
+                                    tin</button> </div>
+                        </div>
+                    </div>
+                    <div class="col-3"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
