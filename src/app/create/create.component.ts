@@ -11,7 +11,7 @@ import { ProductService } from '../product.service';
 export class CreateComponent implements OnInit {
     registerForm: FormGroup;
     constructor(
-        private fb:FormBuilder,
+        private fb: FormBuilder,
         private router: Router,
         private product: ProductService
     ) { }
@@ -19,8 +19,7 @@ export class CreateComponent implements OnInit {
     ngOnInit() {
         this.registerForm = this.fb.group({
             productcode: [null, [Validators.required]],
-            date: [null, [Validators.required]],
-            city: [null, Validators.required],
+            // city: [null, Validators.required],
         })
     }
     onSubmit() {
@@ -33,7 +32,7 @@ export class CreateComponent implements OnInit {
             .subscribe(
                 data => {
                     console.log('succsess');
-                    alert("Thêm sản phẩm  thành công !!");
+                    alert("Đăng ký thành công!!");
                     window.location.reload();
                 },
             );

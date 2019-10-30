@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from '../product';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ProductService } from '../product.service';
 import { HttpClient } from '@angular/common/http';
+
 
 @Component({
     selector: 'app-list-detail',
@@ -99,7 +99,9 @@ export class ListDetailComponent implements OnInit {
 
         this.filterselect.forEach(element => {
             if (this.filterselect.length === 1 && element.type === 1) {
+                // setTimeout(() => {
                 this.filteredProduct = this.products.filter(x => x.productcode.toLowerCase().includes(element.value.toLowerCase()))
+                // }, 1000)
             }
             if (element.type === 0) {
                 let item = this.products.filter(x => x.city === element.value);
@@ -109,7 +111,9 @@ export class ListDetailComponent implements OnInit {
                 }
             }
             else {
-                this.filteredProduct = this.filteredProduct.filter(x => x.productcode.toLowerCase().includes(element.value.toLowerCase()))
+                setTimeout(() => {
+                    this.filteredProduct = this.filteredProduct.filter(x => x.productcode.toLowerCase().includes(element.value.toLowerCase()))
+                }, 1000)
             }
             // for (let index = 0; index < this.filterselect.length; index++) {
             //     if (element.type !== 0) {
@@ -150,7 +154,7 @@ export class ListDetailComponent implements OnInit {
 
         });
     }
-
+    //Detele select
     onRemoveSelect(value) {
         console.log("onremove");
         let check = this.filterselect.findIndex(x => x == value);

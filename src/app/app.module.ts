@@ -22,6 +22,7 @@ import { CreateComponent } from './create/create.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbPaginationModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { DetailProductComponent } from './detail-product/detail-product.component';
+import { EditProductComponent } from './edit-product/edit-product.component';
 
 
 
@@ -36,6 +37,7 @@ import { DetailProductComponent } from './detail-product/detail-product.componen
         NewsPackageComponent,
         TestComponent,
         DetailProductComponent,
+        EditProductComponent,
     ],
     imports: [
         BrowserModule,
