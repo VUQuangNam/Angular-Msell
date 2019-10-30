@@ -11,7 +11,6 @@ import { MatPaginatorModule, MatSortModule } from '@angular/material';
 import { DataTableModule } from 'angular-6-datatable';
 import { HearderComponent } from './hearder/hearder.component';
 import { ListDetailComponent } from './list-detail/list-detail.component';
-import { TestComponent } from './test/test.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { NewsPackageComponent } from './news-package/news-package.component';
 import { HomeComponent } from './home/home.component';
@@ -35,7 +34,6 @@ import { EditProductComponent } from './edit-product/edit-product.component';
         CreateComponent,
         HearderComponent,
         NewsPackageComponent,
-        TestComponent,
         DetailProductComponent,
         EditProductComponent,
     ],
