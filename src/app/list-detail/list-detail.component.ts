@@ -10,8 +10,9 @@ import { HttpClient } from '@angular/common/http';
     styleUrls: ['./list-detail.component.scss']
 })
 export class ListDetailComponent implements OnInit {
-    filteredProduct: Product[] = [];
-
+    products = [];
+    filteredProduct = [];
+    filterselect = [];
     constructor(
         private router: Router,
         private productService: ProductService,
@@ -24,7 +25,7 @@ export class ListDetailComponent implements OnInit {
     ngOnInit() {
         this.productService.getListProductsByUser().subscribe(
             next => {
-                this.filteredProduct = next;
+                this.products = next;
             }
         );
         this.productService
@@ -37,10 +38,6 @@ export class ListDetailComponent implements OnInit {
             });
     }
 
-    search(key) {
-        this.filteredProduct = this.filteredProduct.filter(product => product.productcode.toLowerCase().includes(key.toLowerCase()));
-        console.log("list " + this.filteredProduct.length);
-    }
     deletePost(i) {
         var result = confirm("Bạn có chắc chắn xóa sản phẩm này?");
         if (result == true) {
@@ -60,8 +57,104 @@ export class ListDetailComponent implements OnInit {
         } else {
             console.log("NO DELTE")
         }
+    }
+    //Search
+    onSearch(type?: number, value?: any) {
+        this.filteredProduct = [];
+        if (value) {
+            if (type === 1) {
+                let index = this.filterselect.findIndex(x => x.type === 1)
+                if (index !== -1) {
+                    this.filterselect[index].value = value;
+                } else {
+                    let obj = {
+                        type: type,
+                        value: value
+                    }
+                    let check = this.filterselect.findIndex(x => x.type === type && x.value === value);
+                    if (check == -1) {
+                        console.log(this.filterselect);
+                        this.filterselect.push(obj);
+                    } else {
+                        this.filterselect.splice(check, 1);
+                    }
+                }
+            } else {
+                let obj = {
+                    type: type,
+                    value: value
+                }
+                let check = this.filterselect.findIndex(x => x.type === type && x.value === value);
+                if (check == -1) {
+                    this.filterselect.push(obj);
+                } else {
+                    this.filterselect.splice(check, 1);
+                }
+            }
+            this.filterselect = this.filterselect.sort((a1, a2) => {
+                return a1.type - a2.type;
+            });
+        }
 
 
+        this.filterselect.forEach(element => {
+            if (this.filterselect.length === 1 && element.type === 1) {
+                this.filteredProduct = this.products.filter(x => x.productcode.toLowerCase().includes(element.value.toLowerCase()))
+            }
+            if (element.type === 0) {
+                let item = this.products.filter(x => x.city === element.value);
+                if (item.length > 0) {
+                    this.filteredProduct = this.filteredProduct.concat(item);
+                    console.log(this.filteredProduct.length);
+                }
+            }
+            else {
+                this.filteredProduct = this.filteredProduct.filter(x => x.productcode.toLowerCase().includes(element.value.toLowerCase()))
+            }
+            // for (let index = 0; index < this.filterselect.length; index++) {
+            //     if (element.type !== 0) {
+            //         this.filteredProduct = this.filteredProduct.filter(z => z.productcode.toLowerCase().includes(element.value.toLowerCase()))
+            //     }
+            // }
+            // for (let index = 0; index < this.filterselect.length; index++) {
+            //     if (element.type === 0) {
+            //         let item = this.products.filter(x => x.city === element.value);
+            //         if (item.length > 0) {
+            //             this.filteredProduct = this.filteredProduct.concat(item);
+            //             console.log(this.filteredProduct.length);
+            //         }
+            //     } else {
+            //         if (this.filteredProduct.length === 0) {
+            //             this.filteredProduct = this.products.filter(z => z.productcode.toLowerCase().includes(element.value.toLowerCase()))
+            //         } else {
+            //             this.filteredProduct = this.filteredProduct.filter(z => z.productcode.toLowerCase().includes(element.value.toLowerCase))
+            //         }
+            //     }
+
+            // if (element.type === 0) {
+            //     if (this.filteredProduct.length > 0) {
+            //         this.filteredProduct = this.filteredProduct.filter(x => x.city === element.value);
+            //     } else {
+            //         let item = this.products.filter(x => x.city === element.value);
+            //         if (item.length > 0) {
+            //             this.filteredProduct = this.filteredProduct.concat(item)
+            //         }
+            //     }
+            // } else {
+            //     if (this.filteredProduct.length === 0) {
+            //         this.filteredProduct = this.products.filter(z => z.productcode.toLowerCase().includes(element.value.toLowerCase()))
+            //     } else {
+            //         this.filteredProduct = this.filteredProduct.filter(z => z.productcode.toLowerCase().includes(element.value.toLowerCase()));
+            //     }
+            // }
+
+        });
     }
 
+    onRemoveSelect(value) {
+        console.log("onremove");
+        let check = this.filterselect.findIndex(x => x == value);
+        return this.filterselect.splice(check, 1), console.log(this.filterselect), this.onSearch()
+            ;
+    }
 }

@@ -1,16 +1,45 @@
 <div id="listdetail">
     <app-hearder></app-hearder>
     <div id="table">
-        <div id="search">
-            <div>
-                <i class="fa fa-search" style="width: 30px;"></i>
-                <input style="border:solid 0px white;
-                background-color: rgb(237, 240, 254);
-                height: 30px;" type="text" placeholder="Search" (input)="search($event.target.value)">
-                <label for="s"></label>
+        <div class="row">
+            <div class="col-2">
+                <select (change)='onSearch(0,$event.target.value)' class="form-control" id="sel1">
+                    <option disabled>All</option>
+                    <option value="Boyleton">Boyleton</option>
+                    <option value="Lake Ashaton">Lake Ashaton</option>
+                    <option value="Howellmouth">Howellmouth</option>
+                    <option value="Wizaport">Wizaport</option>
+                </select>
+            </div>
+            <div class="col-7">
+                <div class="row">
+                    <div *ngFor="let item of filterselect">
+                        <div class="col">
+                            <button (click)='onRemoveSelect(item)'
+                                style="margin-top: 12px;border-radius: 15px; background-color: rgb(81, 116, 251);color: white;; height: 30px;border: 0px;">
+                                <i class="far fa-times-circle"></i>
+                                {{item.value}}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div id="search">
+                    <div>
+                        <i class="fa fa-search" style="width: 30px;"></i>
+                        <input style="border:solid 0px white;
+                                background-color: rgb(237, 240, 254);
+                                height: 30px;" type="text" placeholder="Search"
+                            (input)="onSearch(1,$event.target.value)">
+                        <label for="s"></label>
+                    </div>
+                </div>
             </div>
         </div>
-        <table class="table table-striped" [mfData]="filteredProduct" #mf="mfDataTable" [mfRowsOnPage]="5">
+
+        <table class="table table-striped" [mfData]="filteredProduct.length ==0? products : filteredProduct"
+            #mf="mfDataTable" [mfRowsOnPage]="5">
             <thead>
                 <tr>
                     <th style="width: 50px;text-align: center;">STT</th>
@@ -46,10 +75,10 @@
 
                     <td style="width: 150px; padding-top: 25px; text-align: center;">
                         <div *ngIf="product.status">
-                            <span style="color: rgb(130, 218, 60);text-align: center;">Đợi duyệt</span>
+                            <span style="color: rgb(130, 218, 60);text-align: center;"> <i> Đợi duyệt </i></span>
                         </div>
                         <div *ngIf="!(product.status)">
-                            <span style="color: rgb(224, 54, 33);text-align: center;"> Đã xóa</span>
+                            <span style="color: rgb(224, 54, 33);text-align: center;"> <i> Đã xóa</i></span>
                         </div>
                     </td>
                     <td>
@@ -82,7 +111,6 @@
                 </tr>
             </tbody>
             <tfoot>
-
                 <tr>
                     <td colspan="8">
                         <mfBootstrapPaginator [rowsOnPageSet]="[5, 10]"></mfBootstrapPaginator>
