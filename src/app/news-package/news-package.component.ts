@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { PackageService } from '../package.service';
 import { IPackage } from '../package';
-// import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -11,12 +10,6 @@ import { HttpClient } from '@angular/common/http';
 })
 
 export class NewsPackageComponent implements OnInit {
-
-    // displayedColumns: string[] = ['packagecode', 'name', 'packagedate', 'limitdate', 'date', 'status', 'btn'];
-    // dataSource: MatTableDataSource<IPackage>;
-    // @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-    // @ViewChild(MatSort, { static: true }) sort: MatSort;
-
     package: IPackage[] = [];
     constructor(
         private packageService: PackageService,

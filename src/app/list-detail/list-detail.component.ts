@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ProductService } from '../product.service';
 import { HttpClient } from '@angular/common/http';
+import { async } from '@angular/core/testing';
 
 
 @Component({
@@ -10,6 +11,7 @@ import { HttpClient } from '@angular/common/http';
     styleUrls: ['./list-detail.component.scss']
 })
 export class ListDetailComponent implements OnInit {
+    keypress: any;
     products = [];
     filteredProduct = [];
     filterselect = [];
@@ -95,13 +97,15 @@ export class ListDetailComponent implements OnInit {
                 return a1.type - a2.type;
             });
         }
-
-
+        console.log(value, "no-set");
         this.filterselect.forEach(element => {
             if (this.filterselect.length === 1 && element.type === 1) {
-                // setTimeout(() => {
-                this.filteredProduct = this.products.filter(x => x.productcode.toLowerCase().includes(element.value.toLowerCase()))
-                // }, 1000)
+                clearTimeout(this.keypress);
+                this.keypress = setTimeout(async () => {
+                    console.log(element.value, "time_out");
+                    this.filteredProduct = this.products.filter(x => x.productcode.toLowerCase().includes(element.value.toLowerCase()))
+                }, 500)
+
             }
             if (element.type === 0) {
                 let item = this.products.filter(x => x.city === element.value);
@@ -111,9 +115,11 @@ export class ListDetailComponent implements OnInit {
                 }
             }
             else {
-                setTimeout(() => {
+                clearTimeout(this.keypress);
+                this.keypress = setTimeout(async () => {
+                    console.log(element.value, "time_out");
                     this.filteredProduct = this.filteredProduct.filter(x => x.productcode.toLowerCase().includes(element.value.toLowerCase()))
-                }, 1000)
+                }, 500)
             }
             // for (let index = 0; index < this.filterselect.length; index++) {
             //     if (element.type !== 0) {
