@@ -38,7 +38,8 @@
             </div>
         </div>
 
-        <table class="table table-striped" [mfData]="filteredProduct.length ==0? products : filteredProduct"
+        <table class="table table-striped"
+            [mfData]="(filteredProduct.length ==0 && filterselect.length==0) ? products : filteredProduct"
             #mf="mfDataTable" [mfRowsOnPage]="5">
             <thead>
                 <tr>

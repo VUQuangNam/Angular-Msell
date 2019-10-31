@@ -1,9 +1,9 @@
 <div id="toolbar">
     <div style="float: left;">
-        <button type="button" class="btn" [routerLink]="['/post/list']" routerLinkActive="router-link-bottom">
+        <button type="button" class="btn" [routerLink]="['/list']" routerLinkActive="router-link-bottom">
             <h1> Danh sách </h1>
         </button>
-        <button type="button" class="btn" [routerLink]="['/post/create']" routerLinkActive="router-link-bottom">
+        <button type="button" class="btn" [routerLink]="['/create']" routerLinkActive="router-link-bottom">
             <h1>Tạo sản phẩm </h1>
         </button>
     </div>
@@ -13,7 +13,17 @@
             <i style="height: 50px;width: 50px;padding: 8px" class="fa fa-cog"></i>
         </div>
         <div style="float:left">
-            <img src="../../assets/img/avatar.jpeg" alt="avatar" style="height: 50px;width: 50px; border-radius: 50%;">
+            <div class="dropdown" style="float:right;">
+                <button class="dropbtn">
+                    <img src="../../assets/img/avatar.jpeg" alt="avatar"
+                        style="height: 50px;width: 50px; border-radius: 50%;">
+                </button>
+                <div class="dropdown-content">
+                    <a class="nav-item nav-link" (click)="logout()">Logout</a>
+                    <a href="#">Link 2</a>
+                    <a href="#">Link 3</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>

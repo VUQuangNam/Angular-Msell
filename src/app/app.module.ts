@@ -20,8 +20,9 @@ import { CreateComponent } from './create/create.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DetailProductComponent } from './detail-product/detail-product.component';
 import { EditProductComponent } from './edit-product/edit-product.component';
-import { SignUpComponent } from './sign-up/sign-up.component';
 import { SignInComponent } from './sign-in/sign-in.component';
+import { RegisterComponent } from './register/register.component';
+import { ViewsComponent } from './views/views.component';
 
 
 @NgModule({
@@ -35,8 +36,9 @@ import { SignInComponent } from './sign-in/sign-in.component';
         NewsPackageComponent,
         DetailProductComponent,
         EditProductComponent,
-        SignUpComponent,
         SignInComponent,
+        RegisterComponent,
+        ViewsComponent,
     ],
     imports: [
         BrowserModule,

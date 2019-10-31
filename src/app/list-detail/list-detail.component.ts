@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ProductService } from '../product.service';
 import { HttpClient } from '@angular/common/http';
-import { async } from '@angular/core/testing';
 
 
 @Component({
@@ -97,16 +96,8 @@ export class ListDetailComponent implements OnInit {
                 return a1.type - a2.type;
             });
         }
-        console.log(value, "no-set");
         this.filterselect.forEach(element => {
-            if (this.filterselect.length === 1 && element.type === 1) {
-                clearTimeout(this.keypress);
-                this.keypress = setTimeout(async () => {
-                    console.log(element.value, "time_out");
-                    this.filteredProduct = this.products.filter(x => x.productcode.toLowerCase().includes(element.value.toLowerCase()))
-                }, 500)
 
-            }
             if (element.type === 0) {
                 let item = this.products.filter(x => x.city === element.value);
                 if (item.length > 0) {
@@ -115,49 +106,22 @@ export class ListDetailComponent implements OnInit {
                 }
             }
             else {
-                clearTimeout(this.keypress);
-                this.keypress = setTimeout(async () => {
-                    console.log(element.value, "time_out");
-                    this.filteredProduct = this.filteredProduct.filter(x => x.productcode.toLowerCase().includes(element.value.toLowerCase()))
-                }, 500)
+                if (this.filterselect.length === 1 && element.type === 1) {
+                    clearTimeout(this.keypress);
+                    this.keypress = setTimeout(async () => {
+                        console.log("done");
+                        console.log(element.value, "time_out");
+                        this.filteredProduct = this.products.filter(x => x.productcode.toLowerCase().includes(element.value.toLowerCase()))
+                    }, 500)
+
+                } else {
+                    clearTimeout(this.keypress);
+                    this.keypress = setTimeout(async () => {
+                        this.filteredProduct = this.filteredProduct.filter(x => x.productcode.toLowerCase().includes(element.value.toLowerCase()))
+                    }, 500)
+                }
+
             }
-            // for (let index = 0; index < this.filterselect.length; index++) {
-            //     if (element.type !== 0) {
-            //         this.filteredProduct = this.filteredProduct.filter(z => z.productcode.toLowerCase().includes(element.value.toLowerCase()))
-            //     }
-            // }
-            // for (let index = 0; index < this.filterselect.length; index++) {
-            //     if (element.type === 0) {
-            //         let item = this.products.filter(x => x.city === element.value);
-            //         if (item.length > 0) {
-            //             this.filteredProduct = this.filteredProduct.concat(item);
-            //             console.log(this.filteredProduct.length);
-            //         }
-            //     } else {
-            //         if (this.filteredProduct.length === 0) {
-            //             this.filteredProduct = this.products.filter(z => z.productcode.toLowerCase().includes(element.value.toLowerCase()))
-            //         } else {
-            //             this.filteredProduct = this.filteredProduct.filter(z => z.productcode.toLowerCase().includes(element.value.toLowerCase))
-            //         }
-            //     }
-
-            // if (element.type === 0) {
-            //     if (this.filteredProduct.length > 0) {
-            //         this.filteredProduct = this.filteredProduct.filter(x => x.city === element.value);
-            //     } else {
-            //         let item = this.products.filter(x => x.city === element.value);
-            //         if (item.length > 0) {
-            //             this.filteredProduct = this.filteredProduct.concat(item)
-            //         }
-            //     }
-            // } else {
-            //     if (this.filteredProduct.length === 0) {
-            //         this.filteredProduct = this.products.filter(z => z.productcode.toLowerCase().includes(element.value.toLowerCase()))
-            //     } else {
-            //         this.filteredProduct = this.filteredProduct.filter(z => z.productcode.toLowerCase().includes(element.value.toLowerCase()));
-            //     }
-            // }
-
         });
     }
     //Detele select

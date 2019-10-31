@@ -6,19 +6,28 @@ import { NewsPackageComponent } from './news-package/news-package.component';
 import { DetailProductComponent } from './detail-product/detail-product.component';
 import { EditProductComponent } from './edit-product/edit-product.component';
 import { SignInComponent } from './sign-in/sign-in.component';
-import { SignUpComponent } from './sign-up/sign-up.component';
+import { AuthGuard } from './auth.guard';
+import { RegisterComponent } from './register/register.component';
+import { ListDetailComponent } from './list-detail/list-detail.component';
+import { ViewsComponent } from './views/views.component';
 
 
 const routes: Routes = [
-    { path: 'post', component: HomeComponent },
-    { path: 'post/list', component: HomeComponent },
-    { path: 'post/create', component: CreateComponent },
-    { path: 'package', component: NewsPackageComponent },
-    { path: 'detail/:id', component: DetailProductComponent },
-    { path: 'create', component: CreateComponent },
-    { path: 'edit/:id', component: EditProductComponent },
+    {
+        path: '', component: ViewsComponent, canActivate: [AuthGuard],
+        children: [
+            { path: 'list', component: ListDetailComponent },
+            { path: 'package', component: NewsPackageComponent },
+            { path: 'create', component: CreateComponent },
+            { path: 'edit/product/:id', component: EditProductComponent },
+            { path: 'detail/:id', component: DetailProductComponent }
+        ]
+    },
     { path: 'login', component: SignInComponent },
-    { path: 'sign-up', component: SignUpComponent },
+    { path: 'register', component: RegisterComponent },
+
+    // otherwise redirect to home
+    { path: '**', redirectTo: '' }
 
 ];
 
