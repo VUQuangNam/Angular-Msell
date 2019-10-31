@@ -20,6 +20,8 @@ import { CreateComponent } from './create/create.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DetailProductComponent } from './detail-product/detail-product.component';
 import { EditProductComponent } from './edit-product/edit-product.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
+import { SignInComponent } from './sign-in/sign-in.component';
 
 
 @NgModule({
@@ -33,6 +35,8 @@ import { EditProductComponent } from './edit-product/edit-product.component';
         NewsPackageComponent,
         DetailProductComponent,
         EditProductComponent,
+        SignUpComponent,
+        SignInComponent,
     ],
     imports: [
         BrowserModule,
