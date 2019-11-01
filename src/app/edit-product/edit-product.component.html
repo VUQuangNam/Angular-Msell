@@ -1,5 +1,5 @@
 <app-hearder></app-hearder>
-<div id="create">
+<div class="create">
     <h1 style="padding: 60px 0px 0px 20px;">THÔNG TIN CƠ BẢN</h1>
     <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
         <div class="form-group row">
@@ -8,7 +8,7 @@
             </div>
             <div class="col-10">
                 <div class="form-group">
-                    <input type="text" class="form-control" id="title" formControlName="productcode">
+                    <input type="text" class="form-control create__input-title" formControlName="productcode">
                     <div style="width: 98%;"
                         *ngIf="postForm.controls['productcode'].invalid && (postForm.controls['productcode'].dirty || postForm.controls['productcode'].touched)"
                         class="alert alert-warning">
@@ -42,7 +42,7 @@
                 </div>
             </div>
         </div>
-        <div class="row" id="createdetail">
+        <div class="row create-detail">
             <div class="col-6 row">
                 <div class="col-5">
                     <h3>Diện tích </h3>
@@ -83,7 +83,7 @@
         <div style="padding: 20px;">
             <h3> Địa chỉ hiển thị:</h3>
         </div>
-        <div class="row" id="createdetail">
+        <div class="row create-detail">
             <div class="col-6 row">
                 <div class="col-10">
                     <h2>Vị trí(*):</h2>
@@ -104,7 +104,7 @@
         <div style="padding: 20px;">
             <h3> Thông tin chi tiết </h3>
         </div>
-        <div class="row" id="createdetail">
+        <div class="row create-detail">
             <div class="col-6 row">
                 <div class="col-5">
                     <h3>Số tầng</h3>

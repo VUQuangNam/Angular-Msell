@@ -1,26 +1,26 @@
 
-#toolbar{
+.toolbar{
     background: white;
     height: 100px;
 }
-#tollbar .btn{
+.tollbar .btn{
  height: 100px;
 }
-#toolbar .btn:hover{
+.toolbar .btn:hover{
     border-bottom: 5px solid blue;
 }
-#setting{
+.tollbar .router-link-bottom{
+    border-bottom: 5px solid blue;
+}
+.toolbar--setting{
     float:right;
     padding: 25px;
 }
-.router-link-bottom{
-    border-bottom: 5px solid blue;
 
-}
 .dropbtn {
     height: 50px;
     width: 50px;
-     border-radius: 50%;
+    border-radius: 50%;
     border: none;
     background-color: white;
   }

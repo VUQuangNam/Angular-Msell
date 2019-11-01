@@ -1,17 +1,16 @@
-
-#table{
+.search{
     background-color: white;
     margin-top: 20px;
 }
-#search{
+.search select{
+    margin: 8px;
+}
+.search__input--search{
     float:right;
     background-color: rgb(237, 240, 254);
     margin: 8px;
     border-radius: 5px;
 }
-thead tr {
+.table thead tr {
     background-color: rgb(237, 240, 254);
-}
-select{
-    margin: 8px;
 }

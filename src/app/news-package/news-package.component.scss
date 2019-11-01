@@ -1,24 +1,20 @@
-#table{
+.package{
     background-color: white;
     margin-top: 20px;
     border-radius: 50px;
 }
-#search{
+.search{
     float:right;
-    // padding: 8px;
     background-color: rgb(237, 240, 254);
     margin: 8px;
     border-radius: 5px;
 }
-table th{
+.table th{
     background-color: rgb(237, 240, 254);
 }
-table td{
+.table td{
     height: 80px;
 }
-thead tr {
+.table thead tr {
     background-color: rgb(237, 240, 254);
 }
-// table{
-//     width: 100%;
-// }

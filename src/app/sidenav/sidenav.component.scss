@@ -1,22 +1,22 @@
-#sidenav{
+.side-nav{
     position:fixed;
     background-color: white;
     min-height: 100vh;
 }
-img{
+.side-nav img{
     height: 100px;
     width:100% ;
 }
-#sidenav .btn{
+.side-nav .btn{
     background-color: white; 
     color: black; 
 }
-#sidenav .btn:hover{
+.side-nav .btn:hover{
     background-color:rgb(234, 236, 254); 
     border-left: solid 5px rgb(81, 116, 251);
     color: rgb(81, 116, 251);
 }
-.router-link-active{
+.side-nav .router-link-active{
     background-color:rgb(234, 236, 254); 
     border-left: solid 5px rgb(81, 116, 251);
     color: rgb(81, 116, 251);

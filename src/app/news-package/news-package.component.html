@@ -2,8 +2,8 @@
     <div style="padding: 20px;font-size: 50px;">Gói đăng tin</div>
 </div>
 <div style="margin-top: 8px; background-color: white;">
-    <div id="table">
-        <div id="search">
+    <div class="package">
+        <div class="search">
             <div>
                 <i class="fa fa-search" style="width: 30px;"></i>
                 <input style="border:solid 0px white;
@@ -12,82 +12,80 @@
                 <label for="s"></label>
             </div>
         </div>
-        <div>
-            <table class="table table-striped" [mfData]="package" #mf="mfDataTable" [mfRowsOnPage]="10">
-                <thead>
-                    <tr>
-                        <th style="width: 50px;text-align: center;">STT</th>
-                        <th>
-                            <mfDefaultSorter by="packagecode">Mã gói</mfDefaultSorter>
-                        </th>
-                        <th>
-                            <mfDefaultSorter by="name">Tên gói</mfDefaultSorter>
-                        </th>
-                        <th>
-                            <mfDefaultSorter by="packagedate">Giá gói/Ngày</mfDefaultSorter>
-                        </th>
-                        <th>
-                            <mfDefaultSorter by="limitdate">Giới hạn</mfDefaultSorter>
-                        </th>
-                        <th>
-                            <mfDefaultSorter by="date">Ngày tạo</mfDefaultSorter>
+        <table class="table table-striped" [mfData]="package" #mf="mfDataTable" [mfRowsOnPage]="10">
+            <thead>
+                <tr>
+                    <th style="width: 50px;text-align: center;">STT</th>
+                    <th>
+                        <mfDefaultSorter by="packagecode">Mã gói</mfDefaultSorter>
+                    </th>
+                    <th>
+                        <mfDefaultSorter by="name">Tên gói</mfDefaultSorter>
+                    </th>
+                    <th>
+                        <mfDefaultSorter by="packagedate">Giá gói/Ngày</mfDefaultSorter>
+                    </th>
+                    <th>
+                        <mfDefaultSorter by="limitdate">Giới hạn</mfDefaultSorter>
+                    </th>
+                    <th>
+                        <mfDefaultSorter by="date">Ngày tạo</mfDefaultSorter>
 
-                        </th>
-                        <th>
-                            <mfDefaultSorter by="status" style="width: 100px; text-align: center;">Trạng thái
-                            </mfDefaultSorter>
-                        </th>
-                        <th>
-                            <mfDefaultSorter></mfDefaultSorter>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let item of mf.data; let i = index">
-                        <td style="text-align: center;padding-top: 25px;">{{i+1}}</td>
-                        <td style="padding-top:25px">{{ item.packagecode }}</td>
-                        <td style="padding-top:25px">{{ item.name }}</td>
-                        <td style="padding-top:25px">{{ item.packagedate }}</td>
-                        <td style="padding-top:25px">{{ item.limitdate | date }}</td>
-                        <td style="padding-top:25px">{{ item.date | date }}</td>
-                        <td style="width: 150px; padding-top: 25px;">
-                            <div *ngIf="item.status">
-                                <span style="color: rgb(130, 218, 60);text-align: center;"> Đang hoạt
-                                    động</span>
-                            </div>
-                            <div *ngIf="!(item.status)">
-                                <span style="color: rgb(224, 54, 33);text-align: center;"> Đã xóa</span>
-                            </div>
+                    </th>
+                    <th>
+                        <mfDefaultSorter by="status" style="width: 100px; text-align: center;">Trạng thái
+                        </mfDefaultSorter>
+                    </th>
+                    <th>
+                        <mfDefaultSorter></mfDefaultSorter>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of mf.data; let i = index">
+                    <td style="text-align: center;padding-top: 25px;">{{i+1}}</td>
+                    <td style="padding-top:25px">{{ item.packagecode }}</td>
+                    <td style="padding-top:25px">{{ item.name }}</td>
+                    <td style="padding-top:25px">{{ item.packagedate }}</td>
+                    <td style="padding-top:25px">{{ item.limitdate | date }}</td>
+                    <td style="padding-top:25px">{{ item.date | date }}</td>
+                    <td style="width: 150px; padding-top: 25px;">
+                        <div *ngIf="item.status">
+                            <span style="color: rgb(130, 218, 60);text-align: center;"> Đang hoạt
+                                động</span>
+                        </div>
+                        <div *ngIf="!(item.status)">
+                            <span style="color: rgb(224, 54, 33);text-align: center;"> Đã xóa</span>
+                        </div>
 
-                        </td>
-                        <td style="width: 150px;">
-                            <div class="row">
-                                <div class="col-6" style="text-align: center;">
-                                    <button type="button" class="btn"
-                                        style="border-radius:50%; border:solid 1px rgb(97, 230, 52); background-color: rgb(215, 247, 215);">
-                                        <i style="color: rgb(97, 230, 52);" class="fa fa-check"></i></button>
-                                    <div>Duyệt</div>
-                                </div>
-                                <div class="col-6" style="text-align: center;">
-                                    <button type="button" class="btn"
-                                        style="border-radius:50%; border:solid 1px rgb(252, 60, 12); background-color: rgb(254, 217, 217);"
-                                        (click)="deletePackage(item.id)">
-                                        <i style="color: rgb(252, 60, 12);" class="fas fa-trash"></i>
-                                    </button>
-                                    <div>Xóa</div>
-                                </div>
+                    </td>
+                    <td style="width: 150px;">
+                        <div class="row">
+                            <div class="col-6" style="text-align: center;">
+                                <button type="button" class="btn"
+                                    style="border-radius:50%; border:solid 1px rgb(97, 230, 52); background-color: rgb(215, 247, 215);">
+                                    <i style="color: rgb(97, 230, 52);" class="fa fa-check"></i></button>
+                                <div>Duyệt</div>
                             </div>
-                        </td>
-                    </tr>
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td colspan="8">
-                            <mfBootstrapPaginator [rowsOnPageSet]="[5, 10]"></mfBootstrapPaginator>
-                        </td>
-                    </tr>
-                </tfoot>
-            </table>
-        </div>
+                            <div class="col-6" style="text-align: center;">
+                                <button type="button" class="btn"
+                                    style="border-radius:50%; border:solid 1px rgb(252, 60, 12); background-color: rgb(254, 217, 217);"
+                                    (click)="deletePackage(item.id)">
+                                    <i style="color: rgb(252, 60, 12);" class="fas fa-trash"></i>
+                                </button>
+                                <div>Xóa</div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="8">
+                        <mfBootstrapPaginator [rowsOnPageSet]="[5, 10]"></mfBootstrapPaginator>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
     </div>
 </div>

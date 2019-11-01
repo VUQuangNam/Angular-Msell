@@ -1,31 +1,34 @@
-#create{
+.create{
     background-color: white;
     border-radius: 15px;
     height: 100%;
 }
-input{
+.create input{
     height: 50px;
 }
-#title{
+.create textarea{
+    width: 100%;
+    height: 200px;
+}
+
+.create h3{
+    padding-bottom: 10px;
+}
+
+.create img{
+    border: solid 1px red;
+    width: 95%;
+    height: 100px;
+}
+.create__input-title{
     width: 98%;
     margin: 10px 20px 0px 0px;
 }
 
-#paradigm{
-    width: 100%;
-    height: 200px;
-}
-#createdetail{
+
+.create-detail{
     padding: 20px;
 }
-#createdetail input{
+.create-detail input{
     width: 100%;
-}
-h3{
-    padding-bottom: 10px;
-}
-img{
-    border: solid 1px red;
-    width: 95%;
-    height: 100px;
 }
