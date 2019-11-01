@@ -13,8 +13,10 @@ import { ViewsComponent } from './views/views.component';
 
 
 const routes: Routes = [
+    { path: '', component: HomeComponent },
     {
-        path: '', component: ViewsComponent, canActivate: [AuthGuard],
+        path: '', component: ViewsComponent,
+        //  canActivate: [AuthGuard],
         children: [
             { path: 'list', component: ListDetailComponent },
             { path: 'package', component: NewsPackageComponent },
@@ -25,6 +27,7 @@ const routes: Routes = [
     },
     { path: 'login', component: SignInComponent },
     { path: 'register', component: RegisterComponent },
+
 
     // otherwise redirect to home
     { path: '**', redirectTo: '' }

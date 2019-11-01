@@ -2,88 +2,105 @@
 <div id="create">
     <h1 style="padding: 60px 0px 0px 20px;">THÔNG TIN CƠ BẢN</h1>
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-        <div class="form-group">
-            <h2 style="float: left; padding-left: 20px ;"> Tiêu đề (*)</h2>
-            <input type="text" class="form-control" id="title" formControlName="productcode">
-        </div>
-        <div style="clear: left;" class="form-group">
-            <h2 style="float: left; padding-left: 20px ;"> Mô tả (*)</h2>
-            <div class="form-group" style="float: left;">
-                <textarea type="text" class="form-control" id="paradigm"></textarea>
+        <div class="form-group row">
+            <div class="col-2">
+                <h2 style="padding-left: 20px; "> Tiêu đề (*)</h2>
             </div>
-            <div style="left: 0px; padding:20px 20px 0px 990px;"> Giới thiệu chung về bất động sản của bạn.
-                Ví
-                dụ: Khu nhà có vị trí
-                thuận lợi: Gần công
-                viên, gần trường học,... Tổng diện tích 52m2,đường đi ô tô vào tận cửa
-                <div style="margin-top: 50px; color: red;"> Lưu ý: Chỉ giao dịch bằng tiền Việt Nam Đồng
+            <div class="col-10">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="title" formControlName="productcode">
+                    <div style="width: 98%;"
+                        *ngIf="registerForm.controls['productcode'].invalid && (registerForm.controls['productcode'].dirty || registerForm.controls['productcode'].touched)"
+                        class="alert alert-warning">
+                        Mã sản phẩm không hợp lệ
+                    </div>
                 </div>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-2">
+                <h2 style="padding-left: 20px ;"> Mô tả (*)</h2>
+            </div>
+            <div class="col-7">
+                <div class="form-group">
+                    <textarea type="text" class="form-control" id="paradigm" formControlName="city"></textarea>
+                    <div *ngIf="registerForm.controls['city'].invalid && (registerForm.controls['city'].dirty || registerForm.controls['city'].touched)"
+                        class="alert alert-warning">
+                        Mô tả không hợp lệ
+                    </div>
+                </div>
+            </div>
+            <div class="col-3" style="right:15px;">
+                <div> Giới thiệu chung về bất động sản của bạn.
+                    Ví
+                    dụ: Khu nhà có vị trí
+                    thuận lợi: Gần công
+                    viên, gần trường học,... Tổng diện tích 52m2,đường đi ô tô vào tận cửa
+                    <div style=" color: red; margin-top: 50px;"> Lưu ý: Chỉ giao dịch bằng tiền Việt Nam Đồng
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="row" id="createdetail">
             <div class="col-6 row">
                 <div class="col-5">
                     <h3>Diện tích </h3>
                 </div>
-                <div class="col-7" class="form-group"><input type="text" class="form-control"></div>
+                <div class="col-7 form-group"><input type="text" class="form-control"></div>
                 <div class="col-5">
                     <h3>Hình thức </h3>
                 </div>
-                <div class="col-7" class="form-group"><input type="text" class="form-control"></div>
+                <div class="col-7 form-group"><input type="text" class="form-control"></div>
                 <div class="col-5">
                     <h3>Tỉnh/Thành phố (*)</h3>
                 </div>
-                <div class="col-7" class="form-group"><input type="text" class="form-control"></div>
+                <div class="col-7 form-group"><input type="text" class="form-control"></div>
                 <div class="col-5">
                     <h3>Diện tích </h3>
                 </div>
-                <div class="col-7" class="form-group"><input type="text" class="form-control"></div>
+                <div class="col-7 form-group"><input type="text" class="form-control"></div>
             </div>
             <div class="col-6 row">
-                <div class="col-4">
+                <div class="col-5">
                     <h3>Giá</h3>
                 </div>
-                <div class="col-8" class="form-group"><input type="text" class="form-control"></div>
-                <div class="col-4">
+                <div class="col-7 form-group"><input type="text" class="form-control"></div>
+                <div class="col-5">
                     <h3>Loại đất </h3>
                 </div>
-                <div class="col-8" class="form-group"><input type="text" class="form-control"></div>
-                <div class="col-4">
+                <div class="col-7 form-group"><input type="text" class="form-control"></div>
+                <div class="col-5">
                     <h3>Quận/Huyện (*) </h3>
                 </div>
-                <div class="col-8" class="form-group"><input type="text" class="form-control"></div>
-                <div class="col-4">
+                <div class="col-7 form-group"><input type="text" class="form-control"></div>
+                <div class="col-5">
                     <h3>Đường/Phố(*) </h3>
                 </div>
-                <div class="col-8" class="form-group"><input type="text" class="form-control"></div>
+                <div class="col-7 form-group"><input type="text" class="form-control"></div>
             </div>
         </div>
-        <div class="form-group">
-            <h2 style="float: left; padding-left: 20px ;"> Số nhà </h2>
-            <input type="text" class="form-control" id="title">
-        </div>
-        <div style="clear: left; padding: 20px;">
+        <div style="padding: 20px;">
             <h3> Địa chỉ hiển thị:</h3>
         </div>
-        <div>
-            <div class="row" id="createdetail">
-                <div class="col-6 row">
-                    <div class="col-10">
-                        <h2>Vị trí(*):</h2>
-                        Nhập tọa độ hoặc chọn vị trí trên bản đồ
-                    </div>
-                    <div class="col-4">
-                        <h3>Latitude </h3>
-                    </div>
-                    <div class="col-8" class="form-group"><input type="text" class="form-control"></div>
-                    <div class="col-4">
-                        <h3>Longitude </h3>
-                    </div>
-                    <div class="col-8" class="form-group"><input type="text" class="form-control"></div>
+        <div class="row" id="createdetail">
+            <div class="col-6 row">
+                <div class="col-10">
+                    <h2>Vị trí(*):</h2>
+                    Nhập tọa độ hoặc chọn vị trí trên bản đồ
                 </div>
-                <div class="col-6"><img src="https://sa.tinhte.vn/2012/12/3253368_1.jpg" alt=""
-                        style="height: 300px; width: 600px;"></div>
+                <div class="col-3">
+                    <h3>Latitude </h3>
+                </div>
+                <div class="col-9 form-group"><input type="text" class="form-control"></div>
+                <div class="col-3">
+                    <h3>Longitude </h3>
+                </div>
+                <div class="col-9 form-group"><input type="text" class="form-control"></div>
             </div>
+            <div class="col-6"><img src="https://sa.tinhte.vn/2012/12/3253368_1.jpg" alt=""
+                    style="height: 300px; width: 600px;"></div>
         </div>
         <div style="padding: 20px;">
             <h3> Thông tin chi tiết </h3>
@@ -93,45 +110,45 @@
                 <div class="col-5">
                     <h3>Số tầng</h3>
                 </div>
-                <div class="col-7" class="form-group"><input type="text" class="form-control"></div>
+                <div class="col-7 form-group"><input type="text" class="form-control"></div>
                 <div class="col-5">
                     <h3>Số phòng tắm</h3>
                 </div>
-                <div class="col-7" class="form-group"><input type="text" class="form-control"></div>
+                <div class="col-7 form-group"><input type="text" class="form-control"></div>
                 <div class="col-5">
                     <h3>Đường trước cửa</h3>
                 </div>
-                <div class="col-7" class="form-group"><input type="text" class="form-control"></div>
+                <div class="col-7 form-group"><input type="text" class="form-control"></div>
                 <div class="col-5">
                     <h3>Hướng nhà</h3>
                 </div>
-                <div class="col-7" class="form-group"><input type="text" class="form-control"></div>
+                <div class="col-7 form-group"><input type="text" class="form-control"></div>
                 <div class="col-5">
                     <h3>Pháp lý</h3>
                 </div>
-                <div class="col-7" class="form-group"><input type="text" class="form-control"></div>
+                <div class="col-7 form-group"><input type="text" class="form-control"></div>
             </div>
             <div class="col-6 row">
                 <div class="col-5">
                     <h3>Số phòng ngủ</h3>
                 </div>
-                <div class="col-7" class="form-group"><input type="text" class="form-control"></div>
+                <div class="col-7 form-group"><input type="text" class="form-control"></div>
                 <div class="col-5">
                     <h3>Mặt tiền rộng</h3>
                 </div>
-                <div class="col-7" class="form-group"><input type="text" class="form-control"></div>
+                <div class="col-7 form-group"><input type="text" class="form-control"></div>
                 <div class="col-5">
                     <h3>Số phòng tắm</h3>
                 </div>
-                <div class="col-7" class="form-group"><input type="text" class="form-control"></div>
+                <div class="col-7 form-group"><input type="text" class="form-control"></div>
                 <div class="col-5">
                     <h3>Hướng ban công</h3>
                 </div>
-                <div class="col-7" class="form-group"><input type="text" class="form-control"></div>
+                <div class="col-7 form-group"><input type="text" class="form-control"></div>
                 <div class="col-5">
                     <h3>Nội thất</h3>
                 </div>
-                <div class="col-7" class="form-group"><input type="text" class="form-control"></div>
+                <div class="col-7 form-group"><input type="text" class="form-control"></div>
             </div>
         </div>
         <div style="padding: 20px;">
@@ -154,22 +171,25 @@
             </div>
         </div>
         <div style="padding: 20px;">
-            <div class="form-group">
-                <h2 style="float: left; "> Tên liên hệ </h2>
-                <input type="text" class="form-control" id="title">
+            <div class="form-group row">
+                <div class="col-2">
+                    <h2> Tên liên hệ </h2>
+                </div>
+                <div class="col-10"> <input type="text" class="form-control" id="title">
+                </div>
             </div>
-            <div style="clear: left; padding-top: 20px;" class="row">
+            <div style="padding-top: 20px;" class="row">
                 <div class="col-6 row">
                     <div class="col-5">
                         <h3>Số điện thoại</h3>
                     </div>
-                    <div class="col-7" class="form-group"><input type="text" class="form-control"></div>
+                    <div class="col-7 form-group"><input type="text" class="form-control"></div>
                 </div>
                 <div class="col-6 row">
                     <div class="col-5">
                         <h3>Địa chỉ email</h3>
                     </div>
-                    <div class="col-7" class="form-group"><input type="text" class="form-control"></div>
+                    <div class="col-7 form-group"><input type="text" class="form-control"></div>
                 </div>
             </div>
             <div style="height:20px"> </div>
@@ -180,11 +200,11 @@
                         <div class="col-5">
                             <h3> Loại tin rao </h3>
                         </div>
-                        <div class="col-7" class="form-group"><input type="text" class="form-control"></div>
+                        <div class="col-7 form-group"><input type="text" class="form-control"></div>
                         <div class="col-5">
                             <h3> Ngày bắt đầu </h3>
                         </div>
-                        <div class="col-7" class="form-group"><input type="text" class="form-control"></div>
+                        <div class="col-7 form-group"><input type="text" class="form-control"></div>
                     </div>
                     <div class="col-6 row">
                         <div class="col-5">
@@ -193,7 +213,7 @@
                         <div class="col-5">
                             <h3> Ngày kết thúc</h3>
                         </div>
-                        <div class="col-7" class="form-group"><input type="text" class="form-control"></div>
+                        <div class=" col-7 form-group"><input type="text" class="form-control"></div>
                     </div>
                 </div>
             </div>

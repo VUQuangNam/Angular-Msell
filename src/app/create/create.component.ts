@@ -18,10 +18,13 @@ export class CreateComponent implements OnInit {
 
     ngOnInit() {
         this.registerForm = this.fb.group({
-            productcode: [null, [Validators.required]],
-            // city: [null, Validators.required],
+            productcode: [null, [Validators.required, Validators.minLength(6)]],
+            city: [null, [Validators.required, Validators.minLength(6)]],
         })
     }
+
+    get f() { return this.registerForm.controls; }
+
     onSubmit() {
         console.log(this.registerForm);
         if (this.registerForm.invalid) {

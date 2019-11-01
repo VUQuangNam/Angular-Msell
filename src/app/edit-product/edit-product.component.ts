@@ -21,8 +21,8 @@ export class EditProductComponent implements OnInit {
 
     ngOnInit() {
         this.postForm = this.fb.group({
-            productcode: [null, Validators.required],
-            city: [null, Validators.required]
+            productcode: [null, [Validators.required, Validators.minLength(6)]],
+            city: [null, [Validators.required, Validators.minLength(6)]]
         });
         const id = +this.route.snapshot.paramMap.get('id');
         this.productService.getProductById(id).subscribe(
@@ -45,7 +45,7 @@ export class EditProductComponent implements OnInit {
             this.productService.updateProduct(data).subscribe(
                 next => {
                     console.log("update");
-                    this.router.navigate(['/post'])
+                    this.router.navigate(['/list'])
                 },
                 error => console.log(error)
             );
