@@ -1,18 +1,16 @@
 <app-hearder></app-hearder>
 <div id="create">
     <h1 style="padding: 60px 0px 0px 20px;">THÔNG TIN CƠ BẢN</h1>
-    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <form name="form" (ngSubmit)="formData.form.valid && onSubmit(formData)" #formData="ngForm">
         <div class="form-group row">
             <div class="col-2">
                 <h2 style="padding-left: 20px; "> Tiêu đề (*)</h2>
             </div>
             <div class="col-10">
-                <div class="form-group">
-                    <input type="text" class="form-control" id="title" formControlName="productcode">
-                    <div style="width: 98%;"
-                        *ngIf="registerForm.controls['productcode'].invalid && (registerForm.controls['productcode'].dirty || registerForm.controls['productcode'].touched)"
-                        class="alert alert-warning">
-                        Mã sản phẩm không hợp lệ
+                <div class="form-group" [ngClass]="{'has-error':formData.submitted && !productcode.valid }">
+                    <input ngModel #productcode="ngModel" type="text" minlength="6" class="form-control"
+                        name="productcode" required>
+                    <div *ngIf="formData.submitted && !productcode.valid" class="help-block">Mã sản phẩm không hợp lệ
                     </div>
                 </div>
             </div>
@@ -23,11 +21,10 @@
                 <h2 style="padding-left: 20px ;"> Mô tả (*)</h2>
             </div>
             <div class="col-7">
-                <div class="form-group">
-                    <textarea type="text" class="form-control" id="paradigm" formControlName="city"></textarea>
-                    <div *ngIf="registerForm.controls['city'].invalid && (registerForm.controls['city'].dirty || registerForm.controls['city'].touched)"
-                        class="alert alert-warning">
-                        Mô tả không hợp lệ
+                <div class="form-group" [ngClass]="{'has-error':formData.submitted && !city.valid }">
+                    <textarea id="paradigm" ngModel #city="ngModel" type="text" minlength="6" class="form-control"
+                        name="city" required></textarea>
+                    <div *ngIf="formData.submitted && !city.valid" class="help-block"> Tiêu đề không hợp lệ
                     </div>
                 </div>
             </div>
@@ -204,7 +201,7 @@
                         <div class="col-5">
                             <h3> Ngày bắt đầu </h3>
                         </div>
-                        <div class="col-7 form-group"><input type="text" class="form-control"></div>
+                        <div class="col-7 form-group"><input type="date" class="form-control"></div>
                     </div>
                     <div class="col-6 row">
                         <div class="col-5">
@@ -213,7 +210,7 @@
                         <div class="col-5">
                             <h3> Ngày kết thúc</h3>
                         </div>
-                        <div class=" col-7 form-group"><input type="text" class="form-control"></div>
+                        <div class=" col-7 form-group"><input type="date" class="form-control"></div>
                     </div>
                 </div>
             </div>

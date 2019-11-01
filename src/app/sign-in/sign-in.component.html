@@ -3,28 +3,25 @@
     <div class="container">
         <h2 style="margin-bottom: 50px;">Sign In</h2>
         <div class="container" style="width: 70%;">
-            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-                <div class="form-group">
-                    <label for="">Email </label>
-                    <input type="text" class="form-control" formControlName="username" placeholder="Email">
-                    <div *ngIf="loginForm.controls['username'].invalid && (loginForm.controls['username'].dirty || loginForm.controls['username'].touched)"
-                        class="alert alert-warning">
-                        User không hợp lệ
-                    </div>
+            <form name="form" (ngSubmit)="formData.form.valid && onSubmit(formData)" #formData="ngForm">
+                <div class="form-group" [ngClass]="{'has-error':formData.submitted && !username.valid }">
+                    <label for="Email">Email </label>
+                    <input ngModel #username="ngModel" type="text" minlength="6" class="form-control" name="username"
+                        required>
+                    <div *ngIf="formData.submitted && !username.valid" class="help-block">Email không hợp lệ</div>
                 </div>
-                <div class="form-group">
-                    <label for="">Password </label>
-                    <input type="password" class="form-control" formControlName="password" placeholder="Password">
-                    <div *ngIf="loginForm.controls['password'].invalid && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)"
-                        class="alert alert-warning">
-                        Password không hợp lệ </div>
+                <div class="form-group" [ngClass]="{'has-error':formData.submitted && !password.valid }">
+                    <label for="Email">Mật khẩu </label>
+                    <input ngModel #password="ngModel" type="password" minlength="6" class="form-control"
+                        name="password" required>
+                    <div *ngIf="formData.submitted && !password.valid" class="help-block">Mật khẩu không hợp lệ</div>
                 </div>
                 <div>
                     <div style="padding-top: 14px; float: left;">
                         <a href="">Forgot Password</a>
                     </div>
                     <div style="float: right;" class="form-group">
-                        <button class="btn btn-primary " type="submit" style="width: 100px; height: 50px;">Sign
+                        <button class="btn btn-primary" type="submit" style="width: 100px; height: 50px;">Sign
                             in</button>
                     </div>
                 </div>

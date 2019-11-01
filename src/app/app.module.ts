@@ -15,8 +15,6 @@ import { SidenavComponent } from './sidenav/sidenav.component';
 import { NewsPackageComponent } from './news-package/news-package.component';
 import { HomeComponent } from './home/home.component';
 import { CreateComponent } from './create/create.component';
-
-//ng-bootstrap
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DetailProductComponent } from './detail-product/detail-product.component';
 import { EditProductComponent } from './edit-product/edit-product.component';

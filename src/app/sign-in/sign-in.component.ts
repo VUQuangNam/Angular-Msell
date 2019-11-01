@@ -20,7 +20,6 @@ export class SignInComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private authenticationService: AuthenticationService,
-        // private alertService: AlertService
     ) {
 
         // redirect to home if already logged in
@@ -30,10 +29,6 @@ export class SignInComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.loginForm = this.formBuilder.group({
-            username: ['', [Validators.required, Validators.minLength(3)]],
-            password: ['', [Validators.required, Validators.minLength(6)]]
-        });
 
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/list';
@@ -42,16 +37,10 @@ export class SignInComponent implements OnInit {
     // convenience getter for easy access to form fields
     get f() { return this.loginForm.controls; }
 
-    onSubmit() {
-        this.submitted = true;
-        // stop here if form is invalid
-        if (this.loginForm.invalid) {
-            console.log(this.loginForm);
-
-            return;
-        }
-        this.loading = true;
-        this.authenticationService.login(this.f.username.value, this.f.password.value)
+    onSubmit(data) {
+        if (data.invalid) return alert("error validate");
+        let { value } = data
+        this.authenticationService.login(value.username, value.password)
             .pipe(first())
             .subscribe(
                 data => {

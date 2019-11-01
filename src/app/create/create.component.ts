@@ -17,21 +17,15 @@ export class CreateComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.registerForm = this.fb.group({
-            productcode: [null, [Validators.required, Validators.minLength(6)]],
-            city: [null, [Validators.required, Validators.minLength(6)]],
-        })
+
     }
 
     get f() { return this.registerForm.controls; }
 
-    onSubmit() {
-        console.log(this.registerForm);
-        if (this.registerForm.invalid) {
-            return;
-        }
-        console.log(this.registerForm.value);
-        this.product.createProduct(this.registerForm.value)
+    onSubmit(data) {
+        if (data.invalid) return alert("error validate");
+        let { value } = data
+        this.product.createProduct(value)
             .subscribe(
                 data => {
                     console.log('succsess');

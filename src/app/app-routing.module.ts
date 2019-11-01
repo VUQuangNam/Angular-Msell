@@ -13,24 +13,23 @@ import { ViewsComponent } from './views/views.component';
 
 
 const routes: Routes = [
-    { path: '', component: HomeComponent },
     {
         path: '', component: ViewsComponent,
-        //  canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
         children: [
             { path: 'list', component: ListDetailComponent },
             { path: 'package', component: NewsPackageComponent },
             { path: 'create', component: CreateComponent },
             { path: 'edit/product/:id', component: EditProductComponent },
-            { path: 'detail/:id', component: DetailProductComponent }
-        ]
+            { path: 'detail/:id', component: DetailProductComponent },
+            { path: '', component: ListDetailComponent },
+        ],
     },
     { path: 'login', component: SignInComponent },
     { path: 'register', component: RegisterComponent },
 
-
     // otherwise redirect to home
-    { path: '**', redirectTo: '' }
+    { path: '**', redirectTo: '/list' }
 
 ];
 
