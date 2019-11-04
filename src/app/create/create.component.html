@@ -1,10 +1,10 @@
 <app-hearder></app-hearder>
-<div class="create">
+<div class="create bg-white br-15 h-100%">
     <h1 style="padding: 60px 0px 0px 20px;">THÔNG TIN CƠ BẢN</h1>
     <form name="form" (ngSubmit)="formData.form.valid && onSubmit(formData)" #formData="ngForm">
         <div class="form-group row">
             <div class="col-2">
-                <h2 style="padding-left: 20px; "> Tiêu đề (*)</h2>
+                <h2 class="create pl-20" style="padding-left: 20px; "> Tiêu đề (*)</h2>
             </div>
             <div class="col-10">
                 <div class="form-group" [ngClass]="{'has-error':formData.submitted && !productcode.valid }">
@@ -22,8 +22,8 @@
             </div>
             <div class="col-7">
                 <div class="form-group" [ngClass]="{'has-error':formData.submitted && !city.valid }">
-                    <textarea ngModel #city="ngModel" type="text" minlength="6" class="form-control" name="city"
-                        required></textarea>
+                    <textarea class="create create__form--textarea" ngModel #city="ngModel" type="text" minlength="6"
+                        class="form-control" name="city" required></textarea>
                     <div *ngIf="formData.submitted && !city.valid" class="help-block"> Tiêu đề không hợp lệ
                     </div>
                 </div>
@@ -148,7 +148,7 @@
                 <div class="col-7 form-group"><input type="text" class="form-control"></div>
             </div>
         </div>
-        <div style="padding: 20px;">
+        <div class="create__img">
             <h3> HÌNH ẢNH </h3>
             Tối thiểu một ảnh tối đa 10 ảnh
             <div style="height:20px; "></div>
