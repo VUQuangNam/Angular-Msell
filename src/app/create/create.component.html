@@ -1,10 +1,10 @@
 <app-hearder></app-hearder>
-<div class="create bg-white br-15 h-100%">
+<div class="create">
     <h1 style="padding: 60px 0px 0px 20px;">THÔNG TIN CƠ BẢN</h1>
     <form name="form" (ngSubmit)="formData.form.valid && onSubmit(formData)" #formData="ngForm">
         <div class="form-group row">
             <div class="col-2">
-                <h2 class="create pl-20" style="padding-left: 20px; "> Tiêu đề (*)</h2>
+                <h2 class="create create__title_pl-20"> Tiêu đề (*)</h2>
             </div>
             <div class="col-10">
                 <div class="form-group" [ngClass]="{'has-error':formData.submitted && !productcode.valid }">
@@ -16,9 +16,9 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row description">
             <div class="col-2">
-                <h2 style="padding-left: 20px ;"> Mô tả (*)</h2>
+                <h2 class="description description-title"> Mô tả (*)</h2>
             </div>
             <div class="col-7">
                 <div class="form-group" [ngClass]="{'has-error':formData.submitted && !city.valid }">
@@ -28,7 +28,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-3" style="right:15px;">
+            <div class="col-3 description description-intro">
                 <div> Giới thiệu chung về bất động sản của bạn.
                     Ví
                     dụ: Khu nhà có vị trí
@@ -40,7 +40,7 @@
             </div>
         </div>
 
-        <div class="row create-detail">
+        <div class="row information">
             <div class="col-6 row">
                 <div class="col-5">
                     <h3>Diện tích </h3>
@@ -81,7 +81,7 @@
         <div style="padding: 20px;">
             <h3> Địa chỉ hiển thị:</h3>
         </div>
-        <div class="row create-detail">
+        <div class="row information">
             <div class="col-6 row">
                 <div class="col-10">
                     <h2>Vị trí(*):</h2>
@@ -102,7 +102,7 @@
         <div style="padding: 20px;">
             <h3> Thông tin chi tiết </h3>
         </div>
-        <div class="row create-detail">
+        <div class="row information">
             <div class="col-6 row">
                 <div class="col-5">
                     <h3>Số tầng</h3>
@@ -167,7 +167,7 @@
                 </div>
             </div>
         </div>
-        <div style="padding: 20px;">
+        <div class="detail-product">
             <div class="form-group row">
                 <div class="col-2">
                     <h2> Tên liên hệ </h2>
@@ -175,7 +175,7 @@
                 <div class="col-10"> <input type="text" class="form-control">
                 </div>
             </div>
-            <div style="padding-top: 20px;" class="row">
+            <div class="row detail detail-product-phone">
                 <div class="col-6 row">
                     <div class="col-5">
                         <h3>Số điện thoại</h3>
@@ -216,11 +216,8 @@
             </div>
 
         </div>
-        <div class="form-group" style="text-align: center;">
-            <button type="submit" class="btn btn-success" style="height: 50px;
-                             width: 150px;
-                              font-size: 24px;
-                               background-color: rgb(108, 213, 46);">
+        <div class="form-group btn">
+            <button type="submit" class="btn btn-success">
                 Đăng tin
             </button>
         </div>

@@ -10,6 +10,9 @@
     width: 100%;
     height: 200px;
 }
+.create__title_pl-20{
+    padding-left: 20px;
+}
 .create h3{
     padding-bottom: 10px;
 }
@@ -27,9 +30,30 @@
     margin: 10px 20px 0px 0px;
 }
 
-.create-detail{
+.information{
     padding: 20px;
 }
-.create-detail input{
+.information input{
     width: 100%;
+}
+.detail-product{
+    padding: 20px;
+}
+.detail-product-phone{
+    padding-top: 20px;
+}
+.btn{
+    text-align: center;
+}
+.btn-success{
+    height: 50px;
+    width: 150px;
+    font-size: 24px;
+    background-color: rgb(108, 213, 46);
+}
+.description-title{
+    padding-left: 20px ;
+}
+.description-intro{
+    right: 15px;
 }
