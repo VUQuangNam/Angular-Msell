@@ -5,18 +5,17 @@
             <div class="col-2">
                 <select (change)='onSearch(0,$event.target.value)' class="form-control" id="sel1">
                     <option disabled>All</option>
-                    <option value="East Chesley"> East Chesley</option>
-                    <option value="Kihnborough">Kihnborough</option>
-                    <option value="Shieldsmouth">Shieldsmouth</option>
-                    <option value="Mauriciohaven">Mauriciohaven</option>
+                    <option value="01"> 01</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="5">5</option>
                 </select>
             </div>
-            <div class="col-7">
+            <div class="col-7 option">
                 <div class="row">
                     <div *ngFor="let item of filterselect">
                         <div class="col">
-                            <button (click)='onRemoveSelect(item)'
-                                style="margin-top: 12px;border-radius: 15px; background-color: rgb(81, 116, 251);color: white;; height: 30px;border: 0px;">
+                            <button class="option-btn" (click)='onRemoveSelect(item)'>
                                 <i class="far fa-times-circle"></i>
                                 {{item.value}}
                             </button>
@@ -28,24 +27,21 @@
                 <div class="search__input--search">
                     <div>
                         <i class="fa fa-search" style="width: 30px;"></i>
-                        <input style="border:solid 0px white;
-                                background-color: rgb(237, 240, 254);
-                                height: 30px;" type="text" placeholder="Search"
+                        <input class="search__input" type="text" placeholder="Search"
                             (input)="onSearch(1,$event.target.value)">
                         <label for="s"></label>
                     </div>
                 </div>
             </div>
         </div>
-
         <table class="table table-striped"
-            [mfData]="(filteredProduct.length ==0 && filterselect.length==0) ? products : filteredProduct"
+            [mfData]="(filteredProduct.length == 0 && filterselect.length==0) ? products : filteredProduct"
             #mf="mfDataTable" [mfRowsOnPage]="5">
-            <thead>
+            <thead class="table table-thead">
                 <tr>
-                    <th style="width: 50px;text-align: center;">STT</th>
+                    <th class="thead-STT">STT</th>
                     <th>
-                        <mfDefaultSorter by="productcode">
+                        <mfDefaultSorter by="product_id">
                             Mã sản phẩm
                         </mfDefaultSorter>
                     </th>
@@ -55,7 +51,7 @@
                     <th>
                         <mfDefaultSorter by="city">Khu vực</mfDefaultSorter>
                     </th>
-                    <th style="width: 150px;text-align: center;" by="status">
+                    <th class="thead-status" by="status">
                         Trạng thái
                     </th>
                     <th style="width: 250px;">
@@ -63,46 +59,44 @@
                     </th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="table-tbody">
                 <tr *ngFor="let product of mf.data; let i = index">
-                    <td style="text-align: center;padding-top: 25px;">{{i+1}}</td>
-                    <td style="padding-top:25px">
-                        <a [routerLink]="['/detail', product.id]" routerLinkActive="router-link-active">
-                            {{product.productcode}}
+                    <td class="table-tbody table-tbody-stt">{{i+1}}</td>
+                    <td class="table-tbody">
+                        <a [routerLink]="['/detail', product.product_id]" routerLinkActive="router-link-active">
+                            {{product.product_id}}
                         </a>
                     </td>
-                    <td style="padding-top:25px">{{(product.date *1000) | date:'dd/MM/yyyy'}}</td>
-                    <td style="padding-top:25px">{{product.city}}</td>
+                    <td class="table-tbody">{{product.date_created | date:'dd/MM/yyyy'}}</td>
+                    <td class="table-tbody">{{product.city_id}}</td>
 
-                    <td style="width: 150px; padding-top: 25px; text-align: center;">
-                        <div *ngIf="product.status">
-                            <span style="color: rgb(130, 218, 60);text-align: center;"> <i> Đợi duyệt
+                    <td class="table-tbody table-tbody-status">
+                        <div *ngIf="product.pending">
+                            <span class="table-tbody-status-true">
+                                <i> Đợi duyệt
                                 </i></span>
                         </div>
-                        <div *ngIf="!(product.status)">
-                            <span style="color: rgb(224, 54, 33);text-align: center;"> <i> Đã xóa</i></span>
+                        <div *ngIf="!(product.pending)">
+                            <span class="table-tbody-status-false">
+                                <i> Đã xóa</i></span>
                         </div>
                     </td>
                     <td>
-                        <div class="row">
-                            <div class="col-4" style="text-align: center;">
-                                <button type="button" class="btn"
-                                    style="border-radius:50%; border:solid 1px rgb(97, 230, 52); background-color: rgb(215, 247, 215);">
-                                    <i style="color: rgb(97, 230, 52);" class="fa fa-check"></i></button>
+                        <div class="row table-tbody-btn">
+                            <div class="col-4">
+                                <button type="button" class="btn btn-approved">
+                                    <i class="fa fa-check btn-approved-icon"></i></button>
                                 <div>Duyệt</div>
                             </div>
-                            <div class="col-4" style="text-align: center;">
-                                <button type="button" class="btn" style="border-radius:50%; border:solid 1px rgb(252, 60, 12);
-                                     background-color: rgb(254, 217, 217);" (click)="deletePost(product.id)">
-                                    <i style="color: rgb(252, 60, 12);" class="fas fa-trash"></i></button>
+                            <div class="col-4">
+                                <button type="button" class="btn btn-del" (click)="deletePost(product.product_id)">
+                                    <i class="fas fa-trash btn-del-icon"></i></button>
                                 <div>Xóa</div>
                             </div>
-                            <div class="col-4" style="text-align: center;">
-                                <a [routerLink]="['/edit/product', product.id]">
-                                    <button type="button" class="btn" style="border-radius:50%; 
-                                    border:solid 1px rgb(252, 60, 12); 
-                                    background-color: rgb(254, 217, 217);" (click)="edit()">
-                                        <i style="color: rgb(252, 60, 12);" class="fas fa-trash"></i>
+                            <div class="col-4">
+                                <a [routerLink]="['/edit/product', product.product_id]">
+                                    <button type="button" class="btn btn-del" (click)="edit()">
+                                        <i class="fas fa-trash btn-del-icon"></i>
                                     </button>
                                 </a>
                                 <div>Cập nhật</div>

@@ -7,10 +7,10 @@
                 <h2 class="create create__title_pl-20"> Tiêu đề (*)</h2>
             </div>
             <div class="col-10">
-                <div class="form-group" [ngClass]="{'has-error':formData.submitted && !productcode.valid }">
-                    <input ngModel #productcode="ngModel" type="text" minlength="6"
-                        class="form-control create__input-title" name="productcode" required>
-                    <div *ngIf="formData.submitted && !productcode.valid" class="help-block">Mã sản phẩm không hợp lệ
+                <div class="form-group" [ngClass]="{'has-error':formData.submitted && !title.valid }">
+                    <input ngModel #title="ngModel" type="text" minlength="30" class="form-control create__input-title"
+                        name="title" required>
+                    <div *ngIf="formData.submitted && !title.valid" class="help-block">Tiêu đề
                     </div>
                 </div>
             </div>
@@ -21,10 +21,10 @@
                 <h2 class="description description-title"> Mô tả (*)</h2>
             </div>
             <div class="col-7">
-                <div class="form-group" [ngClass]="{'has-error':formData.submitted && !city.valid }">
-                    <textarea class="create create__form--textarea" ngModel #city="ngModel" type="text" minlength="6"
-                        class="form-control" name="city" required></textarea>
-                    <div *ngIf="formData.submitted && !city.valid" class="help-block"> Tiêu đề không hợp lệ
+                <div class="form-group" [ngClass]="{'has-error':formData.submitted && !title.valid }">
+                    <textarea class="create create__form--textarea" ngModel #description="ngModel" type="text"
+                        minlength="50" class="form-control" name="description" required></textarea>
+                    <div *ngIf="formData.submitted && !description.valid" class="help-block"> Tiêu đề không hợp lệ
                     </div>
                 </div>
             </div>
@@ -34,7 +34,8 @@
                     dụ: Khu nhà có vị trí
                     thuận lợi: Gần công
                     viên, gần trường học,... Tổng diện tích 52m2,đường đi ô tô vào tận cửa
-                    <div style=" color: red; margin-top: 50px;"> Lưu ý: Chỉ giao dịch bằng tiền Việt Nam Đồng
+                    <div class="description-note"> Lưu ý: Chỉ giao dịch bằng tiền
+                        Việt Nam Đồng
                     </div>
                 </div>
             </div>
@@ -45,25 +46,47 @@
                 <div class="col-5">
                     <h3>Diện tích </h3>
                 </div>
-                <div class="col-7 form-group"><input type="text" class="form-control"></div>
+                <div class="col-7 form-group">
+                    <div class="form-group" [ngClass]="{'has-error':formData.submitted && !acreage.valid }">
+                        <input ngModel #acreage="ngModel" type="number" class="form-control" name="acreage">
+                        <div *ngIf="formData.submitted && !acreage.valid" class="help-block"> Diện tích không hợp lệ
+                        </div>
+                    </div>
+                </div>
                 <div class="col-5">
                     <h3>Hình thức </h3>
                 </div>
-                <div class="col-7 form-group"><input type="text" class="form-control"></div>
+                <div class="col-7 form-group">
+                    <div class="form-group" [ngClass]="{'has-error':formData.submitted && !category.valid }">
+                        <input ngModel #category="ngModel" type="text" class="form-control" name="category">
+                    </div>
+                </div>
                 <div class="col-5">
                     <h3>Tỉnh/Thành phố (*)</h3>
                 </div>
-                <div class="col-7 form-group"><input type="text" class="form-control"></div>
-                <div class="col-5">
-                    <h3>Diện tích </h3>
+                <div class="col-7 form-group">
+                    <div class="form-group" [ngClass]="{'has-error':formData.submitted && !city_id.valid }">
+                        <input ngModel #city_id="ngModel" type="number" class="form-control" name="city_id">
+                    </div>
                 </div>
-                <div class="col-7 form-group"><input type="text" class="form-control"></div>
+                <div class="col-5">
+                    <h3>Phường </h3>
+                </div>
+                <div class="col-7 form-group">
+                    <div class="form-group" [ngClass]="{'has-error':formData.submitted && !wards_id.valid }">
+                        <input ngModel #wards_id="ngModel" type="number" class="form-control" name="wards_id">
+                    </div>
+                </div>
             </div>
             <div class="col-6 row">
                 <div class="col-5">
                     <h3>Giá</h3>
                 </div>
-                <div class="col-7 form-group"><input type="text" class="form-control"></div>
+                <div class="col-7 form-group">
+                    <div class="form-group" [ngClass]="{'has-error':formData.submitted && !price.valid }">
+                        <input ngModel #price="ngModel" type="number" class="form-control" name="price">
+                    </div>
+                </div>
                 <div class="col-5">
                     <h3>Loại đất </h3>
                 </div>
@@ -71,11 +94,19 @@
                 <div class="col-5">
                     <h3>Quận/Huyện (*) </h3>
                 </div>
-                <div class="col-7 form-group"><input type="text" class="form-control"></div>
+                <div class="col-7 form-group">
+                    <div class="form-group" [ngClass]="{'has-error':formData.submitted && !district_id.valid }">
+                        <input ngModel #district_id="ngModel" type="number" class="form-control" name="district_id">
+                    </div>
+                </div>
                 <div class="col-5">
                     <h3>Đường/Phố(*) </h3>
                 </div>
-                <div class="col-7 form-group"><input type="text" class="form-control"></div>
+                <div class="col-7 form-group">
+                    <div class="form-group" [ngClass]="{'has-error':formData.submitted && !street_id.valid }">
+                        <input ngModel #street_id="ngModel" type="number" class="form-control" name="street_id">
+                    </div>
+                </div>
             </div>
         </div>
         <div style="padding: 20px;">
@@ -90,14 +121,22 @@
                 <div class="col-3">
                     <h3>Latitude </h3>
                 </div>
-                <div class="col-9 form-group"><input type="text" class="form-control"></div>
+                <div class="col-9 form-group">
+                    <div class="form-group" [ngClass]="{'has-error':formData.submitted && !latitude.valid }">
+                        <input ngModel #latitude="ngModel" type="number" class="form-control" name="latitude">
+                    </div>
+                </div>
                 <div class="col-3">
                     <h3>Longitude </h3>
                 </div>
-                <div class="col-9 form-group"><input type="text" class="form-control"></div>
+                <div class="col-9 form-group">
+                    <div class="form-group" [ngClass]="{'has-error':formData.submitted && !longitude.valid }">
+                        <input ngModel #longitude="ngModel" type="number" class="form-control" name="longitude">
+                    </div>
+                </div>
             </div>
             <div class="col-6"><img src="https://sa.tinhte.vn/2012/12/3253368_1.jpg" alt=""
-                    style="height: 300px; width: 600px;"></div>
+                    style="height: 350px; width: 650px;"></div>
         </div>
         <div style="padding: 20px;">
             <h3> Thông tin chi tiết </h3>
@@ -111,11 +150,17 @@
                 <div class="col-5">
                     <h3>Số phòng tắm</h3>
                 </div>
-                <div class="col-7 form-group"><input type="text" class="form-control"></div>
+                <div class="col-7 form-group">
+                    <div class="form-group" [ngClass]="{'has-error':formData.submitted && !baths.valid }">
+                        <input ngModel #baths="ngModel" type="number" class="form-control" name="baths">
+                    </div>
+                </div>
                 <div class="col-5">
                     <h3>Đường trước cửa</h3>
                 </div>
-                <div class="col-7 form-group"><input type="text" class="form-control"></div>
+                <div class="col-7 form-group">
+                    <input ngModel #road_wide="ngModel" type="number" class="form-control" name="road_wide">
+                </div>
                 <div class="col-5">
                     <h3>Hướng nhà</h3>
                 </div>
@@ -129,19 +174,34 @@
                 <div class="col-5">
                     <h3>Số phòng ngủ</h3>
                 </div>
-                <div class="col-7 form-group"><input type="text" class="form-control"></div>
+                <div class="col-7 form-group">
+                    <div class="form-group" [ngClass]="{'has-error':formData.submitted && !beds.valid }">
+                        <input ngModel #beds="ngModel" type="number" class="form-control" name="beds">
+                    </div>
+                </div>
                 <div class="col-5">
                     <h3>Mặt tiền rộng</h3>
                 </div>
-                <div class="col-7 form-group"><input type="text" class="form-control"></div>
-                <div class="col-5">
-                    <h3>Số phòng tắm</h3>
+                <div class="col-7 form-group">
+                    <input ngModel #facade="ngModel" type="number" class="form-control" name="facade">
                 </div>
-                <div class="col-7 form-group"><input type="text" class="form-control"></div>
+                <div class="col-5">
+                    <h3>Số nhà vệ sinh</h3>
+                </div>
+                <div class="col-7 form-group">
+                    <div class="form-group" [ngClass]="{'has-error':formData.submitted && !toilets.valid }">
+                        <input ngModel #toilets="ngModel" type="number" class="form-control" name="toilets">
+                    </div>
+                </div>
                 <div class="col-5">
                     <h3>Hướng ban công</h3>
                 </div>
-                <div class="col-7 form-group"><input type="text" class="form-control"></div>
+                <div class="col-7 form-group">
+                    <div class="form-group" [ngClass]="{'has-error':formData.submitted && !direction_balcony.valid }">
+                        <input ngModel #direction_balcony="ngModel" type="text" class="form-control"
+                            name="direction_balcony">
+                    </div>
+                </div>
                 <div class="col-5">
                     <h3>Nội thất</h3>
                 </div>
@@ -152,71 +212,45 @@
             <h3> HÌNH ẢNH </h3>
             Tối thiểu một ảnh tối đa 10 ảnh
             <div style="height:20px; "></div>
-            <div class="row">
-                <div class="col-2"><img src="https://ezcloud.vn/wp-content/uploads/2018/05/homestay-la-gi.png" alt="">
-                </div>
-                <div class="col-2"><img src="https://ezcloud.vn/wp-content/uploads/2018/05/homestay-la-gi.png" alt="">
-                </div>
-                <div class="col-2"><img src="https://ezcloud.vn/wp-content/uploads/2018/05/homestay-la-gi.png" alt="">
-                </div>
-                <div class="col-2"><img src="https://ezcloud.vn/wp-content/uploads/2018/05/homestay-la-gi.png" alt="">
-                </div>
-                <div class="col-2"><img src="https://ezcloud.vn/wp-content/uploads/2018/05/homestay-la-gi.png" alt="">
-                </div>
-                <div class="col-2"><img src="https://ezcloud.vn/wp-content/uploads/2018/05/homestay-la-gi.png" alt="">
-                </div>
+            <div class="form-group">
+                <input multiple type="file" name="images" (change)="fileProgress($event)" />
+            </div>
+            <div *ngIf="fileUploadProgress">
+                Upload progress: {{ fileUploadProgress }}
+            </div>
+            <div class="image-preview" *ngIf="previewUrl">
+                <img [src]="previewUrl" height="100px" width="100px" />
             </div>
         </div>
         <div class="detail-product">
-            <div class="form-group row">
-                <div class="col-2">
-                    <h2> Tên liên hệ </h2>
-                </div>
-                <div class="col-10"> <input type="text" class="form-control">
-                </div>
-            </div>
-            <div class="row detail detail-product-phone">
+            <h2>LỊCH ĐĂNG TIN</h2>
+            <div class="row">
                 <div class="col-6 row">
                     <div class="col-5">
-                        <h3>Số điện thoại</h3>
+                        <h3> Loại tin rao </h3>
                     </div>
-                    <div class="col-7 form-group"><input type="text" class="form-control"></div>
+                    <div class="col-7 form-group">
+                        <div class="form-group" [ngClass]="{'has-error':formData.submitted && !type_of_post.valid }">
+                            <input ngModel #type_of_post="ngModel" type="text" class="form-control" name="type_of_post">
+                        </div>
+                    </div>
+                    <div class="col-5">
+                        <h3> Ngày bắt đầu </h3>
+                    </div>
+                    <div class="col-7 form-group"><input type="date" class="form-control"></div>
                 </div>
                 <div class="col-6 row">
                     <div class="col-5">
-                        <h3>Địa chỉ email</h3>
                     </div>
-                    <div class="col-7 form-group"><input type="text" class="form-control"></div>
+                    <div class="col-7" style="height: 50px;"></div>
+                    <div class="col-5">
+                        <h3> Ngày kết thúc</h3>
+                    </div>
+                    <div class=" col-7 form-group"><input type="date" class="form-control"></div>
                 </div>
             </div>
-            <div style="height:20px"> </div>
-            <div>
-                <h2>LỊCH ĐĂNG TIN</h2>
-                <div class="row">
-                    <div class="col-6 row">
-                        <div class="col-5">
-                            <h3> Loại tin rao </h3>
-                        </div>
-                        <div class="col-7 form-group"><input type="text" class="form-control"></div>
-                        <div class="col-5">
-                            <h3> Ngày bắt đầu </h3>
-                        </div>
-                        <div class="col-7 form-group"><input type="date" class="form-control"></div>
-                    </div>
-                    <div class="col-6 row">
-                        <div class="col-5">
-                        </div>
-                        <div class="col-7" style="height: 50px;"></div>
-                        <div class="col-5">
-                            <h3> Ngày kết thúc</h3>
-                        </div>
-                        <div class=" col-7 form-group"><input type="date" class="form-control"></div>
-                    </div>
-                </div>
-            </div>
-
         </div>
-        <div class="form-group btn">
+        <div class="form-group" style="text-align: center;">
             <button type="submit" class="btn btn-success">
                 Đăng tin
             </button>

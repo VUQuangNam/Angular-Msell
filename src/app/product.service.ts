@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { Product } from './product';
 
 
@@ -9,40 +8,47 @@ import { Product } from './product';
     providedIn: 'root'
 })
 export class ProductService {
-    products: Product[] = [];
-    private readonly API_URL = 'http://5da3dc1aa6593f001407a03e.mockapi.io/api/v1/msell';
+    products = [];
+    headers: any = {}
+    private readonly API_URL = 'http://dev.msell.com.vn/api/products';
 
     constructor(private http: HttpClient) {
-    }
-
-    getProducts(count = 10000): Observable<Product[]> {
-        return this.http.get<Product[]>(this.API_URL).pipe(
-            map(response => response.filter((product, i) => i < count))
-        );
-    }
-
-    getProductById(id: number): Observable<Product> {
-        return this.http.get<Product>(`${this.API_URL}/${(id)}`);
-    }
-
-
-    //Create
-    createProduct(product: Product): Observable<Product> {
-        return this.http.post<Product>(this.API_URL, product);
-    }
-
-
-
-    deleteProduct(id: number): Observable<any> {
-        return this.http.delete(`${this.API_URL}/${id}`);
-
-    }
-
-    updateProduct(product: Product): Observable<Product> {
-        return this.http.put<Product>(`${this.API_URL}/${product.id}`, product);
+        let user = localStorage.getItem('currentUser');
+        user = JSON.parse(user);
+        this.headers = {
+            'Content-Type': 'application/json',
+            'Cache-Control': 'no-cache',
+            'x-request-id': user['token']
+        }
     }
 
     getListProductsByUser(): Observable<any> {
-        return this.http.get<any>(this.API_URL);
+        return this.http.get<any>(this.API_URL + '/posts/me/', {
+            headers: this.headers
+        });
+    }
+
+    getProductById(product_id: string): Observable<any> {
+        return this.http.get<any>(`${this.API_URL}/${product_id}`, {
+            headers: this.headers
+        });
+    }
+
+    //Create
+    createProduct(product: Product): Observable<Product> {
+        return this.http.post<Product>(this.API_URL, product, {
+            headers: this.headers
+        });
+    }
+
+    deleteProduct(product_id: string): Observable<any> {
+        console.log(this.headers, product_id);
+        return this.http.put(`${this.API_URL}/${product_id}`, null, {
+            headers: this.headers
+        });
+    }
+
+    updateProduct(product: Product): Observable<Product> {
+        return this.http.put<Product>(`${this.API_URL}/${product.product_id}`, product);
     }
 }

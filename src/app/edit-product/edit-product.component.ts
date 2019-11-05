@@ -21,10 +21,10 @@ export class EditProductComponent implements OnInit {
 
     ngOnInit() {
         this.postForm = this.fb.group({
-            productcode: [null, [Validators.required, Validators.minLength(6)]],
-            city: [null, [Validators.required, Validators.minLength(6)]]
+            title: [null, [Validators.required, Validators.minLength(30)]],
+            city_id: [null, Validators.required]
         });
-        const id = +this.route.snapshot.paramMap.get('id');
+        const id = this.route.snapshot.paramMap.get('product_id');
         this.productService.getProductById(id).subscribe(
             next => {
                 this.product = next;

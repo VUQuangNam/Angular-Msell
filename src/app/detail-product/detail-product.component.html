@@ -1,20 +1,19 @@
 <app-hearder></app-hearder>
 <div class="detail">
-    <div class="search__input">
-        <div>
-            <i class="fa fa-search" style="width: 30px;"></i>
-            <input style="border:solid 0px white;
-                background-color: rgb(237, 240, 254);
-                height: 30px;" type="text" placeholder="Search" (input)="search($event.target.value)">
+    <div class="search">
+        <div class="search-detail">
+            <i class="fa fa-search search-detail search-detail-icon"></i>
+            <input class=" search-detail search-detail__input" type="text" placeholder="Search"
+                (input)="search($event.target.value)">
             <label for="s"></label>
         </div>
     </div>
     <table class="table" [mfData]="filteredProduct" #mf="mfDataTable" [mfRowsOnPage]="5">
         <thead>
             <tr>
-                <th style="width: 50px;text-align: center;">STT</th>
+                <th class="table table-STT">STT</th>
                 <th>
-                    <mfDefaultSorter by="productcode">
+                    <mfDefaultSorter by="product_id">
                         Mã sản phẩm
                     </mfDefaultSorter>
                 </th>
@@ -24,52 +23,48 @@
                 <th>
                     <mfDefaultSorter by="city">Khu vực</mfDefaultSorter>
                 </th>
-                <th style="width: 150px;text-align: center;" by="status">
+                <th class="table table-status" by="status">
                     Trạng thái
                 </th>
-                <th style="width: 250px;">
+                <th class="table table-setting">
                     <mfDefaultSorter></mfDefaultSorter>
                 </th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td style="text-align: center;padding-top: 25px;">1</td>
-                <td style="padding-top:25px">
-                    {{product.productcode}}
+                <td class="table-tbody">1</td>
+                <td class="table-tbody">
+                    {{product.product_id}}
                 </td>
-                <td style="padding-top:25px">{{product.date | date}}</td>
-                <td style="padding-top:25px">{{product.city}}</td>
-                <td style="width: 150px; padding-top: 25px; text-align: center;">
+                <td class="table-tbody">{{product.date_created | date:'dd/MM/yyyy'}}</td>
+                <td class="table-tbody">{{product.city_id}}</td>
+                <td class="table-tbody table-tbody-status">
                     <div *ngIf="product.status">
-                        <span style="color: rgb(130, 218, 60);text-align: center;">Đợi duyệt</span>
+                        <span class="table-tbody-status-true">Đợi
+                            duyệt</span>
                     </div>
                     <div *ngIf="!(product.status)">
-                        <span style="color: rgb(224, 54, 33);text-align: center;"> Đã xóa</span>
+                        <span class="table-tbody-status-false"> Đã
+                            xóa</span>
                     </div>
                 </td>
                 <td>
-                    <div class="row detail detail__btn">
-                        <div class="col-4" style="text-align: center;">
-                            <button type="button" class="btn"
-                                style="border-radius:50%; border:solid 1px rgb(97, 230, 52); background-color: rgb(215, 247, 215);">
-                                <i style="color: rgb(97, 230, 52);" class="fa fa-check"></i></button>
+                    <div class="row table__btn">
+                        <div class="col-4 table__btn--btn">
+                            <button type="button" class="btn btn-approved">
+                                <i class="fa fa-check btn--icon-approved"></i></button>
                             <div>Duyệt</div>
                         </div>
-                        <div class="col-4" style="text-align: center;">
-                            <a [routerLink]="['/list']">
-                                <button type="button" class="btn" style="border-radius:50%; border:solid 1px rgb(252, 60, 12);
-                                     background-color: rgb(254, 217, 217);" (click)="deletePost(product.id)">
-                                    <i style="color: rgb(252, 60, 12);" class="fas fa-trash"></i></button>
-                            </a>
+                        <div class="col-4 table__btn--btn">
+                            <button type="button" class="btn btn-del" (click)="deletePost()">
+                                <i class="fas fa-trash btn--icon-del"></i></button>
                             <div>Xóa</div>
                         </div>
-                        <div class="col-4" style="text-align: center;">
+                        <div class="col-4 table__btn--btn">
                             <a [routerLink]="['/edit/product', product.id]">
-                                <button type="button" class="btn" style="border-radius:50%; 
-                                    border:solid 1px rgb(252, 60, 12); 
-                                    background-color: rgb(254, 217, 217);" (click)="edit()">
-                                    <i style="color: rgb(252, 60, 12);" class="fas fa-trash"></i>
+                                <button type="button" class="btn btn-update" (click)="edit()">
+                                    <i class="fas fa-trash btn--icon-update"></i>
                                 </button>
                             </a>
                             <div>Cập nhật</div>
@@ -120,8 +115,8 @@
                 30-09-2019
             </div>
         </div>
-        <div style="display: flex;">
-            <table style="width:50%">
+        <div class="detail-product-table">
+            <table>
                 <tr>
                     <td>Số tầng</td>
                     <th>3</th>
@@ -163,11 +158,11 @@
                     <th>Đầy đủ</th>
                 </tr>
             </table>
-            <img style="width: 50%;"
+            <img class="detail-product-img-map"
                 src="https://lh3.googleusercontent.com/gRixG4OCS4S7Fb0Ztm8UQVkIaj3z5gKECXOiR2D2ldvS6oZEVfmNuii4tvh-_DjI_qNRJOGO=w640-h400-e365"
                 alt="">
         </div>
-        <div style="display: flex;">
+        <div class="detail-product-img-product">
             <img src="https://ezcloud.vn/wp-content/uploads/2018/05/homestay-la-gi.png" alt="">
             <img src="https://ezcloud.vn/wp-content/uploads/2018/05/homestay-la-gi.png" alt="">
             <img src="https://ezcloud.vn/wp-content/uploads/2018/05/homestay-la-gi.png" alt="">

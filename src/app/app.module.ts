@@ -21,6 +21,7 @@ import { EditProductComponent } from './edit-product/edit-product.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { RegisterComponent } from './register/register.component';
 import { ViewsComponent } from './views/views.component';
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -51,7 +52,7 @@ import { ViewsComponent } from './views/views.component';
         DataTableModule,
         MatSortModule,
         NgbModule,
-
+        ToastrModule.forRoot()
     ],
     providers: [],
     bootstrap: [AppComponent],

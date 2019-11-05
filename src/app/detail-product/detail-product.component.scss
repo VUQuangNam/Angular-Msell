@@ -3,18 +3,90 @@
     margin-top: 20px;
 }
 
-.search__input{
+.search{
     float:right;
     background-color: rgb(237, 240, 254);
     margin: 8px;
     border-radius: 5px;
 }
+.search-detail-icon{
+    width: 30px;
+}
+.search-detail__input{
+    border:solid 0px white;
+    background-color: rgb(237, 240, 254);
+    height: 30px;
+}
 
+.table-STT{
+    width: 50px;
+    text-align: center;
+}
 
+.table-status{
+    width: 150px;
+    text-align: center;
+}
+.table-setting{
+    width: 250px;
+}
+.table-tbody{
+    padding-top: 20px;
+}
+.table-tbody-status{
+    width: 150px;
+    text-align: center;
+}
+.table-tbody-status-true{
+    color: rgb(130, 218, 60);
+    text-align: center;
+}
+.table-tbody-status-false{
+    color: rgb(224, 54, 33);
+    text-align: center;
+}
+.table__btn--btn{
+    text-align: center;
+}
+.btn-approved{
+    border-radius:50%;
+    border:solid 1px rgb(97, 230, 52); 
+    background-color: rgb(215, 247, 215);
+}
+.btn--icon-approved{
+    color: rgb(97, 230, 52);
+}
+.btn-del{
+    border-radius:50%; 
+    border:solid 1px rgb(252, 60, 12);
+    background-color: rgb(254, 217, 217);
+}
+.btn--icon-del{
+    color: rgb(252, 60, 12);
+}
+
+.btn-update{
+    border-radius:50%; 
+    border:solid 1px rgb(252, 60, 12); 
+    background-color: rgb(254, 217, 217);
+}
+.btn--icon-update{
+    color: rgb(252, 60, 12);
+}
 .detail-product{
     padding:0px 8px 0px 8px;
 }
-.detail-product  img{
+.detail-product-table{
+    display: flex;
+}
+.detail-product-table table{
+    width: 50%;
+}
+.detail-product-img-map{
+    width:50%;
+    border-radius: 15px;
+}
+.detail-product-img-product img{
     padding: 20px;
     width: 20%;
 }

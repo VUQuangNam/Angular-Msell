@@ -19,11 +19,6 @@
 .create__img{
     padding: 20px;
 }
-.create img{
-    border: solid 1px red;
-    width: 95%;
-    height: 100px;
-}
 
 .create__input-title{
     width: 98%;
@@ -42,9 +37,7 @@
 .detail-product-phone{
     padding-top: 20px;
 }
-.btn{
-    text-align: center;
-}
+
 .btn-success{
     height: 50px;
     width: 150px;
@@ -56,4 +49,8 @@
 }
 .description-intro{
     right: 15px;
+}
+.description-note{
+    color: red;
+    margin-top: 50px;
 }

@@ -1,21 +1,18 @@
-<div style="height: 100px; background-color: white;">
-    <div style="padding: 20px;font-size: 50px;">Gói đăng tin</div>
+<div class="package-title">
+    <div class="package-title-content">Gói đăng tin</div>
 </div>
-<div style="margin-top: 8px; background-color: white;">
-    <div class="package">
-        <div class="search">
-            <div>
-                <i class="fa fa-search" style="width: 30px;"></i>
-                <input style="border:solid 0px white;
-                                background-color: rgb(237, 240, 254);
-                                height: 30px;" type="text" placeholder="Search" (input)="search($event.target.value)">
-                <label for="s"></label>
-            </div>
+<div class="content">
+    <div class="package-content">
+        <div class="package-content-search">
+            <i class="fa fa-search package-content-search-icon"></i>
+            <input class="package-content-search-input" type="text" placeholder="Search"
+                (input)="search($event.target.value)">
+            <label for="s"></label>
         </div>
         <table class="table table-striped" [mfData]="package" #mf="mfDataTable" [mfRowsOnPage]="10">
-            <thead>
+            <thead class="table-thead">
                 <tr>
-                    <th style="width: 50px;text-align: center;">STT</th>
+                    <th class="table-thead-stt">STT</th>
                     <th>
                         <mfDefaultSorter by="packagecode">Mã gói</mfDefaultSorter>
                     </th>
@@ -33,7 +30,8 @@
 
                     </th>
                     <th>
-                        <mfDefaultSorter by="status" style="width: 100px; text-align: center;">Trạng thái
+                        <mfDefaultSorter class="table-thead-status" by="status">
+                            Trạng thái
                         </mfDefaultSorter>
                     </th>
                     <th>
@@ -41,36 +39,34 @@
                     </th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="table-tbody">
                 <tr *ngFor="let item of mf.data; let i = index">
-                    <td style="text-align: center;padding-top: 25px;">{{i+1}}</td>
-                    <td style="padding-top:25px">{{ item.packagecode }}</td>
-                    <td style="padding-top:25px">{{ item.name }}</td>
-                    <td style="padding-top:25px">{{ item.packagedate }}</td>
-                    <td style="padding-top:25px">{{ item.limitdate | date }}</td>
-                    <td style="padding-top:25px">{{ item.date | date }}</td>
-                    <td style="width: 150px; padding-top: 25px;">
+                    <td class="table-tbody-pt25 table-tbody-pt25-stt">{{i+1}}</td>
+                    <td class="table-tbody-pt25">{{ item.packagecode }}</td>
+                    <td class="table-tbody-pt25">{{ item.name }}</td>
+                    <td class="table-tbody-pt25">{{ item.packagedate }}</td>
+                    <td class="table-tbody-pt25">{{ item.limitdate | date }}</td>
+                    <td class="table-tbody-pt25">{{ item.date | date }}</td>
+                    <td class="table-tbody-pt25 table-tbody-pt25-status">
                         <div *ngIf="item.status">
-                            <span style="color: rgb(130, 218, 60);text-align: center;"> Đang hoạt
+                            <span class="table-tbody-pt25-status-true">
+                                Đang
+                                hoạt
                                 động</span>
                         </div>
                         <div *ngIf="!(item.status)">
-                            <span style="color: rgb(224, 54, 33);text-align: center;"> Đã xóa</span>
+                            <span class="table-tbody-pt25-status-false"> Đã xóa</span>
                         </div>
-
                     </td>
-                    <td style="width: 150px;">
+                    <td class="table-tbody-setting">
                         <div class="row">
-                            <div class="col-6" style="text-align: center;">
-                                <button type="button" class="btn"
-                                    style="border-radius:50%; border:solid 1px rgb(97, 230, 52); background-color: rgb(215, 247, 215);">
+                            <div class="col-6">
+                                <button type="button" class="btn btn-approved">
                                     <i style="color: rgb(97, 230, 52);" class="fa fa-check"></i></button>
                                 <div>Duyệt</div>
                             </div>
-                            <div class="col-6" style="text-align: center;">
-                                <button type="button" class="btn"
-                                    style="border-radius:50%; border:solid 1px rgb(252, 60, 12); background-color: rgb(254, 217, 217);"
-                                    (click)="deletePackage(item.id)">
+                            <div class="col-6">
+                                <button type="button" class="btn btn-del" (click)="deletePackage(item.id)">
                                     <i style="color: rgb(252, 60, 12);" class="fas fa-trash"></i>
                                 </button>
                                 <div>Xóa</div>

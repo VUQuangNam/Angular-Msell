@@ -1,20 +1,27 @@
-
 .toolbar{
     background: white;
     height: 100px;
 }
 .tollbar .btn{
- height: 100px;
+    height: 100px;
 }
 .toolbar .btn:hover{
     border-bottom: 5px solid blue;
 }
-.tollbar .router-link-bottom{
+.router-link-bottom:hover{
     border-bottom: 5px solid blue;
 }
 .toolbar--setting{
     float:right;
     padding: 25px;
+}
+.toolbar--user{
+    float: left;
+}
+.toolbar--user-icon{
+    height: 50px;
+    width: 50px;
+    padding: 8px;
 }
 
 .dropbtn {
@@ -24,8 +31,7 @@
     border: none;
     background-color: white;
   }
-  
-  .dropdown-content {
+.dropdown-content {
     display: none;
     position: absolute;
     right: 0;
@@ -35,15 +41,13 @@
     z-index: 1;
   }
   
-  .dropdown-content a {
+.dropdown-content a {
     padding: 12px 16px;
     text-decoration: none;
     display: block;
   }
-  
-  
-  .dropdown:hover .dropdown-content {
+.dropdown:hover .dropdown-content {
     display: block;
-  }
+}
   
  
