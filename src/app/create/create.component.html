@@ -10,12 +10,11 @@
                 <div class="form-group" [ngClass]="{'has-error':formData.submitted && !title.valid }">
                     <input ngModel #title="ngModel" type="text" minlength="30" class="form-control create__input-title"
                         name="title" required>
-                    <div *ngIf="formData.submitted && !title.valid" class="help-block">Tiêu đề
+                    <div *ngIf="formData.submitted && !title.valid" class="help-block">Tiêu đề không hợp lệ
                     </div>
                 </div>
             </div>
         </div>
-
         <div class="row description">
             <div class="col-2">
                 <h2 class="description description-title"> Mô tả (*)</h2>
@@ -24,7 +23,7 @@
                 <div class="form-group" [ngClass]="{'has-error':formData.submitted && !title.valid }">
                     <textarea class="create create__form--textarea" ngModel #description="ngModel" type="text"
                         minlength="50" class="form-control" name="description" required></textarea>
-                    <div *ngIf="formData.submitted && !description.valid" class="help-block"> Tiêu đề không hợp lệ
+                    <div *ngIf="formData.submitted && !description.valid" class="help-block"> Mô tả không hợp lệ
                     </div>
                 </div>
             </div>

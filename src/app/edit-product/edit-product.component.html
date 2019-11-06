@@ -1,17 +1,16 @@
 <app-hearder></app-hearder>
 <div class="create">
     <h1 style="padding: 60px 0px 0px 20px;">THÔNG TIN CƠ BẢN</h1>
-    <form [formGroup]="postForm" name="form" (ngSubmit)="formData.form.valid && onSubmit(formData)" #formData="ngForm">
+    <form name="form" (ngSubmit)="formData.form.valid && onSubmit(formData)" #formData="ngForm">
         <div class="form-group row">
             <div class="col-2">
                 <h2 class="create create__title_pl-20"> Tiêu đề (*)</h2>
             </div>
             <div class="col-10">
-                <div class="form-group">
-                    <input type="text" class="form-control create__input-title" formControlName="title">
-                    <div style="width: 98%;"
-                        *ngIf="postForm.controls['title'].invalid && (postForm.controls['title'].dirty || postForm.controls['title'].touched)"
-                        class="alert alert-warning">
+                <div class="form-group" [ngClass]="{'has-error':formData.submitted && !title.valid }">
+                    <input [ngModel]="product?.title" #title="ngModel" type="text" minlength="30"
+                        class="form-control create__input-title" name="title" required>
+                    <div *ngIf="formData.submitted && !title.valid" class="help-block">
                         Tiêu đề có ít nhất 30 ký tự
                     </div>
                 </div>
@@ -22,11 +21,11 @@
                 <h2 class="description description-title"> Mô tả (*)</h2>
             </div>
             <div class="col-7">
-                <div class="form-group">
-                    <textarea type="text" class="form-control" formControlName="city"></textarea>
-                    <div *ngIf="postForm.controls['city'].invalid && (postForm.controls['city'].dirty || postForm.controls['city'].touched)"
-                        class="alert alert-warning">
-                        Mô tả không hợp lệ
+                <div class="form-group" [ngClass]="{'has-error':formData.submitted && !title.valid }">
+                    <textarea class="create create__form--textarea" [ngModel]="product?.description"
+                        #description="ngModel" type="text" minlength="50" class="form-control" name="description"
+                        required></textarea>
+                    <div *ngIf="formData.submitted && !description.valid" class="help-block"> Mô tả không hợp lệ
                     </div>
                 </div>
             </div>
@@ -46,37 +45,89 @@
                 <div class="col-5">
                     <h3>Diện tích </h3>
                 </div>
-                <div class="col-7 form-group"><input type="text" class="form-control"></div>
+                <div class="col-7 form-group">
+                    <div class="form-group" [ngClass]="{'has-error':formData.submitted && !acreage.valid }">
+                        <input [ngModel]="product?.properties.acreage" #acreage="ngModel" type="number"
+                            class="form-control" name="acreage">
+                        <div *ngIf="formData.submitted && !acreage.valid" class="help-block">
+                            Giá trị lớn hơn 0
+                        </div>
+                    </div>
+                </div>
                 <div class="col-5">
                     <h3>Hình thức </h3>
                 </div>
-                <div class="col-7 form-group"><input type="text" class="form-control"></div>
+                <div class="col-7 form-group">
+                    <input type="text" class="form-control"></div>
                 <div class="col-5">
                     <h3>Tỉnh/Thành phố (*)</h3>
                 </div>
-                <div class="col-7 form-group"><input type="text" class="form-control"></div>
-                <div class="col-5">
-                    <h3>Diện tích </h3>
+                <div class="col-7 form-group">
+                    <div class="form-group" [ngClass]="{'has-error':formData.submitted && !city_id.valid }">
+                        <input [ngModel]="product?.city_id" #city_id="ngModel" type="text" class="form-control"
+                            name="city_id">
+                        <div *ngIf="formData.submitted && !city_id.valid" class="help-block">
+                        </div>
+                    </div>
                 </div>
-                <div class="col-7 form-group"><input type="text" class="form-control"></div>
+                <div class="col-5">
+                    <h3>Phường/Xã</h3>
+                </div>
+                <div class="col-7 form-group">
+                    <div class="form-group" [ngClass]="{'has-error':formData.submitted && !wards_id.valid }">
+                        <input [ngModel]="product?.wards_id" #wards_id="ngModel" type="text" class="form-control"
+                            name="wards_id">
+                        <div *ngIf="formData.submitted && !wards_id.valid" class="help-block">
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="col-6 row">
                 <div class="col-5">
                     <h3>Giá</h3>
                 </div>
-                <div class="col-7 form-group"><input type="text" class="form-control"></div>
+                <div class="col-7 form-group">
+                    <div class="form-group" [ngClass]="{'has-error':formData.submitted && !price.valid }">
+                        <input [ngModel]="product?.properties.price" #price="ngModel" type="number" class="form-control"
+                            name="price">
+                        <div *ngIf="formData.submitted && !price.valid" class="help-block">
+                            Giá trị lớn hơn 0
+                        </div>
+                    </div>
+                </div>
                 <div class="col-5">
                     <h3>Loại đất </h3>
                 </div>
-                <div class="col-7 form-group"><input type="text" class="form-control"></div>
+                <div class="col-7 form-group">
+                    <div class="form-group" [ngClass]="{'has-error':formData.submitted && !category.valid }">
+                        <input [ngModel]="product?.properties.category" #category="ngModel" type="text"
+                            class="form-control" name="category">
+                        <div *ngIf="formData.submitted && !category.valid" class="help-block">
+                        </div>
+                    </div>
+                </div>
                 <div class="col-5">
                     <h3>Quận/Huyện (*) </h3>
                 </div>
-                <div class="col-7 form-group"><input type="text" class="form-control"></div>
+                <div class="col-7 form-group">
+                    <div class="form-group" [ngClass]="{'has-error':formData.submitted && !district_id.valid }">
+                        <input [ngModel]="product?.district_id" #district_id="ngModel" type="text" class="form-control"
+                            name="district_id">
+                        <div *ngIf="formData.submitted && !district_id.valid" class="help-block">
+                        </div>
+                    </div>
+                </div>
                 <div class="col-5">
                     <h3>Đường/Phố(*) </h3>
                 </div>
-                <div class="col-7 form-group"><input type="text" class="form-control"></div>
+                <div class="col-7 form-group">
+                    <div class="form-group" [ngClass]="{'has-error':formData.submitted && !street_id.valid }">
+                        <input [ngModel]="product?.street_id" #street_id="ngModel" type="text" class="form-control"
+                            name="street_id">
+                        <div *ngIf="formData.submitted && !street_id.valid" class="help-block">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div style="padding: 20px;">
@@ -91,11 +142,25 @@
                 <div class="col-3">
                     <h3>Latitude </h3>
                 </div>
-                <div class="col-9 form-group"><input type="text" class="form-control"></div>
+                <div class="col-9 form-group">
+                    <div class="form-group" [ngClass]="{'has-error':formData.submitted && !latitude.valid }">
+                        <input [ngModel]="product?.coordinates.latitude" #latitude="ngModel" type="text"
+                            class="form-control" name="latitude">
+                        <div *ngIf="formData.submitted && !latitude.valid" class="help-block">
+                        </div>
+                    </div>
+                </div>
                 <div class="col-3">
                     <h3>Longitude </h3>
                 </div>
-                <div class="col-9 form-group"><input type="text" class="form-control"></div>
+                <div class="col-9 form-group">
+                    <div class="form-group" [ngClass]="{'has-error':formData.submitted && !longitude.valid }">
+                        <input [ngModel]="product?.coordinates.longitude" #longitude="ngModel" type="text"
+                            class="form-control" name="longitude">
+                        <div *ngIf="formData.submitted && !longitude.valid" class="help-block">
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="col-6"><img src="https://sa.tinhte.vn/2012/12/3253368_1.jpg" alt=""
                     style="height: 300px; width: 600px;"></div>
@@ -108,19 +173,49 @@
                 <div class="col-5">
                     <h3>Số tầng</h3>
                 </div>
-                <div class="col-7 form-group"><input type="text" class="form-control"></div>
+                <div class="col-7 form-group">
+                    <div class="form-group" [ngClass]="{'has-error':formData.submitted && !floors.valid }">
+                        <input [ngModel]="product?.properties.floors" #floors="ngModel" type="number"
+                            class="form-control" name="floors">
+                        <div *ngIf="formData.submitted && !floors.valid" class="help-block">
+                            Giá trị lớn hơn 0
+                        </div>
+                    </div>
+                </div>
                 <div class="col-5">
                     <h3>Số phòng tắm</h3>
                 </div>
-                <div class="col-7 form-group"><input type="text" class="form-control"></div>
+                <div class="col-7 form-group">
+                    <div class="form-group" [ngClass]="{'has-error':formData.submitted && !baths.valid }">
+                        <input [ngModel]="product?.properties.baths" #baths="ngModel" type="number" class="form-control"
+                            name="baths">
+                        <div *ngIf="formData.submitted && !baths.valid" class="help-block">
+                            Giá trị lớn hơn 0
+                        </div>
+                    </div>
+                </div>
                 <div class="col-5">
                     <h3>Đường trước cửa</h3>
                 </div>
-                <div class="col-7 form-group"><input type="text" class="form-control"></div>
+                <div class="col-7 form-group">
+                    <div class="form-group" [ngClass]="{'has-error':formData.submitted && !road_wide.valid }">
+                        <input [ngModel]="product?.properties.road_wide" #road_wide="ngModel" type="number"
+                            class="form-control" name="road_wide">
+                        <div *ngIf="formData.submitted && !road_wide.valid" class="help-block">
+                        </div>
+                    </div>
+                </div>
                 <div class="col-5">
                     <h3>Hướng nhà</h3>
                 </div>
-                <div class="col-7 form-group"><input type="text" class="form-control"></div>
+                <div class="col-7 form-group">
+                    <div class="form-group" [ngClass]="{'has-error':formData.submitted && !direction_balcony.valid }">
+                        <input [ngModel]="product?.properties.direction_balcony" #direction_balcony="ngModel"
+                            type="text" class="form-control" name="direction_balcony">
+                        <div *ngIf="formData.submitted && !direction_balcony.valid" class="help-block">
+                        </div>
+                    </div>
+                </div>
                 <div class="col-5">
                     <h3>Pháp lý</h3>
                 </div>
@@ -130,19 +225,47 @@
                 <div class="col-5">
                     <h3>Số phòng ngủ</h3>
                 </div>
-                <div class="col-7 form-group"><input type="text" class="form-control"></div>
+                <div class="col-7 form-group">
+                    <div class="form-group" [ngClass]="{'has-error':formData.submitted && !beds.valid }">
+                        <input [ngModel]="product?.properties.beds" #beds="ngModel" type="number" class="form-control"
+                            name="beds">
+                        <div *ngIf="formData.submitted && !beds.valid" class="help-block">
+                        </div>
+                    </div>
+                </div>
                 <div class="col-5">
                     <h3>Mặt tiền rộng</h3>
                 </div>
-                <div class="col-7 form-group"><input type="text" class="form-control"></div>
-                <div class="col-5">
-                    <h3>Số phòng tắm</h3>
+                <div class="col-7 form-group">
+                    <div class="form-group" [ngClass]="{'has-error':formData.submitted && !facade.valid }">
+                        <input [ngModel]="product?.properties.facade" #facade="ngModel" type="number"
+                            class="form-control" name="facade">
+                        <div *ngIf="formData.submitted && !facade.valid" class="help-block">
+                        </div>
+                    </div>
                 </div>
-                <div class="col-7 form-group"><input type="text" class="form-control"></div>
+                <div class="col-5">
+                    <h3>Số nhà vệ sinh</h3>
+                </div>
+                <div class="col-7 form-group">
+                    <div class="form-group" [ngClass]="{'has-error':formData.submitted && !toilets.valid }">
+                        <input [ngModel]="product?.properties.toilets" #toilets="ngModel" type="number"
+                            class="form-control" name="toilets">
+                        <div *ngIf="formData.submitted && !toilets.valid" class="help-block">
+                        </div>
+                    </div>
+                </div>
                 <div class="col-5">
                     <h3>Hướng ban công</h3>
                 </div>
-                <div class="col-7 form-group"><input type="text" class="form-control"></div>
+                <div class="col-7 form-group">
+                    <div class="form-group" [ngClass]="{'has-error':formData.submitted && !direction_balcony.valid }">
+                        <input [ngModel]="product?.properties.direction_balcony" #direction_balcony="ngModel"
+                            type="text" class="form-control" name="direction_balcony">
+                        <div *ngIf="formData.submitted && !direction_balcony.valid" class="help-block">
+                        </div>
+                    </div>
+                </div>
                 <div class="col-5">
                     <h3>Nội thất</h3>
                 </div>
@@ -153,19 +276,16 @@
             <h3> HÌNH ẢNH </h3>
             Tối thiểu một ảnh tối đa 10 ảnh
             <div style="height:20px; "></div>
-            <div class="row">
-                <div class="col-2"><img src="https://ezcloud.vn/wp-content/uploads/2018/05/homestay-la-gi.png" alt="">
-                </div>
-                <div class="col-2"><img src="https://ezcloud.vn/wp-content/uploads/2018/05/homestay-la-gi.png" alt="">
-                </div>
-                <div class="col-2"><img src="https://ezcloud.vn/wp-content/uploads/2018/05/homestay-la-gi.png" alt="">
-                </div>
-                <div class="col-2"><img src="https://ezcloud.vn/wp-content/uploads/2018/05/homestay-la-gi.png" alt="">
-                </div>
-                <div class="col-2"><img src="https://ezcloud.vn/wp-content/uploads/2018/05/homestay-la-gi.png" alt="">
-                </div>
-                <div class="col-2"><img src="https://ezcloud.vn/wp-content/uploads/2018/05/homestay-la-gi.png" alt="">
-                </div>
+            <div class="form-group">
+                <input multiple type="file" name="images" (change)="fileProgress($event)" />
+                <!-- <input multiple [ngModel]="product?.images" #images="ngModel" type="file" class="form-control"
+                    name="images" (change)="fileProgress($event)"> -->
+            </div>
+            <div *ngIf="fileUploadProgress">
+                Upload progress: {{ fileUploadProgress }}
+            </div>
+            <div class="image-preview" *ngIf="previewUrl">
+                <img [src]="previewUrl" height="100px" width="100px" />
             </div>
         </div>
         <div class="detail-product">
@@ -176,7 +296,15 @@
                         <div class="col-5">
                             <h3> Loại tin rao </h3>
                         </div>
-                        <div class="col-7 form-group"><input type="text" class="form-control"></div>
+                        <div class="col-7 form-group">
+                            <div class="form-group"
+                                [ngClass]="{'has-error':formData.submitted && !type_of_post.valid }">
+                                <input [ngModel]="product?.properties.type_of_post" #type_of_post="ngModel"
+                                    type="number" class="form-control" name="type_of_post">
+                                <div *ngIf="formData.submitted && !type_of_post.valid" class="help-block">
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-5">
                             <h3> Ngày bắt đầu </h3>
                         </div>

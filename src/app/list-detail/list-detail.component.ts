@@ -36,45 +36,18 @@ export class ListDetailComponent implements OnInit {
         );
     }
 
-    deletePost(id) {
+    deletePost(id, ix) {
         var result = confirm("Bạn có chắc chắn xóa sản phẩm này?");
         if (result === true) {
             this.productService.deleteProduct(id).subscribe((res) => {
-                if (res.success) return this.toastr.success('Delete', 'Xóa thành công!', {
-                    timeOut: 2000
-                }),
-                    window.location.reload()
-                // this.router.navigate(['/list']);
+                if (res.success) return this.toastr.success('Delete', 'Xóa thành công!'), this.products.splice(ix, 1);
                 this.toastr.error(res.message, 'Error');
+
             });
         } else {
             console.log("NO DELTE")
         }
     }
-
-    // deletePost(product_id) {
-    //     var result = confirm("Bạn có chắc chắn xóa sản phẩm này?");
-    //     if (result === true) {
-    //         for (let j = 0; j < this.products.length; j++) {
-    //             const product = this.products[j];
-    //             if (product.product_id === product_id) {
-    //                 console.log(product);
-    //                 this.productService.deleteProduct(product.product_id).subscribe(() => {
-    //                     console.log("delete " + product.product_id);
-    //                     const indexOf = this.products.indexOf(product);
-    //                     this.products.splice(indexOf, 1);
-    //                     this.toastr.success('Delete', 'Xóa thành công!', {
-    //                         timeOut: 2000
-    //                     })
-    //                     console.log("Delete");
-    //                 });
-    //             }
-    //         }
-    //     } else {
-    //         console.log("NO DELTE")
-    //     }
-    // }
-
 
 
     //Search

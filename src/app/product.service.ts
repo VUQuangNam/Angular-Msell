@@ -48,7 +48,9 @@ export class ProductService {
         });
     }
 
-    updateProduct(product: Product): Observable<Product> {
-        return this.http.put<Product>(`${this.API_URL}/${product.product_id}`, product);
+    updateProduct(product: any): Observable<any> {
+        return this.http.put<any>(this.API_URL, product, {
+            headers: this.headers
+        });
     }
 }

@@ -1,5 +1,5 @@
 <app-hearder></app-hearder>
-<div class="detail">
+<div class="detail" *ngIf="product">
     <div class="search">
         <div class="search-detail">
             <i class="fa fa-search search-detail search-detail-icon"></i>
@@ -8,34 +8,31 @@
             <label for="s"></label>
         </div>
     </div>
-    <table class="table" [mfData]="filteredProduct" #mf="mfDataTable" [mfRowsOnPage]="5">
+    <table class="table">
         <thead>
             <tr>
                 <th class="table table-STT">STT</th>
                 <th>
-                    <mfDefaultSorter by="product_id">
-                        Mã sản phẩm
-                    </mfDefaultSorter>
+                    Mã sản phẩm
                 </th>
                 <th>
-                    <mfDefaultSorter by="date">Ngày đăng</mfDefaultSorter>
+                    Ngày đăng
                 </th>
                 <th>
-                    <mfDefaultSorter by="city">Khu vực</mfDefaultSorter>
+                    Khu vực
                 </th>
                 <th class="table table-status" by="status">
                     Trạng thái
                 </th>
                 <th class="table table-setting">
-                    <mfDefaultSorter></mfDefaultSorter>
                 </th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td class="table-tbody">1</td>
+            <tr *ngIf="product">
+                <td class="table-tbody table-STT">1</td>
                 <td class="table-tbody">
-                    {{product.product_id}}
+                    {{product_id}}
                 </td>
                 <td class="table-tbody">{{product.date_created | date:'dd/MM/yyyy'}}</td>
                 <td class="table-tbody">{{product.city_id}}</td>
@@ -62,7 +59,7 @@
                             <div>Xóa</div>
                         </div>
                         <div class="col-4 table__btn--btn">
-                            <a [routerLink]="['/edit/product', product.id]">
+                            <a [routerLink]="['/edit/product', product_id]">
                                 <button type="button" class="btn btn-update" (click)="edit()">
                                     <i class="fas fa-trash btn--icon-update"></i>
                                 </button>
@@ -79,32 +76,31 @@
         <div class="row">
             <div class="col-12">
                 <span> Tiêu đề:</span>
-                Chính chủ cần bán căn biệt thự lô góc 2 mặt tiền, view biển và view sông, KĐT
-                biển An Viên, giá tốt.
+                {{product.title}}
             </div>
         </div>
         <div class="row">
             <div class="col-3">
-                <span>Giá:</span> 2.5 tỷ
+                <span>Giá:</span> {{product.properties.price}}
             </div>
             <div class="col-3">
-                <span>Diện tích:</span> 115 m2
+                <span>Diện tích:</span> {{product.properties.acreage}}
             </div>
             <div class="col-3">
                 <span>Hình thức:</span> Bán
             </div>
             <div class="col-3">
-                <span>Loại BĐS:</span>Căn hộ chung cư
+                <span>Loại BĐS:</span>{{product.properties.category}}
             </div>
         </div>
         <div class="row">
             <div class="col-12">
-                <span>Địa chỉ:</span> Sunshine Golden River, Quận Tây Hồ, Hà Nội.
+                <span>Địa chỉ:</span>{{product.properties.address}}
             </div>
         </div>
         <div class="row">
             <div class="col-4">
-                <span>Gói đăng tin:</span> <i><u>Vip đặc biệt</u></i>
+                <span>Gói đăng tin:</span> <i><u>{{product.properties.type_of_post}}</u></i>
             </div>
             <div class="col-4">
                 <span>Ngày bắt đầu:</span>
@@ -123,31 +119,31 @@
                 </tr>
                 <tr>
                     <td>Số phòng ngủ</td>
-                    <th>6</th>
+                    <th>{{product.properties.beds}}</th>
                 </tr>
                 <tr>
                     <td>Số phòng tắm</td>
-                    <th>5</th>
+                    <th>{{product.properties.baths}}</th>
                 </tr>
                 <tr>
                     <td>Số toilet</td>
-                    <th>5</th>
+                    <th>{{product.properties.toilets}}</th>
                 </tr>
                 <tr>
                     <td>Hướng nhà</td>
-                    <th>Đông</th>
+                    <th>{{product.properties.direction_balcony}}</th>
                 </tr>
                 <tr>
                     <td>Hướng ban công</td>
-                    <th>Đông</th>
+                    <th>{{product.properties.direction_balcony}}</th>
                 </tr>
                 <tr>
                     <td>Mặt tiền rộng</td>
-                    <th>3 m2</th>
+                    <th>{{product.properties.facade}}</th>
                 </tr>
                 <tr>
                     <td>Đường trước cửa</td>
-                    <th>3m2</th>
+                    <th>{{product.properties.road_wide}}</th>
                 </tr>
                 <tr>
                     <td>Pháp lý</td>

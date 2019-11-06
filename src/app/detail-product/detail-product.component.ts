@@ -9,9 +9,7 @@ import { ToastrService } from 'ngx-toastr';
     styleUrls: ['./detail-product.component.scss']
 })
 export class DetailProductComponent implements OnInit {
-    filteredProduct: any;
-    product: any = {};
-    products: any;
+    product: any;
     product_id: string;
     constructor(
         private productService: ProductService,
@@ -25,7 +23,7 @@ export class DetailProductComponent implements OnInit {
         this.product_id = id;
         this.productService.getProductById(id).subscribe(
             next => {
-                this.product = next;
+                this.product = next.data;
                 console.log(this.product);
             },
             error => {
