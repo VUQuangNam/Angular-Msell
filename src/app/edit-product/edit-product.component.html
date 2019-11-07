@@ -64,10 +64,14 @@
                 </div>
                 <div class="col-7 form-group">
                     <div class="form-group" [ngClass]="{'has-error':formData.submitted && !city_id.valid }">
-                        <input [ngModel]="product?.city_id" #city_id="ngModel" type="text" class="form-control"
-                            name="city_id">
-                        <div *ngIf="formData.submitted && !city_id.valid" class="help-block">
-                        </div>
+                        <!-- <input [ngModel]="product?.city_id" #city_id="ngModel" type="text" class="form-control"
+                            name="city_id"> -->
+
+                        <!-- SELECT CITY -->
+                        <select (change)='onSeclet(1,$event.target.value)' [ngModel]="product?.city_id"
+                            #city_id="ngModel" type="text" class="form-control" name="city_id">
+                            <option *ngFor="let city of cityData" [value]="city.code">{{city.name}}</option>
+                        </select>
                     </div>
                 </div>
                 <div class="col-5">
@@ -75,8 +79,17 @@
                 </div>
                 <div class="col-7 form-group">
                     <div class="form-group" [ngClass]="{'has-error':formData.submitted && !wards_id.valid }">
-                        <input [ngModel]="product?.wards_id" #wards_id="ngModel" type="text" class="form-control"
-                            name="wards_id">
+                        <!-- <input [ngModel]="product?.wards_id" #wards_id="ngModel" type="text" class="form-control"
+                            name="wards_id"> -->
+
+                        <!--SELECT WARDS-->
+                        <select (change)='onSeclet($event.target.value)' [ngModel]="product?.wards_id"
+                            #wards_id="ngModel" type="text" class="form-control" name="wards_id">
+                            <option *ngFor="let wards of wardsData" [value]="wards.code">
+                                {{wards.name}}
+                            </option>
+                        </select>
+                        <!-- Validate  -->
                         <div *ngIf="formData.submitted && !wards_id.valid" class="help-block">
                         </div>
                     </div>
@@ -111,10 +124,13 @@
                 </div>
                 <div class="col-7 form-group">
                     <div class="form-group" [ngClass]="{'has-error':formData.submitted && !district_id.valid }">
-                        <input [ngModel]="product?.district_id" #district_id="ngModel" type="text" class="form-control"
-                            name="district_id">
-                        <div *ngIf="formData.submitted && !district_id.valid" class="help-block">
-                        </div>
+                        <!-- <input [ngModel]="product?.district_id" #district_id="ngModel" type="text" class="form-control"
+                            name="district_id"> -->
+                        <select (change)='onSeclet(2,$event.target.value)' [ngModel]="product?.district_id"
+                            #district_id="ngModel" type="text" class="form-control" name="district_id">
+                            <option *ngFor="let district of districtData" [value]="district.code">{{district.name}}
+                            </option>
+                        </select>
                     </div>
                 </div>
                 <div class="col-5">
@@ -122,10 +138,13 @@
                 </div>
                 <div class="col-7 form-group">
                     <div class="form-group" [ngClass]="{'has-error':formData.submitted && !street_id.valid }">
-                        <input [ngModel]="product?.street_id" #street_id="ngModel" type="text" class="form-control"
-                            name="street_id">
-                        <div *ngIf="formData.submitted && !street_id.valid" class="help-block">
-                        </div>
+                        <!-- <input [ngModel]="product?.street_id" #street_id="ngModel" type="text" class="form-control"
+                            name="street_id"> -->
+
+                        <select (change)='onSeclet($event.target.value)' [ngModel]="product?.street_id"
+                            #street_id="ngModel" type="text" class="form-control" name="street_id">
+                            <option *ngFor="let street of streetData" [value]="street.code">{{street.name}}</option>
+                        </select>
                     </div>
                 </div>
             </div>

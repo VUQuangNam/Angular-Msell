@@ -3,6 +3,10 @@ import { Product } from '../product';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../product.service';
 import { ToastrService } from 'ngx-toastr';
+var citys = require('../../assets/JSON/citys.json');
+var wards = require('../../assets/JSON/wards.json');
+var districts = require('../../assets/JSON/districts.json');
+var streets = require('../../assets/JSON/streets.json');
 
 @Component({
     selector: 'app-edit-product',
@@ -10,6 +14,10 @@ import { ToastrService } from 'ngx-toastr';
     styleUrls: ['./edit-product.component.scss']
 })
 export class EditProductComponent implements OnInit {
+    cityData: any = citys;
+    districtData: any = [];
+    wardsData: any = [];
+    streetData: any = [];
     product: Product;
     keypress: any;
     fileData: File = null;
@@ -25,6 +33,21 @@ export class EditProductComponent implements OnInit {
     ) { }
 
 
+    onSeclet(type: number, value?: any) {
+        console.log(value, type);
+        switch (type) {
+            case 1:
+                this.districtData = districts.filter(x => x.parent_code === value);
+                break;
+            case 2:
+                this.wardsData = wards.filter(x => x.parent_code === value);
+                this.streetData = streets.find(x => x.code === value).streets;
+                break;
+            default:
+                break;
+        }
+    }
+
     ngOnInit() {
         const id = this.route.snapshot.paramMap.get('id');
         this.product_id = id;
@@ -32,7 +55,11 @@ export class EditProductComponent implements OnInit {
             next => {
                 this.product = next.data;
                 console.log(this.product);
-                // this.postForm.patchValue(this.product);
+                this.districtData = districts.filter(x => x.parent_code === this.product.city_id);
+                this.wardsData = wards.filter(x => x.parent_code === this.product.district_id);
+                this.streetData = streets.find(x => x.code === this.product.district_id).streets;
+                // this.wardsData = wards.filter(x => x.parent_code === this.product.wards_id);
+                // this.streetData = streets.find(x => x.code === this.product.street_id).streets;
             }, error => {
                 console.log(error);
                 this.product = null;

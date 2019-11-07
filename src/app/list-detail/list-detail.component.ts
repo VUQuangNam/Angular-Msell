@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ProductService } from '../product.service';
 import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
-
+var citys = require('../../assets/JSON/citys.json');
 
 @Component({
     selector: 'app-list-detail',
@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
     styleUrls: ['./list-detail.component.scss']
 })
 export class ListDetailComponent implements OnInit {
+    cityData: any = citys;
     keypress: any;
     products: any;
     filteredProduct = [];
@@ -21,34 +22,37 @@ export class ListDetailComponent implements OnInit {
         private route: ActivatedRoute,
         private http: HttpClient,
         private toastr: ToastrService
-    ) {
+    ) { }
 
-    }
     ngOnInit() {
         this.productService.getListProductsByUser().subscribe(
             next => {
                 if (!next.success) return this.toastr.error('Error', 'Toastr fun!', {
                     timeOut: 3000
                 });
-                console.log(next.data);
                 return this.products = next.data || [];
             }
         );
     }
 
-    deletePost(id, ix) {
+    deletePost(id, ix?) {
         var result = confirm("Bạn có chắc chắn xóa sản phẩm này?");
         if (result === true) {
+            function checkDelete(checkdelete) {
+                return checkdelete.product_id == id;
+            }
+            ix = this.products.findIndex(checkDelete);
+            console.log(ix);
             this.productService.deleteProduct(id).subscribe((res) => {
-                if (res.success) return this.toastr.success('Delete', 'Xóa thành công!'), this.products.splice(ix, 1);
+                console.log(res);
+                if (res.success) return this.toastr.success('Delete', 'Xóa thành công!'),
+                    this.products.splice(ix, 1);
                 this.toastr.error(res.message, 'Error');
-
             });
         } else {
             console.log("NO DELTE")
         }
     }
-
 
     //Search
     onSearch(type?: number, value?: any) {
@@ -65,8 +69,8 @@ export class ListDetailComponent implements OnInit {
                     }
                     let check = this.filterselect.findIndex(x => x.type === type && x.value === value);
                     if (check == -1) {
-                        console.log(this.filterselect);
                         this.filterselect.push(obj);
+                        console.log(obj);
                     } else {
                         this.filterselect.splice(check, 1);
                     }
@@ -74,7 +78,7 @@ export class ListDetailComponent implements OnInit {
             } else {
                 let obj = {
                     type: type,
-                    value: value
+                    value: value.split("_")
                 }
                 let check = this.filterselect.findIndex(x => x.type === type && x.value === value);
                 if (check == -1) {
@@ -83,24 +87,24 @@ export class ListDetailComponent implements OnInit {
                     this.filterselect.splice(check, 1);
                 }
             }
+
+            //sắp xếp lại mảng select
             this.filterselect = this.filterselect.sort((a1, a2) => {
                 return a1.type - a2.type;
             });
         }
-        this.filterselect.forEach(element => {
 
+        this.filterselect.forEach(element => {
             if (element.type === 0) {
-                let item = this.products.filter(x => x.city_id === element.value);
+                let item = this.products.filter(x => x.city_id === element.value[1]);
                 if (item.length > 0) {
                     this.filteredProduct = this.filteredProduct.concat(item);
-                    console.log(this.filteredProduct.length);
                 }
             }
             else {
                 if (this.filterselect.length === 1 && element.type === 1) {
                     clearTimeout(this.keypress);
                     this.keypress = setTimeout(async () => {
-                        console.log("done");
                         this.filteredProduct = this.products.filter(x => x.product_id.toLowerCase().includes(element.value.toLowerCase()))
                     }, 500)
 
@@ -114,10 +118,11 @@ export class ListDetailComponent implements OnInit {
             }
         });
     }
+
+
     //Detele select
     onRemoveSelect(value) {
-        console.log("onremove");
         let check = this.filterselect.findIndex(x => x == value);
-        return this.filterselect.splice(check, 1), console.log(this.filterselect), this.onSearch();
+        return this.filterselect.splice(check, 1), this.onSearch();
     }
 }

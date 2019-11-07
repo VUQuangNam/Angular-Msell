@@ -42,17 +42,15 @@
             <tbody class="table-tbody">
                 <tr *ngFor="let item of mf.data; let i = index">
                     <td class="table-tbody-pt25 table-tbody-pt25-stt">{{i+1}}</td>
-                    <td class="table-tbody-pt25">{{ item.packagecode }}</td>
-                    <td class="table-tbody-pt25">{{ item.name }}</td>
-                    <td class="table-tbody-pt25">{{ item.packagedate }}</td>
-                    <td class="table-tbody-pt25">{{ item.limitdate | date }}</td>
-                    <td class="table-tbody-pt25">{{ item.date | date }}</td>
+                    <td class="table-tbody-pt25">{{ item.package_id }}</td>
+                    <td class="table-tbody-pt25">{{ item.package_name }}</td>
+                    <td class="table-tbody-pt25">{{ item.price_a_day }}</td>
+                    <td class="table-tbody-pt25">{{item.date_limit}}</td>
+                    <td class="table-tbody-pt25">{{ item.date_created | date:'dd/MM/yyyy' }}</td>
                     <td class="table-tbody-pt25 table-tbody-pt25-status">
                         <div *ngIf="item.status">
                             <span class="table-tbody-pt25-status-true">
-                                Đang
-                                hoạt
-                                động</span>
+                                Đang hoạt động</span>
                         </div>
                         <div *ngIf="!(item.status)">
                             <span class="table-tbody-pt25-status-false"> Đã xóa</span>
@@ -66,7 +64,7 @@
                                 <div>Duyệt</div>
                             </div>
                             <div class="col-6">
-                                <button type="button" class="btn btn-del" (click)="deletePackage(item.id)">
+                                <button type="button" class="btn btn-del" (click)="deletePackage(package.package_id)">
                                     <i style="color: rgb(252, 60, 12);" class="fas fa-trash"></i>
                                 </button>
                                 <div>Xóa</div>

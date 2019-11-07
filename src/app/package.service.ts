@@ -9,41 +9,46 @@ import { map } from 'rxjs/operators';
     providedIn: 'root'
 })
 export class PackageService {
-    packages: IPackage[] = [];
-    private readonly API_URL = 'http://5da3dc1aa6593f001407a03e.mockapi.io/api/v1/package';
+    headers: any = {}
+    packages = [];
+    private readonly API_URL = 'http://dev.msell.com.vn/api/packages';
 
 
     constructor(private http: HttpClient) {
+        let user = localStorage.getItem('currentUser');
+        user = JSON.parse(user);
+        this.headers = {
+            'Content-Type': 'application/json',
+            'Cache-Control': 'no-cache',
+            'x-request-id': user['token']
+        }
+    }
+    getListIPackagesByUser(): Observable<any> {
+        return this.http.get<any>(this.API_URL, {
+            headers: this.headers
+        });
+    }
 
-    }
-    getIPackages(count = 10000): Observable<IPackage[]> {
-        return this.http.get<IPackage[]>(this.API_URL).pipe(
-            map(response => response.filter((packages, i) => i < count))
-        );
-    }
-
-    getIPackageById(id: number): Observable<IPackage> {
-        return this.http.get<IPackage>(`${this.API_URL}/${(id)}`);
-    }
+    // getIPackageById(package_id: string): Observable<IPackage> {
+    //     return this.http.get<IPackage>(`${this.API_URL}/${(id)}`);
+    // }
 
 
     //Create
-    createIPackage(packages: IPackage): Observable<IPackage> {
-        return this.http.post<IPackage>(this.API_URL, packages);
+    // createIPackage(packages: IPackage): Observable<IPackage> {
+    //     return this.http.post<IPackage>(this.API_URL, packages);
+    // }
+
+    deleteIPackage(package_id: string): Observable<any> {
+        return this.http.put(`${this.API_URL}/${package_id}`, null, {
+            headers: this.headers
+        });
     }
 
 
+    // updateIPackage(packages: IPackage): Observable<IPackage> {
+    //     return this.http.put<IPackage>(`${this.API_URL}/${packages.id}`, packages);
+    // }
 
-    deleteIPackage(id: number): Observable<any> {
-        return this.http.delete(`${this.API_URL}/${id}`);
 
-    }
-
-    updateIPackage(packages: IPackage): Observable<IPackage> {
-        return this.http.put<IPackage>(`${this.API_URL}/${packages.id}`, packages);
-    }
-
-    getListIPackagesByUser(): Observable<any> {
-        return this.http.get<any>(this.API_URL);
-    }
 }

@@ -65,7 +65,11 @@
                 </div>
                 <div class="col-7 form-group">
                     <div class="form-group" [ngClass]="{'has-error':formData.submitted && !city_id.valid }">
-                        <input ngModel #city_id="ngModel" type="number" class="form-control" name="city_id">
+                        <!-- <input ngModel #city_id="ngModel" type="number" class="form-control" name="city_id"> -->
+                        <select (change)='onSeclet(1,$event.target.value)' ngModel #city_id="ngModel"
+                            class="form-control" name="city_id">
+                            <option *ngFor="let city of cityData" [value]="city.code">{{city.name}}</option>
+                        </select>
                     </div>
                 </div>
                 <div class="col-5">
@@ -73,7 +77,11 @@
                 </div>
                 <div class="col-7 form-group">
                     <div class="form-group" [ngClass]="{'has-error':formData.submitted && !wards_id.valid }">
-                        <input ngModel #wards_id="ngModel" type="number" class="form-control" name="wards_id">
+                        <!-- <input ngModel #wards_id="ngModel" type="number" class="form-control" name="wards_id"> -->
+                        <select (change)='onSeclet($event.target.value)' ngModel #wards_id="ngModel"
+                            class="form-control" name="wards_id">
+                            <option *ngFor="let wards of wardsData" [value]="wards.code">{{wards.name}}</option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -95,7 +103,14 @@
                 </div>
                 <div class="col-7 form-group">
                     <div class="form-group" [ngClass]="{'has-error':formData.submitted && !district_id.valid }">
-                        <input ngModel #district_id="ngModel" type="number" class="form-control" name="district_id">
+                        <!-- <input ngModel #district_id="ngModel" type="number" class="form-control" name="district_id"> -->
+                        <!-- <div *ngIf="(districtData.code === cityData.code)"> -->
+                        <select (change)='onSeclet(2,$event.target.value)' ngModel #district_id="ngModel"
+                            class="form-control" name="district_id">
+                            <option *ngFor="let district of districtData" [value]="district.code">
+                                {{district.name}}</option>
+                        </select>
+                        <!-- </div> -->
                     </div>
                 </div>
                 <div class="col-5">
@@ -103,7 +118,12 @@
                 </div>
                 <div class="col-7 form-group">
                     <div class="form-group" [ngClass]="{'has-error':formData.submitted && !street_id.valid }">
-                        <input ngModel #street_id="ngModel" type="number" class="form-control" name="street_id">
+                        <!-- <input ngModel #street_id="ngModel" type="number" class="form-control" name="street_id"> -->
+                        <select (change)='onSeclet($event.target.value)' ngModel #street_id="ngModel"
+                            class="form-control" name="street_id">
+                            <option *ngFor="let streets of streetData" [value]="streets.code">{{streets.name}}
+                            </option>
+                        </select>
                     </div>
                 </div>
             </div>

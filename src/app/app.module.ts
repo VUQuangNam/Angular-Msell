@@ -22,6 +22,7 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { RegisterComponent } from './register/register.component';
 import { ViewsComponent } from './views/views.component';
 import { ToastrModule } from 'ngx-toastr';
+import { TestMapComponent } from './test-map/test-map.component';
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import { ToastrModule } from 'ngx-toastr';
         SignInComponent,
         RegisterComponent,
         ViewsComponent,
+        TestMapComponent,
     ],
     imports: [
         BrowserModule,

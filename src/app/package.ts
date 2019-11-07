@@ -1,9 +1,9 @@
 export interface IPackage {
-    id: number;
-    packagecode: string;
-    name: string;
-    packagedate: number;
-    limitdate: number;
-    date: Date;
-    status: boolean
+    is_limited: boolean,
+    package_id: string,
+    package_name: string,
+    price_a_day: number,
+    date_limit: number,
+    description: string,
+    date_created: string,
 }

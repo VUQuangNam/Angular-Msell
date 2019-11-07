@@ -42,7 +42,6 @@ export class ProductService {
     }
 
     deleteProduct(product_id: string): Observable<any> {
-        console.log(this.headers, product_id);
         return this.http.put(`${this.API_URL}/${product_id}`, null, {
             headers: this.headers
         });
