@@ -1,4 +1,6 @@
-import { Component, OnInit, } from '@angular/core';
+import { Component } from '@angular/core';
+import { MouseEvent } from '@agm/core';
+
 import { ProductService } from '../product.service';
 import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
@@ -110,4 +112,33 @@ export class CreateComponent {
                 },
             );
     }
+    // google maps zoom level
+    zoom: number = 8;
+
+    // initial center position for the map
+    lat: number = 21.1442;
+    lng: number = 105.29310000000001;
+
+
+    // clickedMarker(label: string, index: number) {
+    //     console.log(`clicked the marker: ${label || index}`)
+    // }
+
+    mapClicked($event: MouseEvent) {
+        this.markers.push({
+            lat: $event.coords.lat,
+            lng: $event.coords.lng,
+            draggable: true
+        });
+        console.log(this.markers);
+
+    }
+
+    markerDragEnd(m: marker, $event: MouseEvent) {
+        console.log('dragEnd', m, $event);
+    }
+
+    markers: marker[] = [
+
+    ]
 }

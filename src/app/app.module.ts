@@ -22,7 +22,7 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { RegisterComponent } from './register/register.component';
 import { ViewsComponent } from './views/views.component';
 import { ToastrModule } from 'ngx-toastr';
-import { TestMapComponent } from './test-map/test-map.component';
+import { AgmCoreModule } from '@agm/core';
 
 
 @NgModule({
@@ -39,7 +39,6 @@ import { TestMapComponent } from './test-map/test-map.component';
         SignInComponent,
         RegisterComponent,
         ViewsComponent,
-        TestMapComponent,
     ],
     imports: [
         BrowserModule,
@@ -54,7 +53,10 @@ import { TestMapComponent } from './test-map/test-map.component';
         DataTableModule,
         MatSortModule,
         NgbModule,
-        ToastrModule.forRoot()
+        ToastrModule.forRoot(),
+        AgmCoreModule.forRoot({
+            apiKey: 'AIzaSyBRO5u5uW021mkthPMMcLDr8gVVAkOssMc'
+        })
     ],
     providers: [],
     bootstrap: [AppComponent],

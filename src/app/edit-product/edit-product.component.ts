@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MouseEvent } from '@agm/core';
 import { Product } from '../product';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../product.service';
@@ -28,7 +29,6 @@ export class EditProductComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private productService: ProductService,
-        private router: Router,
         private toastr: ToastrService
     ) { }
 
@@ -54,12 +54,9 @@ export class EditProductComponent implements OnInit {
         this.productService.getProductById(id).subscribe(
             next => {
                 this.product = next.data;
-                console.log(this.product);
                 this.districtData = districts.filter(x => x.parent_code === this.product.city_id);
                 this.wardsData = wards.filter(x => x.parent_code === this.product.district_id);
                 this.streetData = streets.find(x => x.code === this.product.district_id).streets;
-                // this.wardsData = wards.filter(x => x.parent_code === this.product.wards_id);
-                // this.streetData = streets.find(x => x.code === this.product.street_id).streets;
             }, error => {
                 console.log(error);
                 this.product = null;
@@ -127,4 +124,28 @@ export class EditProductComponent implements OnInit {
             error => console.log(error)
         );
     }
+
+    // google maps zoom level
+    zoom: number = 8;
+
+    // initial center position for the map
+    lat: number = 10.99;
+    lng: number = 106.355;
+
+    // clickedMarker(label: string, index: number) {
+    //     console.log(`clicked the marker: ${label || index}`)
+    // }
+
+    mapClicked($event: MouseEvent) {
+        this.markers.push({
+            lat: $event.coords.lat,
+            lng: $event.coords.lng,
+            draggable: true
+        });
+        console.log(this.markers);
+    }
+    markerDragEnd(m: marker, $event: MouseEvent) {
+        console.log('dragEnd', m, $event);
+    }
+    markers: marker[] = []
 }

@@ -154,8 +154,14 @@
                     </div>
                 </div>
             </div>
-            <div class="col-6"><img src="https://sa.tinhte.vn/2012/12/3253368_1.jpg" alt=""
-                    style="height: 350px; width: 650px;"></div>
+            <div class="col-6">
+                <agm-map style="height: 350px; width: 610px;" [latitude]="lat" [longitude]="lng" [zoom]="zoom"
+                    [disableDefaultUI]="false" [zoomControl]="false" (mapClick)="mapClicked($event)">
+                    <agm-marker *ngFor="let m of markers; let i = index" (markerClick)="clickedMarker(m.label, i)"
+                        [latitude]="m.lat" [longitude]="m.lng" [label]="m.label" [markerDraggable]="m.draggable">
+                    </agm-marker>
+                </agm-map>
+            </div>
         </div>
         <div style="padding: 20px;">
             <h3> Thông tin chi tiết </h3>
