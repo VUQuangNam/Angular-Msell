@@ -73,12 +73,12 @@
                     </div>
                 </div>
                 <div class="col-5">
-                    <h3>Phường </h3>
+                    <h3>Phường/Xã </h3>
                 </div>
                 <div class="col-7 form-group">
                     <div class="form-group" [ngClass]="{'has-error':formData.submitted && !wards_id.valid }">
                         <!-- <input ngModel #wards_id="ngModel" type="number" class="form-control" name="wards_id"> -->
-                        <select (change)='onSeclet($event.target.value)' ngModel #wards_id="ngModel"
+                        <select (change)='onSeclet(3,$event.target.value)' ngModel #wards_id="ngModel"
                             class="form-control" name="wards_id">
                             <option *ngFor="let wards of wardsData" [value]="wards.code">{{wards.name}}</option>
                         </select>
@@ -142,7 +142,8 @@
                 </div>
                 <div class="col-9 form-group">
                     <div class="form-group" [ngClass]="{'has-error':formData.submitted && !latitude.valid }">
-                        <input ngModel #latitude="ngModel" type="number" class="form-control" name="latitude">
+                        <input (input)="input_lat($event.target.value)" [ngModel]="markers[0]?.lat" #latitude="ngModel"
+                            type="number" class="form-control" name="latitude">
                     </div>
                 </div>
                 <div class="col-3">
@@ -150,15 +151,16 @@
                 </div>
                 <div class="col-9 form-group">
                     <div class="form-group" [ngClass]="{'has-error':formData.submitted && !longitude.valid }">
-                        <input ngModel #longitude="ngModel" type="number" class="form-control" name="longitude">
+                        <input (input)="input_lng($event.target.value)" [ngModel]="markers[0]?.lng" #longitude="ngModel"
+                            type="number" class="form-control" name="longitude">
                     </div>
                 </div>
             </div>
             <div class="col-6">
-                <agm-map style="height: 350px; width: 610px;" [latitude]="lat" [longitude]="lng" [zoom]="zoom"
-                    [disableDefaultUI]="false" [zoomControl]="false" (mapClick)="mapClicked($event)">
-                    <agm-marker *ngFor="let m of markers; let i = index" (markerClick)="clickedMarker(m.label, i)"
-                        [latitude]="m.lat" [longitude]="m.lng" [label]="m.label" [markerDraggable]="m.draggable">
+                <agm-map style="height: 350px; width: 610px;" [(latitude)]="lat_central" [(longitude)]="lng_central"
+                    [zoom]="zoom" [disableDefaultUI]="false" [zoomControl]="false">
+                    <agm-marker *ngFor="let m of markers" [latitude]="m.lat" [longitude]="m.lng" [label]="m.label"
+                        [markerDraggable]="m.draggable" (dragEnd)="markerDragEnd(m, $event)">
                     </agm-marker>
                 </agm-map>
             </div>
@@ -236,16 +238,23 @@
         <div class="create__img">
             <h3> HÌNH ẢNH </h3>
             Tối thiểu một ảnh tối đa 10 ảnh
-            <div style="height:20px; "></div>
             <div class="form-group">
-                <input multiple type="file" name="images" (change)="fileProgress($event)" />
+                <form [formGroup]="uploadForm">
+                    <div class="button-wrapper">
+                        <span class="label">
+                            Upload File
+                        </span>
+                        <input type="file" multiple name="data_upload" (change)="onChange($event)" id="upload"
+                            class="upload-box" placeholder="Upload File" style="height: 30px;">
+                    </div>
+                    <div class="image-preview" style="display: flex;">
+                        <div *ngFor="let item of urls">
+                            <img style="margin-right:20px;" [src]="item" height="100px" width="100px" />
+                        </div>
+                    </div>
+                </form>
             </div>
-            <div *ngIf="fileUploadProgress">
-                Upload progress: {{ fileUploadProgress }}
-            </div>
-            <div class="image-preview" *ngIf="previewUrl">
-                <img [src]="previewUrl" height="100px" width="100px" />
-            </div>
+
         </div>
         <div class="detail-product">
             <h2>LỊCH ĐĂNG TIN</h2>
@@ -262,7 +271,11 @@
                     <div class="col-5">
                         <h3> Ngày bắt đầu </h3>
                     </div>
-                    <div class="col-7 form-group"><input type="date" class="form-control"></div>
+                    <div class="col-7">
+                        <div class="form-group" [ngClass]="{'has-error':formData.submitted && !date_created.valid }">
+                            <input ngModel #date_created="ngModel" type="date" class="form-control" name="date_created">
+                        </div>
+                    </div>
                 </div>
                 <div class="col-6 row">
                     <div class="col-5">

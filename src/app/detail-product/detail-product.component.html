@@ -104,8 +104,7 @@
             </div>
             <div class="col-4">
                 <span>Ngày bắt đầu:</span>
-                19-09-2019
-            </div>
+                {{product.date_created|date:'dd/MM/yyyy'}} </div>
             <div class="col-4">
                 <span>Ngày kết thúc:</span>
                 30-09-2019
@@ -154,9 +153,11 @@
                     <th>Đầy đủ</th>
                 </tr>
             </table>
-            <img class="detail-product-img-map"
-                src="https://lh3.googleusercontent.com/gRixG4OCS4S7Fb0Ztm8UQVkIaj3z5gKECXOiR2D2ldvS6oZEVfmNuii4tvh-_DjI_qNRJOGO=w640-h400-e365"
-                alt="">
+            <agm-map style="height: 500px; width: 610px;" [(latitude)]="lat_central" [(longitude)]="lng_central"
+                [zoom]="zoom" [disableDefaultUI]="false" [zoomControl]="false">
+                <agm-marker *ngFor="let m of markers" [latitude]="m.lat" [longitude]="m.lng" [label]="m.label">
+                </agm-marker>
+            </agm-map>
         </div>
         <div class="detail-product-img-product">
             <img src="https://ezcloud.vn/wp-content/uploads/2018/05/homestay-la-gi.png" alt="">

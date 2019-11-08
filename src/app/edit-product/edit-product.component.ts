@@ -15,6 +15,7 @@ var streets = require('../../assets/JSON/streets.json');
     styleUrls: ['./edit-product.component.scss']
 })
 export class EditProductComponent implements OnInit {
+    marker_cental: any;
     cityData: any = citys;
     districtData: any = [];
     wardsData: any = [];
@@ -43,6 +44,22 @@ export class EditProductComponent implements OnInit {
                 this.wardsData = wards.filter(x => x.parent_code === value);
                 this.streetData = streets.find(x => x.code === value).streets;
                 break;
+            case 3:
+                this.wardsData.forEach(element => {
+                    if (element.code === value) {
+                        this.markers.splice(0, 1, {
+                            lat: element.locations.latitude,
+                            lng: element.locations.longitude,
+                            draggable: true
+                        })
+                        console.log(this.markers);
+                        this.lat_central = element.locations.latitude;
+                        this.lng_central = element.locations.longitude
+                        this.zoom = 14;
+                        console.log(this.zoom, this.lng_central, this.lat_central);
+                    }
+                });
+                break;
             default:
                 break;
         }
@@ -54,9 +71,20 @@ export class EditProductComponent implements OnInit {
         this.productService.getProductById(id).subscribe(
             next => {
                 this.product = next.data;
+                this.marker_cental = [
+                    {
+                        lat: this.product.coordinates.latitude,
+                        lng: this.product.coordinates.longitude,
+                        draggable: true
+                    }
+                ];
+                this.markers = this.marker_cental;
+                this.lat_central = +this.marker_cental[0].lat;
+                this.lng_central = +this.marker_cental[0].lng;
                 this.districtData = districts.filter(x => x.parent_code === this.product.city_id);
                 this.wardsData = wards.filter(x => x.parent_code === this.product.district_id);
                 this.streetData = streets.find(x => x.code === this.product.district_id).streets;
+
             }, error => {
                 console.log(error);
                 this.product = null;
@@ -124,28 +152,49 @@ export class EditProductComponent implements OnInit {
             error => console.log(error)
         );
     }
-
     // google maps zoom level
-    zoom: number = 8;
-
-    // initial center position for the map
-    lat: number = 10.99;
-    lng: number = 106.355;
-
+    zoom: number = 14;
     // clickedMarker(label: string, index: number) {
     //     console.log(`clicked the marker: ${label || index}`)
     // }
 
-    mapClicked($event: MouseEvent) {
-        this.markers.push({
+    // mapClicked($event: MouseEvent) {
+    //     this.markers.splice(0, 1, {
+    //         lat: $event.coords.lat,
+    //         lng: $event.coords.lng,
+    //         draggable: true
+    //     });
+    //     console.log(this.markers);
+    // }
+
+    markerDragEnd(m: marker, $event: MouseEvent) {
+        this.markers.splice(0, 1, {
             lat: $event.coords.lat,
             lng: $event.coords.lng,
             draggable: true
         });
         console.log(this.markers);
     }
-    markerDragEnd(m: marker, $event: MouseEvent) {
-        console.log('dragEnd', m, $event);
+    input_lat(value) {
+        clearTimeout(this.keypress);
+        this.keypress = setTimeout(async () => {
+            value = parseFloat(value)
+            this.markers[0].lat = value;
+            this.lat_central = value;
+            this.zoom = 14;
+        }, 500)
     }
-    markers: marker[] = []
+    input_lng(value) {
+        clearTimeout(this.keypress);
+        this.keypress = setTimeout(async () => {
+            value = parseFloat(value)
+            this.markers[0].lng = value;
+            this.lng_central = value;
+            this.zoom = 14;
+        }, 500)
+    }
+    markers: marker[] = [];
+    lat_central: number;
+    lng_central: number;
+
 }

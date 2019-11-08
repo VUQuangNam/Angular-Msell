@@ -9,6 +9,7 @@ import { AuthGuard } from './auth.guard';
 import { RegisterComponent } from './register/register.component';
 import { ListDetailComponent } from './list-detail/list-detail.component';
 import { ViewsComponent } from './views/views.component';
+import { UploadingFileComponent } from './uploading-file/uploading-file.component';
 
 
 const routes: Routes = [
@@ -22,7 +23,7 @@ const routes: Routes = [
             { path: 'edit/product/:id', component: EditProductComponent },
             { path: 'detail/:id', component: DetailProductComponent },
             { path: '', component: ListDetailComponent },
-
+            { path: 'up', component: UploadingFileComponent },
         ],
     },
 

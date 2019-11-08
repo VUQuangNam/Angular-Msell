@@ -163,8 +163,8 @@
                 </div>
                 <div class="col-9 form-group">
                     <div class="form-group" [ngClass]="{'has-error':formData.submitted && !latitude.valid }">
-                        <input [ngModel]="product?.coordinates.latitude" #latitude="ngModel" type="text"
-                            class="form-control" name="latitude">
+                        <input (input)="input_lat($event.target.value)" [ngModel]="markers[0]?.lat" #latitude="ngModel"
+                            type="text" class="form-control" name="latitude">
                         <div *ngIf="formData.submitted && !latitude.valid" class="help-block">
                         </div>
                     </div>
@@ -174,18 +174,18 @@
                 </div>
                 <div class="col-9 form-group">
                     <div class="form-group" [ngClass]="{'has-error':formData.submitted && !longitude.valid }">
-                        <input [ngModel]="product?.coordinates.longitude" #longitude="ngModel" type="text"
-                            class="form-control" name="longitude">
+                        <input (input)="input_lng($event.target.value)" [ngModel]="markers[0]?.lng" #longitude="ngModel"
+                            type="text" class="form-control" name="longitude">
                         <div *ngIf="formData.submitted && !longitude.valid" class="help-block">
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-6">
-                <agm-map style="height: 350px; width: 610px;" [latitude]="lat" [longitude]="lng" [zoom]="zoom"
-                    [disableDefaultUI]="false" [zoomControl]="false" (mapClick)="mapClicked($event)">
-                    <agm-marker *ngFor="let m of markers; let i = index" [latitude]="m.lat" [longitude]="m.lng"
-                        [label]="m.label" [markerDraggable]="m.draggable">
+                <agm-map style="height: 350px; width: 610px;" [(latitude)]="lat_central" [(longitude)]="lng_central"
+                    [zoom]="zoom" [disableDefaultUI]="false" [zoomControl]="false">
+                    <agm-marker *ngFor="let m of markers" [latitude]="m.lat" [longitude]="m.lng" [label]="m.label"
+                        [markerDraggable]="m.draggable" (dragEnd)="markerDragEnd(m, $event)">
                     </agm-marker>
                 </agm-map>
             </div>

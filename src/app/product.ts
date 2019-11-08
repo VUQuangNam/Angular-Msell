@@ -14,6 +14,10 @@ export interface Product {
         latitude: string,
         longitude: string
     },
+    coordinates: {
+        latitude: string,
+        longitude: string
+    },
     properties: {
         address: string,
         direction_balcony: string,
@@ -31,5 +35,7 @@ export interface Product {
     package_post_info: {
         package_type: string,
         number_of_days: number
-    }
+    },
+    date_created: Date,
+
 }

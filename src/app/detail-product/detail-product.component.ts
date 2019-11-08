@@ -10,6 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class DetailProductComponent implements OnInit {
     product: any;
+    marker_cental: any;
     product_id: string;
     constructor(
         private productService: ProductService,
@@ -25,6 +26,19 @@ export class DetailProductComponent implements OnInit {
             next => {
                 this.product = next.data;
                 console.log(this.product);
+                this.marker_cental = [
+                    {
+                        lat: this.product.coordinates.latitude,
+                        lng: this.product.coordinates.longitude,
+                        draggable: true
+                    }
+                ];
+                this.markers = this.marker_cental;
+                this.lat_central = +this.marker_cental[0].lat;
+                this.lng_central = +this.marker_cental[0].lng;
+                console.log(this.lat_central, this.lng_central);
+
+                console.log(this.marker_cental);
             },
             error => {
                 console.log(error);
@@ -46,4 +60,9 @@ export class DetailProductComponent implements OnInit {
             console.log("NO DELTE")
         }
     }
+    zoom: number = 18;
+    lat_central: number;
+    lng_central: number;
+    markers = [];
+
 }

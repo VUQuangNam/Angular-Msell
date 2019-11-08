@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { MouseEvent } from '@agm/core';
-
 import { ProductService } from '../product.service';
 import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
+import { FormGroup, FormBuilder } from '@angular/forms';
 var citys = require('../../assets/JSON/citys.json');
 var wards = require('../../assets/JSON/wards.json');
 var districts = require('../../assets/JSON/districts.json');
@@ -14,6 +14,9 @@ var streets = require('../../assets/JSON/streets.json');
     styleUrls: ['./create.component.scss']
 })
 export class CreateComponent {
+    urls = [];
+    uploadForm: FormGroup;
+    headers: any = {};
     keypress: any;
     cityData: any = citys;
     districtData: any = [];
@@ -27,18 +30,22 @@ export class CreateComponent {
         private product: ProductService,
         private http: HttpClient,
         private toastr: ToastrService,
+        private formBuilder: FormBuilder,
     ) {
+        let user = localStorage.getItem('currentUser');
+        user = JSON.parse(user);
+        this.headers = {
+            'Content-Type': 'multipart/form-data',
+        }
     }
 
-
-    fileProgress(fileInput: any) {
-        this.fileData = <File>fileInput.target.files[0];
-        this.preview();
+    ngOnInit() {
+        this.uploadForm = this.formBuilder.group({
+            data_upload: [],
+        });
     }
 
     onSeclet(type: number, value?: any) {
-        console.log(value, type);
-
         switch (type) {
             case 1:
                 this.districtData = districts.filter(x => x.parent_code === value);
@@ -47,30 +54,49 @@ export class CreateComponent {
                 this.wardsData = wards.filter(x => x.parent_code === value);
                 this.streetData = streets.find(x => x.code === value).streets;
                 break;
-            // case 3:
-            //     this.streetData = streets.find(x => x.code === value).streets;
-            //     break;
+            case 3:
+                this.wardsData.forEach(element => {
+                    if (element.code === value) {
+                        this.markers.splice(0, 1, {
+                            lat: element.locations.latitude,
+                            lng: element.locations.longitude,
+                            draggable: true
+                        })
+                        console.log(this.markers);
+                        this.lat_central = element.locations.latitude;
+                        this.lng_central = element.locations.longitude
+                        this.zoom = 14;
+                        console.log(this.zoom, this.lng_central, this.lat_central);
+                    }
+                });
+                break;
             default:
                 break;
         }
     }
 
-    preview() {
-        // Show preview 
-        var mimeType = this.fileData.type;
-        if (mimeType.match(/image\/*/) == null) {
-            return;
+    onChange(event) {
+        if (event.target.files.length > 0) {
+            const formData = new FormData();
+            Object.keys(event.target.files).forEach(element => {
+                const data = event.target.files[element];
+                this.uploadForm.get('data_upload').setValue(data);
+                formData.append('images', this.uploadForm.get('data_upload').value);
+            });
+            var filesAmount = event.target.files.length;
+            for (let i = 0; i < filesAmount; i++) {
+                var reader = new FileReader();
+                reader.onload = (event: any) => {
+                    this.urls.push(event.target.result);
+                }
+                reader.readAsDataURL(event.target.files[i]);
+                // this.http.post<any>('http://dev.msell.com.vn/api/upload_images/product', formData).subscribe(
+                //     (res) => {
+                //         console.log(res);
+                //     }, (err) => console.log(err));
+            }
         }
-
-        var reader = new FileReader();
-        reader.readAsDataURL(this.fileData);
-        reader.onload = (_event) => {
-            this.previewUrl = reader.result;
-        }
-        const formData = new FormData();
-        formData.append('file', this.fileData);
     }
-
 
     onSubmit(data) {
         if (data.invalid) return alert("error validate");
@@ -96,49 +122,86 @@ export class CreateComponent {
             latitude: data.value.latitude,
             longitude: data.value.longitude
         }
-        value.images = [
-            data.value.images,
-        ]
-        this.product.createProduct(value)
-            .subscribe(
-                data => {
-                    console.log(data);
-                    this.toastr.success('Success', 'Đăng ký thành công!', {
-                        timeOut: 3000
-                    });
-                    this.keypress = setTimeout(async () => {
-                        window.location.reload();
-                    }, 3000)
-                },
-            );
+
+        const formData = new FormData();
+        formData.append('images', this.uploadForm.get('data_upload').value);
+        this.http.post<any>('http://dev.msell.com.vn/api/upload_images/product', formData).subscribe(
+            (res) => {
+                value.images = res.data;
+                this.product.createProduct(value)
+                    .subscribe(
+                        data => {
+                            this.toastr.success('Success', 'Đăng ký thành công!', {
+                                timeOut: 3000
+                            });
+                            this.keypress = setTimeout(async () => {
+                                window.location.reload();
+                            }, 3000)
+                        },
+                    );
+
+            }, (err) => console.log(err)
+        );
+
+
+
     }
+
+
+
     // google maps zoom level
-    zoom: number = 8;
+    zoom: number = 10;
 
     // initial center position for the map
-    lat: number = 21.1442;
-    lng: number = 105.29310000000001;
+    lat_central: number = 21.1442;
+    lng_central: number = 105.29310000000001;
 
 
     // clickedMarker(label: string, index: number) {
     //     console.log(`clicked the marker: ${label || index}`)
     // }
 
-    mapClicked($event: MouseEvent) {
-        this.markers.push({
+    // mapClicked($event: MouseEvent) {
+    //     this.markers.splice(0, 1, {
+    //         lat: $event.coords.lat,
+    //         lng: $event.coords.lng,
+    //         draggable: true
+    //     });
+    //     console.log(this.markers);
+    // }
+
+    markerDragEnd(m: marker, $event: MouseEvent) {
+        this.markers.splice(0, 1, {
+
             lat: $event.coords.lat,
             lng: $event.coords.lng,
             draggable: true
         });
         console.log(this.markers);
-
     }
-
-    markerDragEnd(m: marker, $event: MouseEvent) {
-        console.log('dragEnd', m, $event);
+    input_lat(value) {
+        clearTimeout(this.keypress);
+        this.keypress = setTimeout(async () => {
+            value = parseFloat(value)
+            this.markers[0].lat = value;
+            this.lat_central = value;
+            this.zoom = 14;
+        }, 500)
     }
-
+    input_lng(value) {
+        clearTimeout(this.keypress);
+        this.keypress = setTimeout(async () => {
+            value = parseFloat(value)
+            this.markers[0].lng = value;
+            this.lng_central = value;
+            this.zoom = 14;
+        }, 500)
+    }
     markers: marker[] = [
-
+        {
+            lat: null,
+            lng: null,
+            draggable: true
+        }
     ]
 }
