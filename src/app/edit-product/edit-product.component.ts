@@ -99,7 +99,7 @@ export class EditProductComponent implements OnInit {
 
     }
 
-    deteleImg(ix) {
+    deleteImg(ix) {
         this.img_list = [];
         this.img_add.splice(ix, 1);
         this.img_add.forEach(element => {
