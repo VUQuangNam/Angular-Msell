@@ -64,9 +64,6 @@
                 </div>
                 <div class="col-7 form-group">
                     <div class="form-group" [ngClass]="{'has-error':formData.submitted && !city_id.valid }">
-                        <!-- <input [ngModel]="product?.city_id" #city_id="ngModel" type="text" class="form-control"
-                            name="city_id"> -->
-
                         <!-- SELECT CITY -->
                         <select (change)='onSeclet(1,$event.target.value)' [ngModel]="product?.city_id"
                             #city_id="ngModel" type="text" class="form-control" name="city_id">
@@ -79,9 +76,6 @@
                 </div>
                 <div class="col-7 form-group">
                     <div class="form-group" [ngClass]="{'has-error':formData.submitted && !wards_id.valid }">
-                        <!-- <input [ngModel]="product?.wards_id" #wards_id="ngModel" type="text" class="form-control"
-                            name="wards_id"> -->
-
                         <!--SELECT WARDS-->
                         <select (change)='onSeclet($event.target.value)' [ngModel]="product?.wards_id"
                             #wards_id="ngModel" type="text" class="form-control" name="wards_id">
@@ -124,8 +118,6 @@
                 </div>
                 <div class="col-7 form-group">
                     <div class="form-group" [ngClass]="{'has-error':formData.submitted && !district_id.valid }">
-                        <!-- <input [ngModel]="product?.district_id" #district_id="ngModel" type="text" class="form-control"
-                            name="district_id"> -->
                         <select (change)='onSeclet(2,$event.target.value)' [ngModel]="product?.district_id"
                             #district_id="ngModel" type="text" class="form-control" name="district_id">
                             <option *ngFor="let district of districtData" [value]="district.code">{{district.name}}
@@ -138,9 +130,6 @@
                 </div>
                 <div class="col-7 form-group">
                     <div class="form-group" [ngClass]="{'has-error':formData.submitted && !street_id.valid }">
-                        <!-- <input [ngModel]="product?.street_id" #street_id="ngModel" type="text" class="form-control"
-                            name="street_id"> -->
-
                         <select (change)='onSeclet($event.target.value)' [ngModel]="product?.street_id"
                             #street_id="ngModel" type="text" class="form-control" name="street_id">
                             <option *ngFor="let street of streetData" [value]="street.code">{{street.name}}</option>
@@ -300,17 +289,29 @@
         <div class="create__img">
             <h3> HÌNH ẢNH </h3>
             Tối thiểu một ảnh tối đa 10 ảnh
-            <div style="height:20px; "></div>
+            <div *ngIf="!(img_add.length ===0)" style="display: flex;">
+                <div *ngFor="let img of img_add; let i = index">
+                    <div class="image-area">
+                        <img src="http://devstorage.msell.com.vn/{{img}}" alt="Preview">
+                        <button class="remove-image" (click)=deteleImg(i) style="display: inline;">&#215;</button>
+                    </div>
+
+                    <!-- <img src="http://devstorage.msell.com.vn/{{img}}" style="width: 100px; height: 75px">
+                        <button class="btn" type="button" (click)=deteleImg(i) style="border: 0px; position: absolute;">
+                            <i class="fa fa-times"></i>
+                        </button> -->
+                </div>
+            </div>
             <div class="form-group">
-                <input multiple type="file" name="images" (change)="fileProgress($event)" />
-                <!-- <input multiple [ngModel]="product?.images" #images="ngModel" type="file" class="form-control"
-                    name="images" (change)="fileProgress($event)"> -->
-            </div>
-            <div *ngIf="fileUploadProgress">
-                Upload progress: {{ fileUploadProgress }}
-            </div>
-            <div class="image-preview" *ngIf="previewUrl">
-                <img [src]="previewUrl" height="100px" width="100px" />
+                <form [formGroup]="uploadForm">
+                    <div class="button-wrapper">
+                        <span class="label">
+                            Upload File
+                        </span>
+                        <input type="file" multiple name="data_upload" (change)="onChange($event)" id="upload"
+                            class="upload-box" placeholder="Upload File" style="height: 30px;">
+                    </div>
+                </form>
             </div>
         </div>
         <div class="detail-product">

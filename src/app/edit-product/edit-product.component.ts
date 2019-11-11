@@ -4,6 +4,8 @@ import { Product } from '../product';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../product.service';
 import { ToastrService } from 'ngx-toastr';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 var citys = require('../../assets/JSON/citys.json');
 var wards = require('../../assets/JSON/wards.json');
 var districts = require('../../assets/JSON/districts.json');
@@ -27,10 +29,17 @@ export class EditProductComponent implements OnInit {
     fileUploadProgress: string = null;
     uploadedFilePath: string = null;
     product_id: string = "";
+    urls = [];
+    uploadForm: FormGroup;
+    headers: any = {};
+    img_list = [];
+    img_add = []
     constructor(
         private route: ActivatedRoute,
         private productService: ProductService,
-        private toastr: ToastrService
+        private toastr: ToastrService,
+        private http: HttpClient,
+        private formBuilder: FormBuilder
     ) { }
 
 
@@ -64,13 +73,54 @@ export class EditProductComponent implements OnInit {
                 break;
         }
     }
+    onChange(event) {
+        this.img_add = [];
+        if (event.target.files.length > 0) {
+            const formData = new FormData();
+            // Object.keys(event.target.files).forEach(element => {
+            //     const data = event.target.files[element];
+            //     this.uploadForm.get('data_upload').setValue(data);
+            //     formData.append('images', this.uploadForm.get('data_upload').value);
+            // });
+            for (let file in event.target.files) {
+                const data = event.target.files[file];
+                this.uploadForm.get('data_upload').setValue(data);
+                formData.append('images', this.uploadForm.get('data_upload').value);
+            }
+            this.http.post<any>('http://dev.msell.com.vn/api/upload_images/product', formData).subscribe(
+                (res) => {
+                    this.img_list = this.img_list.concat(res.data);
+                    console.log(this.img_list);
+                    this.img_list.forEach(element => {
+                        this.img_add.push(element.split('n/')[1])
+                    })
+                }, (err) => console.log(err));
+        }
+
+    }
+
+    deteleImg(ix) {
+        this.img_list = [];
+        this.img_add.splice(ix, 1);
+        this.img_add.forEach(element => {
+            element = "n/" + element;
+            this.img_list.push(element)
+        });
+    }
 
     ngOnInit() {
+        this.uploadForm = this.formBuilder.group({
+            data_upload: [],
+        });
         const id = this.route.snapshot.paramMap.get('id');
         this.product_id = id;
         this.productService.getProductById(id).subscribe(
             next => {
                 this.product = next.data;
+                this.img_list = this.product.images;
+                this.img_list.forEach(element => {
+                    this.img_add.push(element.split('n/')[1]);
+                });
                 this.marker_cental = [
                     {
                         lat: this.product.coordinates.latitude,
@@ -91,26 +141,7 @@ export class EditProductComponent implements OnInit {
             }
         );
     }
-    fileProgress(fileInput: any) {
-        this.fileData = <File>fileInput.target.files[0];
-        this.preview();
-    }
 
-    preview() {
-        // Show preview 
-        var mimeType = this.fileData.type;
-        if (mimeType.match(/image\/*/) == null) {
-            return;
-        }
-
-        var reader = new FileReader();
-        reader.readAsDataURL(this.fileData);
-        reader.onload = (_event) => {
-            this.previewUrl = reader.result;
-        }
-        const formData = new FormData();
-        formData.append('file', this.fileData);
-    }
     onSubmit(data) {
         if (data.invalid) return alert("error validate");
         let check_user = localStorage.getItem("currentUser");
@@ -135,13 +166,11 @@ export class EditProductComponent implements OnInit {
             latitude: data.value.latitude,
             longitude: data.value.longitude
         }
-        value.images = [
-            data.value.images,
-        ]
         let req = {
             product_id: this.product_id,
             data: value
         }
+        value.images = this.img_list;
         this.productService.updateProduct(req).subscribe((res) => {
             if (res.success) {
                 this.toastr.success('Success', 'Cập nhật thành công!');
@@ -154,18 +183,6 @@ export class EditProductComponent implements OnInit {
     }
     // google maps zoom level
     zoom: number = 14;
-    // clickedMarker(label: string, index: number) {
-    //     console.log(`clicked the marker: ${label || index}`)
-    // }
-
-    // mapClicked($event: MouseEvent) {
-    //     this.markers.splice(0, 1, {
-    //         lat: $event.coords.lat,
-    //         lng: $event.coords.lng,
-    //         draggable: true
-    //     });
-    //     console.log(this.markers);
-    // }
 
     markerDragEnd(m: marker, $event: MouseEvent) {
         this.markers.splice(0, 1, {

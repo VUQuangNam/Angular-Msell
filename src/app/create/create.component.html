@@ -47,8 +47,10 @@
                 </div>
                 <div class="col-7 form-group">
                     <div class="form-group" [ngClass]="{'has-error':formData.submitted && !acreage.valid }">
-                        <input ngModel #acreage="ngModel" type="number" class="form-control" name="acreage">
-                        <div *ngIf="formData.submitted && !acreage.valid" class="help-block"> Diện tích không hợp lệ
+                        <input ngModel #acreage="ngModel" type="number" min="0" class="form-control" name="acreage"
+                            required>
+                        <div *ngIf="formData.submitted && !acreage.valid" class="help-block"> Diện tích không được để
+                            chống(>0)
                         </div>
                     </div>
                 </div>
@@ -65,7 +67,6 @@
                 </div>
                 <div class="col-7 form-group">
                     <div class="form-group" [ngClass]="{'has-error':formData.submitted && !city_id.valid }">
-                        <!-- <input ngModel #city_id="ngModel" type="number" class="form-control" name="city_id"> -->
                         <select (change)='onSeclet(1,$event.target.value)' ngModel #city_id="ngModel"
                             class="form-control" name="city_id">
                             <option *ngFor="let city of cityData" [value]="city.code">{{city.name}}</option>
@@ -77,7 +78,6 @@
                 </div>
                 <div class="col-7 form-group">
                     <div class="form-group" [ngClass]="{'has-error':formData.submitted && !wards_id.valid }">
-                        <!-- <input ngModel #wards_id="ngModel" type="number" class="form-control" name="wards_id"> -->
                         <select (change)='onSeclet(3,$event.target.value)' ngModel #wards_id="ngModel"
                             class="form-control" name="wards_id">
                             <option *ngFor="let wards of wardsData" [value]="wards.code">{{wards.name}}</option>
@@ -91,7 +91,10 @@
                 </div>
                 <div class="col-7 form-group">
                     <div class="form-group" [ngClass]="{'has-error':formData.submitted && !price.valid }">
-                        <input ngModel #price="ngModel" type="number" class="form-control" name="price">
+                        <input ngModel #price="ngModel" type="number" min="0" class="form-control" name="price"
+                            required>
+                    </div>
+                    <div *ngIf="formData.submitted && !price.valid" class="help-block"> >0
                     </div>
                 </div>
                 <div class="col-5">
@@ -103,14 +106,11 @@
                 </div>
                 <div class="col-7 form-group">
                     <div class="form-group" [ngClass]="{'has-error':formData.submitted && !district_id.valid }">
-                        <!-- <input ngModel #district_id="ngModel" type="number" class="form-control" name="district_id"> -->
-                        <!-- <div *ngIf="(districtData.code === cityData.code)"> -->
                         <select (change)='onSeclet(2,$event.target.value)' ngModel #district_id="ngModel"
                             class="form-control" name="district_id">
                             <option *ngFor="let district of districtData" [value]="district.code">
                                 {{district.name}}</option>
                         </select>
-                        <!-- </div> -->
                     </div>
                 </div>
                 <div class="col-5">
@@ -118,7 +118,6 @@
                 </div>
                 <div class="col-7 form-group">
                     <div class="form-group" [ngClass]="{'has-error':formData.submitted && !street_id.valid }">
-                        <!-- <input ngModel #street_id="ngModel" type="number" class="form-control" name="street_id"> -->
                         <select (change)='onSeclet($event.target.value)' ngModel #street_id="ngModel"
                             class="form-control" name="street_id">
                             <option *ngFor="let streets of streetData" [value]="streets.code">{{streets.name}}
@@ -143,7 +142,9 @@
                 <div class="col-9 form-group">
                     <div class="form-group" [ngClass]="{'has-error':formData.submitted && !latitude.valid }">
                         <input (input)="input_lat($event.target.value)" [ngModel]="markers[0]?.lat" #latitude="ngModel"
-                            type="number" class="form-control" name="latitude">
+                            type="number" class="form-control" name="latitude" min="0" required>
+                    </div>
+                    <div *ngIf="formData.submitted && !latitude.valid" class="help-block"> >0
                     </div>
                 </div>
                 <div class="col-3">
@@ -152,7 +153,9 @@
                 <div class="col-9 form-group">
                     <div class="form-group" [ngClass]="{'has-error':formData.submitted && !longitude.valid }">
                         <input (input)="input_lng($event.target.value)" [ngModel]="markers[0]?.lng" #longitude="ngModel"
-                            type="number" class="form-control" name="longitude">
+                            type="number" class="form-control" name="longitude" min="0" required>
+                    </div>
+                    <div *ngIf="formData.submitted && !longitude.valid" class="help-block"> >0
                     </div>
                 </div>
             </div>
@@ -179,14 +182,20 @@
                 </div>
                 <div class="col-7 form-group">
                     <div class="form-group" [ngClass]="{'has-error':formData.submitted && !baths.valid }">
-                        <input ngModel #baths="ngModel" type="number" class="form-control" name="baths">
+                        <input ngModel #baths="ngModel" type="number" min="0" class="form-control" name="baths"
+                            required>
+                    </div>
+                    <div *ngIf="formData.submitted && !baths.valid" class="help-block"> >0
                     </div>
                 </div>
                 <div class="col-5">
                     <h3>Đường trước cửa</h3>
                 </div>
                 <div class="col-7 form-group">
-                    <input ngModel #road_wide="ngModel" type="number" class="form-control" name="road_wide">
+                    <input ngModel #road_wide="ngModel" type="number" min="0" class="form-control" name="road_wide"
+                        required>
+                    <div *ngIf="formData.submitted && !road_wide.valid" class="help-block"> >0
+                    </div>
                 </div>
                 <div class="col-5">
                     <h3>Hướng nhà</h3>

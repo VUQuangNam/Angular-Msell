@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../product.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+var citys = require('../../assets/JSON/citys.json');
 
 @Component({
     selector: 'app-detail-product',
@@ -9,9 +10,11 @@ import { ToastrService } from 'ngx-toastr';
     styleUrls: ['./detail-product.component.scss']
 })
 export class DetailProductComponent implements OnInit {
+    cityData: any = citys;
     product: any;
     marker_cental: any;
     product_id: string;
+    images: any = [];
     constructor(
         private productService: ProductService,
         private router: Router,
@@ -25,7 +28,12 @@ export class DetailProductComponent implements OnInit {
         this.productService.getProductById(id).subscribe(
             next => {
                 this.product = next.data;
-                console.log(this.product);
+                console.log(this.product.images);
+                this.product.images.forEach(element => {
+                    let img = element.split('n/')[1];
+                    this.images.push(img);
+                });
+                console.log(this.images);
                 this.marker_cental = [
                     {
                         lat: this.product.coordinates.latitude,
@@ -36,9 +44,6 @@ export class DetailProductComponent implements OnInit {
                 this.markers = this.marker_cental;
                 this.lat_central = +this.marker_cental[0].lat;
                 this.lng_central = +this.marker_cental[0].lng;
-                console.log(this.lat_central, this.lng_central);
-
-                console.log(this.marker_cental);
             },
             error => {
                 console.log(error);
@@ -64,5 +69,4 @@ export class DetailProductComponent implements OnInit {
     lat_central: number;
     lng_central: number;
     markers = [];
-
 }

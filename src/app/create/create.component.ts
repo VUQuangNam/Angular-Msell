@@ -26,6 +26,7 @@ export class CreateComponent {
     previewUrl: any = null;
     fileUploadProgress: string = null;
     uploadedFilePath: string = null;
+    img_home = [];
     constructor(
         private product: ProductService,
         private http: HttpClient,
@@ -62,11 +63,9 @@ export class CreateComponent {
                             lng: element.locations.longitude,
                             draggable: true
                         })
-                        console.log(this.markers);
                         this.lat_central = element.locations.latitude;
                         this.lng_central = element.locations.longitude
                         this.zoom = 14;
-                        console.log(this.zoom, this.lng_central, this.lat_central);
                     }
                 });
                 break;
@@ -90,10 +89,10 @@ export class CreateComponent {
                     this.urls.push(event.target.result);
                 }
                 reader.readAsDataURL(event.target.files[i]);
-                // this.http.post<any>('http://dev.msell.com.vn/api/upload_images/product', formData).subscribe(
-                //     (res) => {
-                //         console.log(res);
-                //     }, (err) => console.log(err));
+                this.http.post<any>('http://dev.msell.com.vn/api/upload_images/product', formData).subscribe(
+                    (res) => {
+                        this.img_home = res.data;
+                    }, (err) => console.log(err));
             }
         }
     }
@@ -123,31 +122,19 @@ export class CreateComponent {
             longitude: data.value.longitude
         }
 
-        const formData = new FormData();
-        formData.append('images', this.uploadForm.get('data_upload').value);
-        this.http.post<any>('http://dev.msell.com.vn/api/upload_images/product', formData).subscribe(
-            (res) => {
-                value.images = res.data;
-                this.product.createProduct(value)
-                    .subscribe(
-                        data => {
-                            this.toastr.success('Success', 'Đăng ký thành công!', {
-                                timeOut: 3000
-                            });
-                            this.keypress = setTimeout(async () => {
-                                window.location.reload();
-                            }, 3000)
-                        },
-                    );
-
-            }, (err) => console.log(err)
-        );
-
-
-
+        value.images = this.img_home;
+        this.product.createProduct(value)
+            .subscribe(
+                data => {
+                    this.toastr.success('Success', 'Đăng ký thành công!', {
+                        timeOut: 3000
+                    });
+                    this.keypress = setTimeout(async () => {
+                        window.location.reload();
+                    }, 3000)
+                },
+            );
     }
-
-
 
     // google maps zoom level
     zoom: number = 10;
@@ -155,7 +142,6 @@ export class CreateComponent {
     // initial center position for the map
     lat_central: number = 21.1442;
     lng_central: number = 105.29310000000001;
-
 
     // clickedMarker(label: string, index: number) {
     //     console.log(`clicked the marker: ${label || index}`)
@@ -177,7 +163,6 @@ export class CreateComponent {
             lng: $event.coords.lng,
             draggable: true
         });
-        console.log(this.markers);
     }
     input_lat(value) {
         clearTimeout(this.keypress);

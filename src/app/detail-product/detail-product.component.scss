@@ -1,6 +1,7 @@
 .detail{
     background-color: white;
     margin-top: 20px;
+    min-height: 150vh;
 }
 
 .search{
@@ -90,14 +91,11 @@
     width:50%;
     border-radius: 15px;
 }
-.detail-product-img-product img{
-    padding: 20px;
-    width: 20%;
-}
+
 .detail-product .row{
     font-size: 24px;
     margin-bottom: 10px;
-    height: 40px;
+    padding-left: 10px;
 }
 .detail-product span{
     font-weight: bold;
@@ -126,6 +124,7 @@
 .detail-product__btn{
     height: 100px; 
     padding-top: 30px;
+    // margin-top: 50px;
 }
 .detail-product__btn button{
     width: 150px;

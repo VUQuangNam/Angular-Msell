@@ -35,7 +35,11 @@
                     {{product_id}}
                 </td>
                 <td class="table-tbody">{{product.date_created | date:'dd/MM/yyyy'}}</td>
-                <td class="table-tbody">{{product.city_id}}</td>
+                <td class="table-tbody">
+                    <div *ngFor="let city of cityData">
+                        <div *ngIf="(product.city_id === city.code)">{{city.name}}</div>
+                    </div>
+                </td>
                 <td class="table-tbody table-tbody-status">
                     <div *ngIf="product.status">
                         <span class="table-tbody-status-true">Đợi
@@ -60,7 +64,7 @@
                         </div>
                         <div class="col-4 table__btn--btn">
                             <a [routerLink]="['/edit/product', product_id]">
-                                <button type="button" class="btn btn-update" (click)="edit()">
+                                <button type="button" class="btn btn-update">
                                     <i class="fas fa-trash btn--icon-update"></i>
                                 </button>
                             </a>
@@ -74,8 +78,10 @@
     <hr>
     <div class="detail-product">
         <div class="row">
-            <div class="col-12">
+            <div class="col-2">
                 <span> Tiêu đề:</span>
+            </div>
+            <div class="col-10">
                 {{product.title}}
             </div>
         </div>
@@ -159,12 +165,11 @@
                 </agm-marker>
             </agm-map>
         </div>
-        <div class="detail-product-img-product">
-            <img src="https://ezcloud.vn/wp-content/uploads/2018/05/homestay-la-gi.png" alt="">
-            <img src="https://ezcloud.vn/wp-content/uploads/2018/05/homestay-la-gi.png" alt="">
-            <img src="https://ezcloud.vn/wp-content/uploads/2018/05/homestay-la-gi.png" alt="">
-            <img src="https://ezcloud.vn/wp-content/uploads/2018/05/homestay-la-gi.png" alt="">
-            <img src="https://ezcloud.vn/wp-content/uploads/2018/05/homestay-la-gi.png" alt="">
+        <div style="display: flex;">
+            <div *ngFor="let img of images">
+                <img src="http://devstorage.msell.com.vn/{{img}}"
+                    style="width: 130px; height: 90px; margin: 20px 0px 0px 10px">
+            </div>
         </div>
         <div class="row detail-product__btn">
             <div class="col-3"></div>

@@ -23,7 +23,6 @@ import { RegisterComponent } from './register/register.component';
 import { ViewsComponent } from './views/views.component';
 import { ToastrModule } from 'ngx-toastr';
 import { AgmCoreModule } from '@agm/core';
-import { UploadingFileComponent } from './uploading-file/uploading-file.component';
 
 
 @NgModule({
@@ -40,7 +39,6 @@ import { UploadingFileComponent } from './uploading-file/uploading-file.componen
         SignInComponent,
         RegisterComponent,
         ViewsComponent,
-        UploadingFileComponent,
     ],
     imports: [
         BrowserModule,
