@@ -293,13 +293,8 @@
                 <div *ngFor="let img of img_add; let i = index">
                     <div class="image-area">
                         <img src="http://devstorage.msell.com.vn/{{img}}" alt="Preview">
-                        <button class="remove-image" (click)=deteleImg(i) style="display: inline;">&#215;</button>
+                        <button class="remove-image" (click)=deleteImg(i) style="display: inline;">&#215;</button>
                     </div>
-
-                    <!-- <img src="http://devstorage.msell.com.vn/{{img}}" style="width: 100px; height: 75px">
-                        <button class="btn" type="button" (click)=deteleImg(i) style="border: 0px; position: absolute;">
-                            <i class="fa fa-times"></i>
-                        </button> -->
                 </div>
             </div>
             <div class="form-group">
