@@ -65,7 +65,7 @@ export class DetailProductComponent implements OnInit {
             console.log("NO DELTE")
         }
     }
-    zoom: number = 18;
+    zoom: number = 16;
     lat_central: number;
     lng_central: number;
     markers = [];

@@ -134,7 +134,6 @@ export class EditProductComponent implements OnInit {
                 this.districtData = districts.filter(x => x.parent_code === this.product.city_id);
                 this.wardsData = wards.filter(x => x.parent_code === this.product.district_id);
                 this.streetData = streets.find(x => x.code === this.product.district_id).streets;
-
             }, error => {
                 console.log(error);
                 this.product = null;
