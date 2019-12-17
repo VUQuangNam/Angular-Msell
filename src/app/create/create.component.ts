@@ -39,15 +39,15 @@ export class CreateComponent implements OnInit {
     previewUrl: any = null;
     fileUploadProgress: string = null;
     uploadedFilePath: string = null;
-    img_home = [];
+    imgHome = [];
 
     // google maps zoom level
     zoom = 10;
 
     // initial center position for the map
-    lat_central = 21.1442;
-    lng_central = 105.29310000000001;
-    markers: marker[] = [
+    latCentral = 21.1442;
+    lngCentral = 105.29310000000001;
+    markers: Marker[] = [
         {
             lat: null,
             lng: null,
@@ -78,8 +78,8 @@ export class CreateComponent implements OnInit {
                             lng: element.locations.longitude,
                             draggable: true
                         });
-                        this.lat_central = element.locations.latitude;
-                        this.lng_central = element.locations.longitude;
+                        this.latCentral = element.locations.latitude;
+                        this.lngCentral = element.locations.longitude;
                         this.zoom = 14;
                     }
                 });
@@ -100,13 +100,13 @@ export class CreateComponent implements OnInit {
             const filesAmount = event.target.files.length;
             for (let i = 0; i < filesAmount; i++) {
                 const reader = new FileReader();
-                reader.onload = ($event: any) => {
+                reader.onload = (event: any) => {
                     this.urls.push(event.target.result);
                 };
                 reader.readAsDataURL(event.target.files[i]);
                 this.http.post<any>('http://dev.msell.com.vn/api/upload_images/product', formData).subscribe(
                     (res) => {
-                        this.img_home = res.data;
+                        this.imgHome = res.data;
                     }, (err) => console.log(err));
             }
         }
@@ -114,8 +114,8 @@ export class CreateComponent implements OnInit {
 
     onSubmit(data) {
         if (data.invalid) { return alert('error validate'); }
-        const check_user = localStorage.getItem('currentUser');
-        const user = JSON.parse(check_user);
+        const checkUser = localStorage.getItem('currentUser');
+        const user = JSON.parse(checkUser);
         const { user_info } = user;
         const { value } = data;
         value.owner_info = {
@@ -137,7 +137,7 @@ export class CreateComponent implements OnInit {
             longitude: data.value.longitude
         };
 
-        value.images = this.img_home;
+        value.images = this.imgHome;
         this.product.createProduct(value)
             .subscribe(
                 () => {
@@ -177,7 +177,7 @@ export class CreateComponent implements OnInit {
         this.keypress = setTimeout(async () => {
             value = parseFloat(value);
             this.markers[0].lat = value;
-            this.lat_central = value;
+            this.latCentral = value;
             this.zoom = 14;
         }, 500);
     }
@@ -186,7 +186,7 @@ export class CreateComponent implements OnInit {
         this.keypress = setTimeout(async () => {
             value = parseFloat(value);
             this.markers[0].lng = value;
-            this.lng_central = value;
+            this.lngCentral = value;
             this.zoom = 14;
         }, 500);
     }

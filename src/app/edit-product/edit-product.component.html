@@ -171,7 +171,7 @@
                 </div>
             </div>
             <div class="col-6">
-                <agm-map style="height: 350px; width: 610px;" [(latitude)]="lat_central" [(longitude)]="lng_central"
+                <agm-map style="height: 350px; width: 610px;" [(latitude)]="latCentral" [(longitude)]="lngCentral"
                     [zoom]="zoom" [disableDefaultUI]="false" [zoomControl]="false">
                     <agm-marker *ngFor="let m of markers" [latitude]="m.lat" [longitude]="m.lng" [label]="m.label"
                         [markerDraggable]="m.draggable" (dragEnd)="markerDragEnd(m, $event)">
@@ -289,8 +289,8 @@
         <div class="create__img">
             <h3> HÌNH ẢNH </h3>
             Tối thiểu một ảnh tối đa 10 ảnh
-            <div *ngIf="!(img_add.length ===0)" style="display: flex;">
-                <div *ngFor="let img of img_add; let i = index">
+            <div *ngIf="!(imgAdd.length ===0)" style="display: flex;">
+                <div *ngFor="let img of imgAdd; let i = index">
                     <div class="image-area">
                         <img src="http://devstorage.msell.com.vn/{{img}}" alt="Preview">
                         <button class="remove-image" (click)=deleteImg(i) style="display: inline;">&#215;</button>
