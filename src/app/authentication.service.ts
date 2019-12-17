@@ -27,7 +27,7 @@ export class AuthenticationService {
                 console.log(user.data);
             }
             return user;
-        }))
+        }));
 
     }
     logout() {

@@ -31,19 +31,19 @@ export class SignInComponent implements OnInit {
     ngOnInit() {
 
         // get return url from route parameters or default to '/'
-        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/list';
+        this.returnUrl = this.route.snapshot.queryParams[this.returnUrl] || '/list';
     }
 
     // convenience getter for easy access to form fields
     get f() { return this.loginForm.controls; }
 
     onSubmit(data) {
-        if (data.invalid) return alert("error validate");
-        let { value } = data
+        if (data.invalid) { return alert('error validate'); }
+        const { value } = data;
         this.authenticationService.login(value.username, value.password)
             .pipe(first())
             .subscribe(
-                data => {
+                () => {
                     this.router.navigate([this.returnUrl]);
                 },
                 error => {

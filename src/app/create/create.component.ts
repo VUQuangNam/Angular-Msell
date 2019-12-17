@@ -1,19 +1,32 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MouseEvent } from '@agm/core';
 import { ProductService } from '../product.service';
 import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { FormGroup, FormBuilder } from '@angular/forms';
-var citys = require('../../assets/JSON/citys.json');
-var wards = require('../../assets/JSON/wards.json');
-var districts = require('../../assets/JSON/districts.json');
-var streets = require('../../assets/JSON/streets.json');
+
+const citys = require('../../assets/JSON/citys.json');
+const wards = require('../../assets/JSON/wards.json');
+const districts = require('../../assets/JSON/districts.json');
+const streets = require('../../assets/JSON/streets.json');
 @Component({
     selector: 'app-create',
     templateUrl: './create.component.html',
     styleUrls: ['./create.component.scss']
 })
-export class CreateComponent {
+export class CreateComponent implements OnInit {
+    constructor(
+        private product: ProductService,
+        private http: HttpClient,
+        private toastr: ToastrService,
+        private formBuilder: FormBuilder,
+    ) {
+        let user = localStorage.getItem('currentUser');
+        user = JSON.parse(user);
+        this.headers = {
+            'Content-Type': 'multipart/form-data',
+        };
+    }
     urls = [];
     uploadForm: FormGroup;
     headers: any = {};
@@ -27,18 +40,20 @@ export class CreateComponent {
     fileUploadProgress: string = null;
     uploadedFilePath: string = null;
     img_home = [];
-    constructor(
-        private product: ProductService,
-        private http: HttpClient,
-        private toastr: ToastrService,
-        private formBuilder: FormBuilder,
-    ) {
-        let user = localStorage.getItem('currentUser');
-        user = JSON.parse(user);
-        this.headers = {
-            'Content-Type': 'multipart/form-data',
+
+    // google maps zoom level
+    zoom = 10;
+
+    // initial center position for the map
+    lat_central = 21.1442;
+    lng_central = 105.29310000000001;
+    markers: marker[] = [
+        {
+            lat: null,
+            lng: null,
+            draggable: true
         }
-    }
+    ];
 
     ngOnInit() {
         this.uploadForm = this.formBuilder.group({
@@ -62,9 +77,9 @@ export class CreateComponent {
                             lat: element.locations.latitude,
                             lng: element.locations.longitude,
                             draggable: true
-                        })
+                        });
                         this.lat_central = element.locations.latitude;
-                        this.lng_central = element.locations.longitude
+                        this.lng_central = element.locations.longitude;
                         this.zoom = 14;
                     }
                 });
@@ -82,12 +97,12 @@ export class CreateComponent {
                 this.uploadForm.get('data_upload').setValue(data);
                 formData.append('images', this.uploadForm.get('data_upload').value);
             });
-            var filesAmount = event.target.files.length;
+            const filesAmount = event.target.files.length;
             for (let i = 0; i < filesAmount; i++) {
-                var reader = new FileReader();
-                reader.onload = (event: any) => {
+                const reader = new FileReader();
+                reader.onload = ($event: any) => {
                     this.urls.push(event.target.result);
-                }
+                };
                 reader.readAsDataURL(event.target.files[i]);
                 this.http.post<any>('http://dev.msell.com.vn/api/upload_images/product', formData).subscribe(
                     (res) => {
@@ -98,15 +113,15 @@ export class CreateComponent {
     }
 
     onSubmit(data) {
-        if (data.invalid) return alert("error validate");
-        let check_user = localStorage.getItem("currentUser");
-        let user = JSON.parse(check_user);
-        let { user_info } = user;
-        let { value } = data;
+        if (data.invalid) { return alert('error validate'); }
+        const check_user = localStorage.getItem('currentUser');
+        const user = JSON.parse(check_user);
+        const { user_info } = user;
+        const { value } = data;
         value.owner_info = {
             owner_type: 1,
             owner_id: user_info.uid
-        }
+        };
         value.properties = {
             address: data.value.address,
             direction_balcony: data.value.direction_balcony,
@@ -116,32 +131,25 @@ export class CreateComponent {
             category: data.value.category,
             facade: data.value.facade,
             road_wide: data.value.road_wide
-        }
+        };
         value.location = {
             latitude: data.value.latitude,
             longitude: data.value.longitude
-        }
+        };
 
         value.images = this.img_home;
         this.product.createProduct(value)
             .subscribe(
-                data => {
+                () => {
                     this.toastr.success('Success', 'Đăng ký thành công!', {
                         timeOut: 3000
                     });
                     this.keypress = setTimeout(async () => {
                         window.location.reload();
-                    }, 3000)
+                    }, 3000);
                 },
             );
     }
-
-    // google maps zoom level
-    zoom: number = 10;
-
-    // initial center position for the map
-    lat_central: number = 21.1442;
-    lng_central: number = 105.29310000000001;
 
     // clickedMarker(label: string, index: number) {
     //     console.log(`clicked the marker: ${label || index}`)
@@ -156,7 +164,7 @@ export class CreateComponent {
     //     console.log(this.markers);
     // }
 
-    markerDragEnd(m: marker, $event: MouseEvent) {
+    markerDragEnd(m: Marker, $event: MouseEvent) {
         this.markers.splice(0, 1, {
 
             lat: $event.coords.lat,
@@ -167,26 +175,19 @@ export class CreateComponent {
     input_lat(value) {
         clearTimeout(this.keypress);
         this.keypress = setTimeout(async () => {
-            value = parseFloat(value)
+            value = parseFloat(value);
             this.markers[0].lat = value;
             this.lat_central = value;
             this.zoom = 14;
-        }, 500)
+        }, 500);
     }
     input_lng(value) {
         clearTimeout(this.keypress);
         this.keypress = setTimeout(async () => {
-            value = parseFloat(value)
+            value = parseFloat(value);
             this.markers[0].lng = value;
             this.lng_central = value;
             this.zoom = 14;
-        }, 500)
+        }, 500);
     }
-    markers: marker[] = [
-        {
-            lat: null,
-            lng: null,
-            draggable: true
-        }
-    ]
 }

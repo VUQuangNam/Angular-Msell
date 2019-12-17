@@ -6,10 +6,11 @@ import { ProductService } from '../product.service';
 import { ToastrService } from 'ngx-toastr';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-var citys = require('../../assets/JSON/citys.json');
-var wards = require('../../assets/JSON/wards.json');
-var districts = require('../../assets/JSON/districts.json');
-var streets = require('../../assets/JSON/streets.json');
+
+const citys = require('../../assets/JSON/citys.json');
+const wards = require('../../assets/JSON/wards.json');
+const districts = require('../../assets/JSON/districts.json');
+const streets = require('../../assets/JSON/streets.json');
 
 @Component({
     selector: 'app-edit-product',
@@ -17,6 +18,13 @@ var streets = require('../../assets/JSON/streets.json');
     styleUrls: ['./edit-product.component.scss']
 })
 export class EditProductComponent implements OnInit {
+    constructor(
+        private route: ActivatedRoute,
+        private productService: ProductService,
+        private toastr: ToastrService,
+        private http: HttpClient,
+        private formBuilder: FormBuilder
+    ) { }
     marker_cental: any;
     cityData: any = citys;
     districtData: any = [];
@@ -28,19 +36,17 @@ export class EditProductComponent implements OnInit {
     previewUrl: any = null;
     fileUploadProgress: string = null;
     uploadedFilePath: string = null;
-    product_id: string = "";
+    product_id: string;
     urls = [];
     uploadForm: FormGroup;
     headers: any = {};
     img_list = [];
-    img_add = []
-    constructor(
-        private route: ActivatedRoute,
-        private productService: ProductService,
-        private toastr: ToastrService,
-        private http: HttpClient,
-        private formBuilder: FormBuilder
-    ) { }
+    img_add = [];
+    // google maps zoom level
+    zoom = 14;
+    markers: Marker[] = [];
+    lat_central: number;
+    lng_central: number;
 
 
     onSeclet(type: number, value?: any) {
@@ -60,12 +66,10 @@ export class EditProductComponent implements OnInit {
                             lat: element.locations.latitude,
                             lng: element.locations.longitude,
                             draggable: true
-                        })
-                        console.log(this.markers);
+                        });
                         this.lat_central = element.locations.latitude;
-                        this.lng_central = element.locations.longitude
+                        this.lng_central = element.locations.longitude;
                         this.zoom = 14;
-                        console.log(this.zoom, this.lng_central, this.lat_central);
                     }
                 });
                 break;
@@ -82,7 +86,7 @@ export class EditProductComponent implements OnInit {
             //     this.uploadForm.get('data_upload').setValue(data);
             //     formData.append('images', this.uploadForm.get('data_upload').value);
             // });
-            for (let file in event.target.files) {
+            for (const file in event.target.files) {
                 const data = event.target.files[file];
                 this.uploadForm.get('data_upload').setValue(data);
                 formData.append('images', this.uploadForm.get('data_upload').value);
@@ -92,8 +96,8 @@ export class EditProductComponent implements OnInit {
                     this.img_list = this.img_list.concat(res.data);
                     console.log(this.img_list);
                     this.img_list.forEach(element => {
-                        this.img_add.push(element.split('n/')[1])
-                    })
+                        this.img_add.push(element.split('n/')[1]);
+                    });
                 }, (err) => console.log(err));
         }
 
@@ -103,8 +107,8 @@ export class EditProductComponent implements OnInit {
         this.img_list = [];
         this.img_add.splice(ix, 1);
         this.img_add.forEach(element => {
-            element = "n/" + element;
-            this.img_list.push(element)
+            element = 'n/' + element;
+            this.img_list.push(element);
         });
     }
 
@@ -142,15 +146,15 @@ export class EditProductComponent implements OnInit {
     }
 
     onSubmit(data) {
-        if (data.invalid) return alert("error validate");
-        let check_user = localStorage.getItem("currentUser");
-        let user = JSON.parse(check_user);
-        let { user_info } = user;
-        let { value } = data;
+        if (data.invalid) { return alert('error validate'); }
+        const checkUser = localStorage.getItem('currentUser');
+        const user = JSON.parse(checkUser);
+        const { user_info } = user;
+        const { value } = data;
         value.owner_info = {
             owner_type: 1,
             owner_id: user_info.uid
-        }
+        };
         value.properties = {
             address: data.value.address,
             direction_balcony: data.value.direction_balcony,
@@ -160,15 +164,15 @@ export class EditProductComponent implements OnInit {
             category: data.value.category,
             facade: data.value.facade,
             road_wide: data.value.road_wide
-        }
+        };
         value.location = {
             latitude: data.value.latitude,
             longitude: data.value.longitude
-        }
-        let req = {
+        };
+        const req = {
             product_id: this.product_id,
             data: value
-        }
+        };
         value.images = this.img_list;
         this.productService.updateProduct(req).subscribe((res) => {
             if (res.success) {
@@ -180,37 +184,31 @@ export class EditProductComponent implements OnInit {
             error => console.log(error)
         );
     }
-    // google maps zoom level
-    zoom: number = 14;
 
-    markerDragEnd(m: marker, $event: MouseEvent) {
+    markerDragEnd(m: Marker, $event: MouseEvent) {
         this.markers.splice(0, 1, {
             lat: $event.coords.lat,
             lng: $event.coords.lng,
             draggable: true
         });
-        console.log(this.markers);
     }
     input_lat(value) {
         clearTimeout(this.keypress);
         this.keypress = setTimeout(async () => {
-            value = parseFloat(value)
+            value = parseFloat(value);
             this.markers[0].lat = value;
             this.lat_central = value;
             this.zoom = 14;
-        }, 500)
+        }, 500);
     }
     input_lng(value) {
         clearTimeout(this.keypress);
         this.keypress = setTimeout(async () => {
-            value = parseFloat(value)
+            value = parseFloat(value);
             this.markers[0].lng = value;
             this.lng_central = value;
             this.zoom = 14;
-        }, 500)
+        }, 500);
     }
-    markers: marker[] = [];
-    lat_central: number;
-    lng_central: number;
 
 }

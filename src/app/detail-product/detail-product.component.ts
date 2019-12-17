@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../product.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-var citys = require('../../assets/JSON/citys.json');
+
+const citys = require('../../assets/JSON/citys.json');
 
 @Component({
     selector: 'app-detail-product',
@@ -33,7 +34,6 @@ export class DetailProductComponent implements OnInit {
                     let img = element.split('n/')[1];
                     this.images.push(img);
                 });
-                console.log(this.images);
                 this.marker_cental = [
                     {
                         lat: this.product.coordinates.latitude,
@@ -46,23 +46,22 @@ export class DetailProductComponent implements OnInit {
                 this.lng_central = +this.marker_cental[0].lng;
             },
             error => {
-                console.log(error);
                 this.product = null;
             }
         );
     }
 
     deletePost() {
-        var result = confirm("Bạn có chắc chắn xóa sản phẩm này?");
+        const result = confirm('Bạn có chắc chắn xóa sản phẩm này?');
         if (result === true) {
             this.productService.deleteProduct(this.product_id).subscribe((res) => {
-                if (res.success) return this.toastr.success('Delete', 'Xóa thành công!', {
-                    timeOut: 2000
-                }), this.router.navigate(['/list']);
+                if (res.success) {
+                    return this.toastr.success('Delete', 'Xóa thành công!', {
+                        timeOut: 2000
+                    }), this.router.navigate(['/list']);
+                }
                 this.toastr.error(res.message, 'Error');
             });
-        } else {
-            console.log("NO DELTE")
         }
     }
     zoom: number = 16;

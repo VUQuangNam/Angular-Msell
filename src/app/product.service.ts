@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Product } from './product';
 
@@ -9,7 +9,8 @@ import { Product } from './product';
 })
 export class ProductService {
     products = [];
-    headers: any = {}
+    headers: any = {};
+    token: string;
     private readonly API_URL = 'http://dev.msell.com.vn/api/products';
 
     constructor(private http: HttpClient) {
@@ -18,8 +19,8 @@ export class ProductService {
         this.headers = {
             'Content-Type': 'application/json',
             'Cache-Control': 'no-cache',
-            'x-request-id': user['token']
-        }
+            'x-request-id': user[this.token]
+        };
     }
 
     getListProductsByUser(): Observable<any> {
@@ -28,21 +29,21 @@ export class ProductService {
         });
     }
 
-    getProductById(product_id: string): Observable<any> {
-        return this.http.get<any>(`${this.API_URL}/${product_id}`, {
+    getProductById(productId: string): Observable<any> {
+        return this.http.get<any>(`${this.API_URL}/${productId}`, {
             headers: this.headers
         });
     }
 
-    //Create
+    // Create
     createProduct(product: Product): Observable<Product> {
         return this.http.post<Product>(this.API_URL, product, {
             headers: this.headers
         });
     }
 
-    deleteProduct(product_id: string): Observable<any> {
-        return this.http.put(`${this.API_URL}/${product_id}`, null, {
+    deleteProduct(productId: string): Observable<any> {
+        return this.http.put(`${this.API_URL}/${productId}`, null, {
             headers: this.headers
         });
     }

@@ -8,7 +8,7 @@ import { User } from '../model/user';
     templateUrl: './hearder.component.html',
     styleUrls: ['./hearder.component.scss']
 })
-export class HearderComponent implements OnInit {
+export class HearderComponent {
     currentUser: User;
 
     constructor(
@@ -16,8 +16,6 @@ export class HearderComponent implements OnInit {
         private authenticationService: AuthenticationService
     ) { this.authenticationService.currentUser.subscribe(x => this.currentUser = x); }
 
-    ngOnInit() {
-    }
     logout() {
         this.authenticationService.logout();
         this.router.navigate(['/login']);

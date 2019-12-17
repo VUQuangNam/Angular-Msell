@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
-import { IPackage } from './package';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 
 @Injectable({
     providedIn: 'root'
 })
 export class PackageService {
-    headers: any = {}
+    headers: any = {};
     packages = [];
+    token: string;
     private readonly API_URL = 'http://dev.msell.com.vn/api/packages';
 
 
@@ -20,8 +19,8 @@ export class PackageService {
         this.headers = {
             'Content-Type': 'application/json',
             'Cache-Control': 'no-cache',
-            'x-request-id': user['token']
-        }
+            'x-request-id': user[this.token]
+        };
     }
     getListIPackagesByUser(): Observable<any> {
         return this.http.get<any>(this.API_URL, {
@@ -29,18 +28,18 @@ export class PackageService {
         });
     }
 
-    // getIPackageById(package_id: string): Observable<IPackage> {
+    // getIPackageById(packageId: string): Observable<IPackage> {
     //     return this.http.get<IPackage>(`${this.API_URL}/${(id)}`);
     // }
 
 
-    //Create
+    // Create
     // createIPackage(packages: IPackage): Observable<IPackage> {
     //     return this.http.post<IPackage>(this.API_URL, packages);
     // }
 
-    deleteIPackage(package_id: string): Observable<any> {
-        return this.http.put(`${this.API_URL}/${package_id}`, null, {
+    deleteIPackage(packageId: string): Observable<any> {
+        return this.http.put(`${this.API_URL}/${packageId}`, null, {
             headers: this.headers
         });
     }
