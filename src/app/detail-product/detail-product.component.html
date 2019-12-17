@@ -32,7 +32,7 @@
             <tr *ngIf="product">
                 <td class="table-tbody table-STT">1</td>
                 <td class="table-tbody">
-                    {{product_id}}
+                    {{productId}}
                 </td>
                 <td class="table-tbody">{{product.date_created | date:'dd/MM/yyyy'}}</td>
                 <td class="table-tbody">
@@ -63,7 +63,7 @@
                             <div>Xóa</div>
                         </div>
                         <div class="col-4 table__btn--btn">
-                            <a [routerLink]="['/edit/product', product_id]">
+                            <a [routerLink]="['/edit/product', productId]">
                                 <button type="button" class="btn btn-update">
                                     <i class="fas fa-trash btn--icon-update"></i>
                                 </button>
@@ -159,7 +159,7 @@
                     <th>Đầy đủ</th>
                 </tr>
             </table>
-            <agm-map style="height: 500px; width: 610px;" [(latitude)]="lat_central" [(longitude)]="lng_central"
+            <agm-map style="height: 500px; width: 610px;" [(latitude)]="latCentral" [(longitude)]="lng_central"
                 [zoom]="zoom" [disableDefaultUI]="false" [zoomControl]="false">
                 <agm-marker *ngFor="let m of markers" [latitude]="m.lat" [longitude]="m.lng" [label]="m.label">
                 </agm-marker>

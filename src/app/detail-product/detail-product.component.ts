@@ -13,8 +13,8 @@ const citys = require('../../assets/JSON/citys.json');
 export class DetailProductComponent implements OnInit {
     cityData: any = citys;
     product: any;
-    marker_cental: any;
-    product_id: string;
+    markerCental: any;
+    productId: string;
     images: any = [];
     constructor(
         private productService: ProductService,
@@ -25,25 +25,25 @@ export class DetailProductComponent implements OnInit {
 
     ngOnInit() {
         const id = this.route.snapshot.paramMap.get('id');
-        this.product_id = id;
+        this.productId = id;
         this.productService.getProductById(id).subscribe(
             next => {
                 this.product = next.data;
                 console.log(this.product.images);
                 this.product.images.forEach(element => {
-                    let img = element.split('n/')[1];
+                    const img = element.split('n/')[1];
                     this.images.push(img);
                 });
-                this.marker_cental = [
+                this.markerCental = [
                     {
                         lat: this.product.coordinates.latitude,
                         lng: this.product.coordinates.longitude,
                         draggable: true
                     }
                 ];
-                this.markers = this.marker_cental;
-                this.lat_central = +this.marker_cental[0].lat;
-                this.lng_central = +this.marker_cental[0].lng;
+                this.markers = this.markerCental;
+                this.latCentral = +this.markerCental[0].lat;
+                this.lng_central = +this.markerCental[0].lng;
             },
             error => {
                 this.product = null;
@@ -54,7 +54,7 @@ export class DetailProductComponent implements OnInit {
     deletePost() {
         const result = confirm('Bạn có chắc chắn xóa sản phẩm này?');
         if (result === true) {
-            this.productService.deleteProduct(this.product_id).subscribe((res) => {
+            this.productService.deleteProduct(this.productId).subscribe((res) => {
                 if (res.success) {
                     return this.toastr.success('Delete', 'Xóa thành công!', {
                         timeOut: 2000
@@ -65,7 +65,7 @@ export class DetailProductComponent implements OnInit {
         }
     }
     zoom: number = 16;
-    lat_central: number;
+    latCentral: number;
     lng_central: number;
     markers = [];
 }
