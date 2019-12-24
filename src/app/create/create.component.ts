@@ -100,8 +100,8 @@ export class CreateComponent implements OnInit {
             const filesAmount = event.target.files.length;
             for (let i = 0; i < filesAmount; i++) {
                 const reader = new FileReader();
-                reader.onload = (event: any) => {
-                    this.urls.push(event.target.result);
+                reader.onload = ($event: any) => {
+                    this.urls.push($event.target.result);
                 };
                 reader.readAsDataURL(event.target.files[i]);
                 this.http.post<any>('http://dev.msell.com.vn/api/upload_images/product', formData).subscribe(

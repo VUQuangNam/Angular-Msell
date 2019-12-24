@@ -6,7 +6,7 @@
                 <select (change)='onSearch(0,$event.target.value)' class="form-control" id="sel1">
                     <option disabled>All</option>
                     <option *ngFor="let city of cityData" value="{{city.name}}_{{city.code}}">
-                        {{city.name}}</option>
+                        {{city?.name}}</option>
                 </select>
             </div>
             <div class="col-7 option">
@@ -15,7 +15,7 @@
                         <div class="col">
                             <button class="option-btn" (click)='onRemoveSelect(item)'>
                                 <i class="far fa-times-circle"></i>
-                                {{item.value[0]}}
+                                {{item?.value[0]}}
                             </button>
                         </div>
                     </div>
@@ -62,10 +62,10 @@
                     <td class="table-tbody table-tbody-stt">{{i+1}}</td>
                     <td class="table-tbody">
                         <a [routerLink]="['/detail', product.product_id]" routerLinkActive="router-link-active">
-                            {{product.product_id}}
+                            {{product?.product_id}}
                         </a>
                     </td>
-                    <td class="table-tbody">{{product.date_created | date:'dd/MM/yyyy'}}</td>
+                    <td class="table-tbody">{{product?.date_created | date:'dd/MM/yyyy'}}</td>
                     <td class="table-tbody">
                         <div *ngFor="let city of cityData">
                             <div *ngIf="(product.city_id === city.code)">{{city.name}}</div>
@@ -74,12 +74,13 @@
                     <td class="table-tbody table-tbody-status">
                         <div *ngIf="product.pending">
                             <span class="table-tbody-status-true">
-                                <i> Đợi duyệt
-                                </i></span>
+                                <i> Đợi duyệt </i>
+                            </span>
                         </div>
                         <div *ngIf="!(product.pending)">
                             <span class="table-tbody-status-false">
-                                <i> Đã xóa</i></span>
+                                <i> Đã xóa</i>
+                            </span>
                         </div>
                     </td>
                     <td>

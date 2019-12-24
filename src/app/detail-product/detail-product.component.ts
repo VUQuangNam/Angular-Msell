@@ -16,6 +16,11 @@ export class DetailProductComponent implements OnInit {
     markerCental: any;
     productId: string;
     images: any = [];
+
+    zoom = 16;
+    latCentral: number;
+    lngCengtral: number;
+    markers = [];
     constructor(
         private productService: ProductService,
         private router: Router,
@@ -29,7 +34,6 @@ export class DetailProductComponent implements OnInit {
         this.productService.getProductById(id).subscribe(
             next => {
                 this.product = next.data;
-                console.log(this.product.images);
                 this.product.images.forEach(element => {
                     const img = element.split('n/')[1];
                     this.images.push(img);
@@ -43,7 +47,7 @@ export class DetailProductComponent implements OnInit {
                 ];
                 this.markers = this.markerCental;
                 this.latCentral = +this.markerCental[0].lat;
-                this.lng_central = +this.markerCental[0].lng;
+                this.lngCengtral = +this.markerCental[0].lng;
             },
             error => {
                 this.product = null;
@@ -64,8 +68,5 @@ export class DetailProductComponent implements OnInit {
             });
         }
     }
-    zoom: number = 16;
-    latCentral: number;
-    lng_central: number;
-    markers = [];
+
 }

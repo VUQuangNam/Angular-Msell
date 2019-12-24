@@ -10,7 +10,6 @@ import { RegisterComponent } from './register/register.component';
 import { ListDetailComponent } from './list-detail/list-detail.component';
 import { ViewsComponent } from './views/views.component';
 
-
 const routes: Routes = [
     {
         path: '', component: ViewsComponent,
@@ -27,7 +26,6 @@ const routes: Routes = [
 
     { path: 'login', component: SignInComponent },
     { path: 'register', component: RegisterComponent },
-
     // otherwise redirect to home
     { path: '**', redirectTo: '/list' }
 

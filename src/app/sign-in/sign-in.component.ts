@@ -16,12 +16,10 @@ export class SignInComponent implements OnInit {
     returnUrl: string;
 
     constructor(
-        private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
         private authenticationService: AuthenticationService,
     ) {
-
         // redirect to home if already logged in
         if (this.authenticationService.currentUserValue) {
             this.router.navigate(['/']);
@@ -29,7 +27,6 @@ export class SignInComponent implements OnInit {
     }
 
     ngOnInit() {
-
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams[this.returnUrl] || '/list';
     }
@@ -47,7 +44,6 @@ export class SignInComponent implements OnInit {
                     this.router.navigate([this.returnUrl]);
                 },
                 error => {
-                    // this.alertService.error(error);
                     this.loading = false;
                 });
     }

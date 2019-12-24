@@ -37,5 +37,4 @@ export interface Product {
         number_of_days: number
     };
     date_created: Date;
-
 }

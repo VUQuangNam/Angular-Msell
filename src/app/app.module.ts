@@ -55,7 +55,7 @@ import { AgmCoreModule } from '@agm/core';
         NgbModule,
         ToastrModule.forRoot(),
         AgmCoreModule.forRoot({
-            apiKey: 'AIzaSyBRO5u5uW021mkthPMMcLDr8gVVAkOssMc'
+            apiKey: ''
         })
     ],
     providers: [],

@@ -34,20 +34,22 @@
                 <td class="table-tbody">
                     {{productId}}
                 </td>
-                <td class="table-tbody">{{product.date_created | date:'dd/MM/yyyy'}}</td>
+                <td class="table-tbody">{{product?.date_created | date:'dd/MM/yyyy'}}</td>
                 <td class="table-tbody">
                     <div *ngFor="let city of cityData">
-                        <div *ngIf="(product.city_id === city.code)">{{city.name}}</div>
+                        <div *ngIf="(product.city_id === city.code)">{{city?.name}}</div>
                     </div>
                 </td>
                 <td class="table-tbody table-tbody-status">
                     <div *ngIf="product.status">
-                        <span class="table-tbody-status-true">Đợi
-                            duyệt</span>
+                        <span class="table-tbody-status-true">
+                            Đợi duyệt
+                        </span>
                     </div>
                     <div *ngIf="!(product.status)">
-                        <span class="table-tbody-status-false"> Đã
-                            xóa</span>
+                        <span class="table-tbody-status-false">
+                            Đã xóa
+                        </span>
                     </div>
                 </td>
                 <td>
@@ -82,35 +84,35 @@
                 <span> Tiêu đề:</span>
             </div>
             <div class="col-10">
-                {{product.title}}
+                {{product?.title}}
             </div>
         </div>
         <div class="row">
             <div class="col-3">
-                <span>Giá:</span> {{product.properties.price}}
+                <span>Giá:</span> {{product?.properties?.price}}
             </div>
             <div class="col-3">
-                <span>Diện tích:</span> {{product.properties.acreage}}
+                <span>Diện tích:</span> {{product?.properties?.acreage}}
             </div>
             <div class="col-3">
                 <span>Hình thức:</span> Bán
             </div>
             <div class="col-3">
-                <span>Loại BĐS:</span>{{product.properties.category}}
+                <span>Loại BĐS:</span>{{product?.properties?.category}}
             </div>
         </div>
         <div class="row">
             <div class="col-12">
-                <span>Địa chỉ:</span>{{product.properties.address}}
+                <span>Địa chỉ:</span>{{product?.properties?.address}}
             </div>
         </div>
         <div class="row">
             <div class="col-4">
-                <span>Gói đăng tin:</span> <i><u>{{product.properties.type_of_post}}</u></i>
+                <span>Gói đăng tin:</span> <i><u>{{product?.properties?.type_of_post}}</u></i>
             </div>
             <div class="col-4">
                 <span>Ngày bắt đầu:</span>
-                {{product.date_created|date:'dd/MM/yyyy'}} </div>
+                {{product?.date_created|date:'dd/MM/yyyy'}} </div>
             <div class="col-4">
                 <span>Ngày kết thúc:</span>
                 30-09-2019
@@ -124,31 +126,31 @@
                 </tr>
                 <tr>
                     <td>Số phòng ngủ</td>
-                    <th>{{product.properties.beds}}</th>
+                    <th>{{product?.properties?.beds}}</th>
                 </tr>
                 <tr>
                     <td>Số phòng tắm</td>
-                    <th>{{product.properties.baths}}</th>
+                    <th>{{product?.properties?.baths}}</th>
                 </tr>
                 <tr>
                     <td>Số toilet</td>
-                    <th>{{product.properties.toilets}}</th>
+                    <th>{{product?.properties?.toilets}}</th>
                 </tr>
                 <tr>
                     <td>Hướng nhà</td>
-                    <th>{{product.properties.direction_balcony}}</th>
+                    <th>{{product?.properties?.direction_balcony}}</th>
                 </tr>
                 <tr>
                     <td>Hướng ban công</td>
-                    <th>{{product.properties.direction_balcony}}</th>
+                    <th>{{product?.properties?.direction_balcony}}</th>
                 </tr>
                 <tr>
                     <td>Mặt tiền rộng</td>
-                    <th>{{product.properties.facade}}</th>
+                    <th>{{product?.properties?.facade}}</th>
                 </tr>
                 <tr>
                     <td>Đường trước cửa</td>
-                    <th>{{product.properties.road_wide}}</th>
+                    <th>{{product?.properties?.road_wide}}</th>
                 </tr>
                 <tr>
                     <td>Pháp lý</td>
@@ -159,7 +161,7 @@
                     <th>Đầy đủ</th>
                 </tr>
             </table>
-            <agm-map style="height: 500px; width: 610px;" [(latitude)]="latCentral" [(longitude)]="lng_central"
+            <agm-map style="height: 500px; width: 610px;" [(latitude)]="latCentral" [(longitude)]="lngCengtral"
                 [zoom]="zoom" [disableDefaultUI]="false" [zoomControl]="false">
                 <agm-marker *ngFor="let m of markers" [latitude]="m.lat" [longitude]="m.lng" [label]="m.label">
                 </agm-marker>
@@ -176,14 +178,20 @@
             <div class="col-6">
                 <div class="row">
                     <div class="col-4">
-                        <button type="button" class="btn" style="background-color: rgb(108, 213, 46)">Duyệt
-                            tin</button> </div>
+                        <button type="button" class="btn" style="background-color: rgb(108, 213, 46)">
+                            Duyệt tin
+                        </button>
+                    </div>
                     <div class="col-4">
-                        <button type="button" class="btn" style="background-color: rgb(224, 54, 33);">Gỡ
-                            tin</button> </div>
+                        <button type="button" class="btn" style="background-color: rgb(224, 54, 33);">
+                            Gỡ tin
+                        </button>
+                    </div>
                     <div class="col-4">
-                        <button type="button" class="btn" style="background-color: rgb(51, 197, 253);">Sửa
-                            tin</button> </div>
+                        <button type="button" class="btn" style="background-color: rgb(51, 197, 253);">
+                            Sửa tin
+                        </button>
+                    </div>
                 </div>
             </div>
             <div class="col-3"></div>

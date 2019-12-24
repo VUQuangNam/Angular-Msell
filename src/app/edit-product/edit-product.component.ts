@@ -42,6 +42,7 @@ export class EditProductComponent implements OnInit {
     headers: any = {};
     imgList = [];
     imgAdd = [];
+
     // google maps zoom level
     zoom = 14;
     markers: Marker[] = [];
